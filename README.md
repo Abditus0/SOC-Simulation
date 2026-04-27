@@ -8,15 +8,15 @@ I built this to get hands-on experience with the kind of work a SOC analyst does
 
 *Main dashboard*  
 
-![Dashboard](screenshots/dashboard.png)
+![](screenshots/dashboard.png)
 
 *Starting a simulation*
 
-![Alert Investigation](screenshots/simulation_started.png)
+![](screenshots/simulation_started.png)
 
 *Writing the report*
 
-![AI Scoring](screenshots/report.png)
+![](screenshots/report.png)
 
 
 ## What it does
@@ -29,11 +29,29 @@ If it's a false alarm, it runs actual benign activity that looks suspicious. Thi
 
 While all this is happening there's also a background noise script running on the VM that simulates a normal user doing normal stuff. Browsing files, checking emails, opening apps, DNS lookups, all of it. So your alert feed is messy like a real one would be.
 
-When the simulation finishes, the alerts get frozen into a snapshot. You read through them, write your report, submit it. Claude grades you on 5 things out of 5 each (techniques, tactics, timeline, severity, recommendations) and gives you written feedback on what you missed.
+When the simulation finishes, the alerts get frozen into a snapshot.
+
+*Alerts*
+
+![](screenshots/alerts.png)
+
+*Extend an alert to see details*
+
+![](screenshots/alert_extended.png)
+
+You read through them, write your report, submit it. Claude grades you on 5 things out of 5 each (techniques, tactics, timeline, severity, recommendations) and gives you written feedback on what you missed.
+
+*A good report*
+
+![](screenshots/good_report.png)
+
+*A bad report*
+
+![](screenshots/bad_report.png)
 
 ## Architecture
 
-![Architecture Diagram](screenshots/architecture.png)
+![](screenshots/architecture.png)
 
 The setup is three VMs on a host-only network plus the host machine running Flask:
 
