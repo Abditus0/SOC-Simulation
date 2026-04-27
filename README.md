@@ -6,11 +6,14 @@ I built this to get hands-on experience with the kind of work a SOC analyst does
 
 ## Screenshots
 
-![Dashboard](screenshots/dashboard.png)
-*Main dashboard during an active investigation*
+*Main dashboard*  
 
-![Alert Investigation](screenshots/alerts.png)
-*Alert table with drill-down view*
+![Dashboard](screenshots/dashboard.png)
+
+*Starting a simulation*
+
+![Alert Investigation](screenshots/simulation_started.png)
+
 
 ![AI Scoring](screenshots/scoring.png)
 *Claude grading the report at the end*
