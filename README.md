@@ -47,7 +47,7 @@ You read through them, write your report, submit it. Claude grades you on 5 thin
 
 *A bad report*
 
-![](screenshots/bad_report.png)
+![](screenshots/bad_report1.png)
 
 ## Architecture
 
