@@ -14,9 +14,10 @@ I built this to get hands-on experience with the kind of work a SOC analyst does
 
 ![Alert Investigation](screenshots/simulation_started.png)
 
+*Writing the report*
 
-![AI Scoring](screenshots/scoring.png)
-*Claude grading the report at the end*
+![AI Scoring](screenshots/report.png)
+
 
 ## What it does
 
