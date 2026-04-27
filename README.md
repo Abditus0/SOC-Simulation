@@ -23,13 +23,13 @@ I built this to get hands-on experience with the kind of work a SOC analyst does
 
 ## What it does
 
-I press Start Simulation. The backend rolls a dice. 75% of the time it's a real attack, 25% it's a false alarm. You don't know which one you got.
+I press Start Simulation. The backend rolls a dice. 75% of the time it's a real attack, 25% it's a false alarm. I don't know which one I got.
 
 If it's a real attack, it picks one of 250 scenarios I wrote (each one inspired by a real APT group) and runs the techniques on the Windows VM through PowerShell Remoting. Stuff like credential dumping, lateral movement attempts, scheduled task persistence, registry tricks, etc.
 
-If it's a false alarm, it runs actual benign activity that looks suspicious. Things like an IT admin doing a network audit, Windows Update kicking off, a dev pulling stuff from GitHub. The point is you can't just look at a quiet feed and say "false alarm" because the feed isn't quiet. You have to actually rule out an attack with evidence.
+If it's a false alarm, it runs actual benign activity that looks suspicious. Things like an IT admin doing a network audit, Windows Update kicking off, a dev pulling stuff from GitHub. The point is I can't just look at a quiet feed and say "false alarm" because the feed isn't quiet. I have to actually rule out an attack with evidence.
 
-While all this is happening there's also a background noise script running on the VM that simulates a normal user doing normal stuff. Browsing files, checking emails, opening apps, DNS lookups, all of it. So your alert feed is messy like a real one would be.
+While all this is happening there's also a background noise script running on the VM that simulates a normal user doing normal stuff. Browsing files, checking emails, opening apps, DNS lookups, all of it. So the alert feed is messy like a real one would be.
 
 When the simulation finishes, the alerts get frozen into a snapshot.
 
@@ -41,7 +41,7 @@ When the simulation finishes, the alerts get frozen into a snapshot.
 
 ![](screenshots/alert_extended.png)
 
-You read through them, write your report, submit it. Claude grades you on 5 things out of 5 each (techniques, tactics, timeline, severity, recommendations) and gives you written feedback on what you missed.
+I read through them, write my report, submit it. Claude grades me on 5 things out of 5 each (techniques, tactics, timeline, severity, recommendations) and gives me written feedback on what I missed.
 
 *A good report*
 
@@ -119,7 +119,7 @@ There are 6 of these and they run real PowerShell on the VM:
 | Antivirus Full System Scan | Defender scan + mass file system access |
 | Helpdesk Remote Support | whoami, systeminfo, ipconfig, process listing, event log reads |
 
-Every one of these will throw alerts that look like an attack at first glance. The point is to make you actually read them.
+Every one of these will throw alerts that look like an attack at first glance. The point is to make me actually read them.
 
 I will be adding way more in the future.
 
@@ -129,18 +129,18 @@ A separate PowerShell script (UserNoise) runs on the VM as a scheduled task at l
 
 Each action runs in its own isolated PowerShell subprocess via a temp script file. I use `-File` instead of `-EncodedCommand` because encoded commands trigger AV rules. Temp files get cleaned up immediately after each action. Random 25-35 second intervals so the noise pattern doesn't look scripted.
 
-Without this, false alarms would be too easy to spot and also adds noise. With it, I have to actually read the alerts to know what's real.
+Without this, false alarms would be too easy to spot. With it, I have to actually read the alerts to know what's real.
 
 ## How the scoring works
 
-When you submit your report it goes to Claude along with the answer key (what actually ran on the VM). Claude isn't guessing here. It already knows exactly what happened because the simulator tells it. So the grading is based on real facts, not Claude trying to figure things out on its own.
-- **Technique identification** - did you name the right ATT&CK techniques and back it up with specific alerts
-- **Tactic identification** - did you map them to the right tactic IDs
-- **Timeline** - did you put the events in the right order with timestamps
-- **Severity** - did you assess the impact correctly
-- **Recommendations** - did you give specific containment steps that actually make sense
+When I submit my report it goes to Claude along with the answer key (what actually ran on the VM). Claude isn't guessing here. It already knows exactly what happened because the simulator tells it. So the grading is based on real facts, not Claude trying to figure things out on its own.
+- **Technique identification** - did I name the right ATT&CK techniques and back it up with specific alerts
+- **Tactic identification** - did I map them to the right tactic IDs
+- **Timeline** - did I put the events in the right order with timestamps
+- **Severity** - did I assess the impact correctly
+- **Recommendations** - did I give specific containment steps that actually make sense
 
-There are caps built in so you can't game it. Naming techniques without citing alert evidence caps you at 3/5. Generic recommendations cap at 2/5. Reports under 50 words cap at 2/5 on everything. Zero recommendations on a false alarm = 1/5.
+There are caps built in so I can't game it. Naming techniques without citing alert evidence caps me at 3/5. Generic recommendations cap at 2/5. Reports under 50 words cap at 2/5 on everything. Zero recommendations on a false alarm = 1/5.
 
 It's harsh on purpose. I wanted feedback that would actually push me to write better reports, not pat me on the back for vague answers. For example: A vague report got 10/25. The same scenario investigated properly with timestamps and command-line evidence got 25/25. The system rewards real analyst work.
 
