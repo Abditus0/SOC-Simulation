@@ -1,0 +1,36 @@
+scenario: scenario_075
+name: Browser Cookie Theft
+description: Attacker steals browser cookies for session hijacking
+apt_inspiration: Lazarus
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - General privesc checks
+  guid: 5b6f39a2-6ec7-4783-a5fd-2c54a55409ed
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1539
+  name: Steal Chrome Cookies (Windows)
+  guid: 26a6b840-4943-4965-8df5-ef1f9a282440
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1555.003
+  name: WinPwn - BrowserPwn
+  guid: 764ea176-fb71-494c-90ea-72e9d85dce76
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 4

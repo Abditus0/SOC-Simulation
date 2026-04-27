@@ -1,0 +1,58 @@
+scenario: scenario_201
+name: Full Kill Chain Medium
+description: Complete attack chain - medium difficulty
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: Invoke-AppPathBypass
+  guid: 06a220b6-7e29-4bd8-9d07-5b4d86742372
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: Identify System Locale and Regional Settings with PowerShell
+  guid: ce479c1a-e8fa-42b2-812a-96b0f2f4d28a
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: Qakbot Recon
+  guid: 121de5c6-5818-4868-b8a7-8fd07c455c1b
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled Task Startup Script
+  guid: fec27f65-db86-4c2d-b66c-61945aee87c2
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0006
+  technique: T1552.001
+  name: WinPwn - Loot local Credentials - AWS, Microsoft Azure, and Google Compute
+    credentials
+  guid: aaa87b0e-5232-4649-ae5c-f1724a4b2798
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0009
+  technique: T1074.001
+  name: Zip a Folder with PowerShell for Staging in Temp
+  guid: a57fbe4b-3440-452a-88a7-943531ac872a
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - SMTP
+  guid: ec3a835e-adca-4c7c-88d2-853b69c11bb9
+  executor: powershell
+  elevation: false
+  step: 7

@@ -1,0 +1,37 @@
+scenario: scenario_088
+name: Password Spray Preparation
+description: Attacker enumerates accounts to prepare for password spray
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Powersploits privesc checks
+  guid: 345cb8e4-d2de-4011-a580-619cf5a9e2d7
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1087.001
+  name: Enumerate all accounts on Windows (Local)
+  guid: 80887bec-5a9b-4efc-a81d-f83eb2eb32ab
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1201
+  name: Use of SecEdit.exe to export the local security policy (including the password
+    policy)
+  guid: 510cc97f-56ac-4cd3-a198-d3218c23d889
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0007
+  technique: T1069.001
+  name: SharpHound3 - LocalAdmin
+  guid: e03ada14-0980-4107-aff1-7783b2b59bb1
+  executor: powershell
+  elevation: false
+  step: 4

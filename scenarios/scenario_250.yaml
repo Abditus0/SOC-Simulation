@@ -1,0 +1,120 @@
+scenario: scenario_250
+name: Ultimate APT Chain
+description: Maximum complexity chain combining all major tactic phases
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: Mimikatz - Cradlecraft PsSendKeys
+  guid: af1800cf-9f9d-4fd1-a709-14b1e6de020d
+  executor: powershell
+  elevation: true
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: Griffon Recon
+  guid: 69bd4abe-8759-49a6-8d21-0f15822d6370
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: Qakbot Recon
+  guid: 121de5c6-5818-4868-b8a7-8fd07c455c1b
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1018
+  name: Remote System Discovery - arp
+  guid: 2d5a61f5-0447-4be4-944a-1f8530ed6574
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1049
+  name: System Network Connections Discovery with PowerShell
+  guid: f069f0f1-baad-4831-aa2b-eddac4baac4a
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0007
+  technique: T1087.001
+  name: Enumerate all accounts via PowerShell (Local)
+  guid: ae4b6361-b5f8-46cb-a3f9-9cf108ccfe7b
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0003
+  technique: T1547.001
+  name: Reg Key Run
+  guid: e55be3fd-3521-4610-9d1a-e210e42dcf05
+  executor: command_prompt
+  elevation: false
+  step: 7
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled Task Startup Script
+  guid: fec27f65-db86-4c2d-b66c-61945aee87c2
+  executor: command_prompt
+  elevation: true
+  step: 8
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 9
+- tactic: TA0005
+  technique: T1562.001
+  name: Tamper with Windows Defender ATP using Aliases - PowerShell
+  guid: c531aa6e-9c97-4b29-afee-9b7be6fc8a64
+  executor: powershell
+  elevation: true
+  step: 10
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory using Out-Minidump.ps1
+  guid: 6502c8f0-b775-4dbd-9193-1298f56b6781
+  executor: powershell
+  elevation: true
+  step: 11
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 12
+- tactic: TA0009
+  technique: T1074.001
+  name: Stage data from Discovery.bat
+  guid: 107706a5-6f9f-451a-adae-bab8c667829f
+  executor: powershell
+  elevation: false
+  step: 13
+- tactic: TA0009
+  technique: T1113
+  name: Windows Recall Feature Enabled - DisableAIDataAnalysis Value Deleted
+  guid: 5a496325-0115-4274-8eb9-755b649ad0fb
+  executor: powershell
+  elevation: true
+  step: 14
+- tactic: TA0005
+  technique: T1070.001
+  name: Delete System Logs Using Clear-EventLog
+  guid: b13e9306-3351-4b4b-a6e8-477358b0b498
+  executor: powershell
+  elevation: true
+  step: 15
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - FTP - Rclone
+  guid: b854eb97-bf9b-45ab-a1b5-b94e4880c56b
+  executor: powershell
+  elevation: true
+  step: 16

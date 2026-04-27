@@ -1,0 +1,43 @@
+scenario: scenario_101
+name: Defender Bypass Chain
+description: Attacker disables or evades Windows Defender
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1518.001
+  name: Security Software Discovery - powershell
+  guid: 7f566051-f033-49fb-89de-b6bacab730f0
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1562.001
+  name: Lockbit Black - Use Registry Editor to turn on automatic logon -Powershell
+  guid: 5e27f36d-5132-4537-b43b-413b0d5eec9a
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - Get-Process
+  guid: 3b3809b6-a54b-4f5b-8aff-cb51f2e97b34
+  executor: powershell
+  elevation: false
+  step: 5

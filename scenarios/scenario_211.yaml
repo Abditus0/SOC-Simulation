@@ -1,0 +1,50 @@
+scenario: scenario_211
+name: WMI Heavy Attack
+description: Attack chain relying almost entirely on WMI
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1047
+  name: WMI Execute rundll32
+  guid: 00738d2a-4651-4d76-adf2-c43a41dfb243
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - VM Discovery using ESXCLI
+  guid: 2040405c-eea6-4c1c-aef3-c2acc430fac9
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1057
+  name: Launch Taskmgr from cmd to View running processes
+  guid: 4fd35378-39aa-481e-b7c4-e3bf49375c67
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0002
+  technique: T1047
+  name: Create a Process using obfuscated Win32_Process
+  guid: 10447c83-fc38-462a-a936-5102363b1c43
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0003
+  technique: T1546.003
+  name: Windows MOFComp.exe Load MOF File
+  guid: 29786d7e-8916-4de6-9c55-be7b093b2706
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 6

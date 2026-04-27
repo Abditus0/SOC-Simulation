@@ -1,0 +1,51 @@
+scenario: scenario_236
+name: Security Tool Evasion Chain
+description: Attacker specifically evades security monitoring tools
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery with WMIC
+  guid: 8851b73a-3624-4bf7-8704-aa312411565c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1518.001
+  name: Get Windows Defender exclusion settings using WMIC
+  guid: e31564c8-4c60-40cd-a8f4-9261307e8336
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1562.001
+  name: Stop and Remove Arbitrary Security Windows Service
+  guid: ae753dda-0f15-4af6-a168-b9ba16143143
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1562.002
+  name: Modify Event Log Access Permissions via Registry - PowerShell
+  guid: a0cb81f8-44d0-4ac4-a8f3-c5c7f43a12c1
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1562.006
+  name: Disable .NET Event Tracing for Windows Via Environment Variable HKCU Registry
+    - Cmd
+  guid: fdac1f79-b833-4bab-b4a1-11b1ed676a4b
+  executor: command_prompt
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.001
+  name: Delete System Logs Using Clear-EventLog
+  guid: b13e9306-3351-4b4b-a6e8-477358b0b498
+  executor: powershell
+  elevation: true
+  step: 6

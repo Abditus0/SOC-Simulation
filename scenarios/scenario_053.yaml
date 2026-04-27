@@ -1,0 +1,50 @@
+scenario: scenario_053
+name: Multi-Mechanism Persistence
+description: Attacker establishes three separate persistence mechanisms
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Hostname Discovery (Windows)
+  guid: 85cfbf23-4a1e-4342-8792-007e004b975f
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: 'HKLM - Modify default System Shell - Winlogon Shell KEY Value '
+  guid: 1d958c61-09c6-4d9e-b26b-4130314e520e
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0003
+  technique: T1053.005
+  name: WMI Invoke-CimMethod Scheduled Task
+  guid: e16b3b75-dc9e-4cde-a23d-dfa2d0507b3b
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0003
+  technique: T1543.003
+  name: Modify Fax service to run PowerShell
+  guid: ed366cde-7d12-49df-a833-671904770b9f
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - Get-Process
+  guid: 3b3809b6-a54b-4f5b-8aff-cb51f2e97b34
+  executor: powershell
+  elevation: false
+  step: 6

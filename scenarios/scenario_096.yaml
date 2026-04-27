@@ -1,0 +1,43 @@
+scenario: scenario_096
+name: AMSI Bypass
+description: Attacker bypasses AMSI to run malicious scripts
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Enumerate Available Drives via gdr
+  guid: c187c9bc-4511-40b3-aa10-487b2c70b6a5
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1562.001
+  name: Disable EventLog-Application ETW Provider Via Registry - Cmd
+  guid: 1cac9b54-810e-495c-8aac-989e0076583b
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0002
+  technique: T1059.001
+  name: Powershell invoke mshta.exe download
+  guid: 8a2ad40b-12c7-4b25-8521-2737b0a415af
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1027
+  name: Execute base64-encoded PowerShell
+  guid: a50d5a97-2531-499e-a1de-5544c74432c6
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

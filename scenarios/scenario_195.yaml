@@ -1,0 +1,50 @@
+scenario: scenario_195
+name: Insider Threat Simulation
+description: Simulates a malicious insider collecting sensitive data
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: BIOS Information Discovery through Registry
+  guid: f2f91612-d904-49d7-87c2-6c165d23bead
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1083
+  name: ESXi - Enumerate VMDKs available on an ESXi Host
+  guid: 4a233a40-caf7-4cf1-890a-c6331bbc72cf
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0009
+  technique: T1074.001
+  name: Stage data from Discovery.bat
+  guid: 107706a5-6f9f-451a-adae-bab8c667829f
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0009
+  technique: T1560
+  name: Compress Data for Exfiltration With PowerShell
+  guid: 41410c60-614d-4b9d-b66e-b0192dd9c597
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - ICMP
+  guid: dd4b4421-2e25-4593-90ae-7021947ad12e
+  executor: powershell
+  elevation: false
+  step: 6

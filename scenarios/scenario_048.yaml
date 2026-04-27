@@ -1,0 +1,36 @@
+scenario: scenario_048
+name: Accessibility Feature Hijack
+description: Attacker replaces accessibility binaries for backdoor access
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - Darkside system information discovery
+  guid: f89812e5-67d1-4f49-86fa-cbc6609ea86a
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1546.008
+  name: Replace Narrator.exe (Narrator binary) with cmd.exe
+  guid: 2002f5ea-cd13-4c82-bf73-e46722e5dc5e
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery
+  guid: 4c4959bf-addf-4b4a-be86-8d09cc1857aa
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

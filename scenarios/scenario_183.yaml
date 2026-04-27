@@ -1,0 +1,50 @@
+scenario: scenario_183
+name: Sandworm Style Destructive
+description: Sandworm-inspired chain (non-destructive training version)
+apt_inspiration: Sandworm
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery with WMIC
+  guid: 8851b73a-3624-4bf7-8704-aa312411565c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1562.001
+  name: AMSI Bypass - AMSI InitFailed
+  guid: 695eed40-e949-40e5-b306-b4031e4154bd
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1562.002
+  name: Disable Event Logging with wevtutil
+  guid: b26a3340-dad7-4360-9176-706269c74103
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1562.004
+  name: Disable Microsoft Defender Firewall
+  guid: 88d05800-a5e4-407e-9b53-ece4174f197f
+  executor: command_prompt
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1112
+  name: Disable Win Defender Notification
+  guid: 12e03af7-79f9-4f95-af48-d3f12f28a260
+  executor: command_prompt
+  elevation: true
+  step: 6

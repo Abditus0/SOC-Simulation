@@ -1,0 +1,43 @@
+scenario: scenario_001
+name: Basic System Recon
+description: Basic system and network discovery after initial access
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Hostname Discovery (Windows)
+  guid: 85cfbf23-4a1e-4342-8792-007e004b975f
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery Using Command Prompt
+  guid: ba38e193-37a6-4c41-b214-61b33277fe36
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1057
+  name: Discover Specific Process - tasklist
+  guid: 11ba69ee-902e-4a0f-b3b6-418aed7d7ddb
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1016
+  name: DNS Server Discovery Using nslookup
+  guid: 34557863-344a-468f-808b-a1bfb89b4fa9
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1049
+  name: System Network Connections Discovery
+  guid: 0940a971-809a-48f1-9c4d-b1d785e96ee5
+  executor: command_prompt
+  elevation: false
+  step: 5

@@ -1,0 +1,50 @@
+scenario: scenario_180
+name: SocGholish Style Chain
+description: SocGholish malware-inspired execution and discovery chain
+apt_inspiration: SocGholish
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1033
+  name: GetCurrent User with PowerShell Script
+  guid: 1392bd0f-5d5a-429e-81d9-eb9d4d4d5b3b
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: Griffon Recon
+  guid: 69bd4abe-8759-49a6-8d21-0f15822d6370
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: System Network Configuration Discovery on Windows
+  guid: 970ab6a1-0157-4f3f-9a73-ec4166754b23
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0002
+  technique: T1059.001
+  name: PowerShell Session Creation and Use
+  guid: 7c1acec2-78fa-4305-a3e0-db2a54cddecd
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1027
+  name: Execution from Compressed File
+  guid: f8c8a909-5f29-49ac-9244-413936ce6d1f
+  executor: command_prompt
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 6

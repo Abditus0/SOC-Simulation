@@ -1,0 +1,78 @@
+scenario: scenario_199
+name: Red Team Full Engagement
+description: Complete red team engagement simulation
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: BIOS Information Discovery through Registry
+  guid: f2f91612-d904-49d7-87c2-6c165d23bead
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: System Network Configuration Discovery (TrickBot Style)
+  guid: dafaf052-5508-402d-bf77-51e0700c02e2
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1018
+  name: Get-DomainController with PowerView
+  guid: b9d2e8ca-5520-4737-8076-4f08913da2c4
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0002
+  technique: T1059.001
+  name: SOAPHound - Dump BloodHound Data
+  guid: 6a5b2a50-d037-4879-bf01-43d4d6cbf73f
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0003
+  technique: T1547.001
+  name: HKLM - Append Command to Winlogon Userinit KEY Value
+  guid: f7fab6cc-8ece-4ca7-a0f1-30a22fccd374
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1548.002
+  name: UAC bypassed by Utilizing ProgIDs registry.
+  guid: b6f4645c-34ea-4c7c-98f2-d5a2747efb08
+  executor: command_prompt
+  elevation: false
+  step: 6
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe using imported Microsoft DLLs
+  guid: 86fc3f40-237f-4701-b155-81c01c48d697
+  executor: powershell
+  elevation: true
+  step: 7
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 8
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - HTTP
+  guid: 6aa58451-1121-4490-a8e9-1dada3f1c68c
+  executor: powershell
+  elevation: false
+  step: 9
+- tactic: TA0005
+  technique: T1070.001
+  name: Delete System Logs Using Clear-EventLog
+  guid: b13e9306-3351-4b4b-a6e8-477358b0b498
+  executor: powershell
+  elevation: true
+  step: 10

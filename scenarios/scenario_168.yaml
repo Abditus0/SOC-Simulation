@@ -1,0 +1,57 @@
+scenario: scenario_168
+name: APT28 Network Ops
+description: APT28-style network reconnaissance and credential harvesting
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Identify System Locale and Regional Settings with PowerShell
+  guid: ce479c1a-e8fa-42b2-812a-96b0f2f4d28a
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: Qakbot Recon
+  guid: 121de5c6-5818-4868-b8a7-8fd07c455c1b
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1018
+  name: Get-WmiObject to Enumerate Domain Controllers
+  guid: e3cf5123-f6c9-4375-bdf2-1bb3ba43a1ad
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1046
+  name: Port-Scanning /24 Subnet with PowerShell
+  guid: 05df2a79-dba6-4088-a804-9ca0802ca8e4
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0006
+  technique: T1187
+  name: PetitPotam
+  guid: 485ce873-2e65-4706-9c7e-ae3ab9e14213
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe using imported Microsoft DLLs
+  guid: 86fc3f40-237f-4701-b155-81c01c48d697
+  executor: powershell
+  elevation: true
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 7

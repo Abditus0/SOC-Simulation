@@ -1,0 +1,36 @@
+scenario: scenario_067
+name: LSA Secrets Dump
+description: Attacker dumps LSA secrets for service account credentials
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - Darkside system information discovery
+  guid: f89812e5-67d1-4f49-86fa-cbc6609ea86a
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1003.004
+  name: Dump Kerberos Tickets from LSA using dumper.ps1
+  guid: 2dfa3bff-9a27-46db-ab75-7faefdaca732
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Launch Taskmgr from cmd to View running processes
+  guid: 4fd35378-39aa-481e-b7c4-e3bf49375c67
+  executor: command_prompt
+  elevation: false
+  step: 4

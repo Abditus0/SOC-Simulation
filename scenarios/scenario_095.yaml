@@ -1,0 +1,43 @@
+scenario: scenario_095
+name: UAC Bypass Chain
+description: Attacker attempts to bypass User Account Control
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: Find computers where user has session - Stealth mode (PowerView)
+  guid: 29857f27-a36f-4f7e-8084-4557cd6207ca
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1548.002
+  name: WinPwn - UAC Bypass DiskCleanup technique
+  guid: 1ed67900-66cd-4b09-b546-2a0ef4431a0c
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - tasklist
+  guid: c5806a4f-62b8-4900-980b-c7ec004e9908
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

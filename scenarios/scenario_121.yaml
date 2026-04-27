@@ -1,0 +1,43 @@
+scenario: scenario_121
+name: PowerShell Execution Chain
+description: Attacker executes commands via PowerShell
+apt_inspiration: APT29
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: Powershell MsXml COM object - with prompt
+  guid: 388a7340-dbc1-4c9d-8e59-b75ad8c6d5da
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Powersploits privesc checks
+  guid: 345cb8e4-d2de-4011-a580-619cf5a9e2d7
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: GetCurrent User with PowerShell Script
+  guid: 1392bd0f-5d5a-429e-81d9-eb9d4d4d5b3b
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Discover Specific Process - tasklist
+  guid: 11ba69ee-902e-4a0f-b3b6-418aed7d7ddb
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 5

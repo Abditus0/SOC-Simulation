@@ -1,0 +1,43 @@
+scenario: scenario_064
+name: Browser Credential Theft
+description: Attacker steals credentials stored in browsers
+apt_inspiration: Lazarus
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - winPEAS
+  guid: eea1d918-825e-47dd-acc2-814d6c58c0e1
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery
+  guid: 4c4959bf-addf-4b4a-be86-8d09cc1857aa
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1555.003
+  name: WebBrowserPassView - Credentials from Browser
+  guid: e359627f-2d90-4320-ba5e-b0f878155bbe
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0006
+  technique: T1539
+  name: Steal Firefox Cookies (Windows)
+  guid: 4b437357-f4e9-4c84-9fa6-9bcee6f826aa
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5

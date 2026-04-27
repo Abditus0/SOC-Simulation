@@ -1,0 +1,43 @@
+scenario: scenario_063
+name: Credential Files Search
+description: Attacker searches filesystem for stored credentials
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 66703791-c902-4560-8770-42b8a91f7667
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1083
+  name: File and Directory Discovery (PowerShell)
+  guid: 2158908e-b7ef-4c21-8a83-3ce4dd05a924
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1552.001
+  name: List Credential Files via PowerShell
+  guid: 0d4f2281-f720-4572-adc8-d5bb1618affe
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0006
+  technique: T1552.002
+  name: Enumeration for PuTTY Credentials in Registry
+  guid: af197fd7-e868-448e-9bd5-05d1bcd9d9e5
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5

@@ -1,0 +1,36 @@
+scenario: scenario_022
+name: Microphone and Camera Discovery
+description: Attacker checks for audio/video capture devices
+apt_inspiration: Lazarus
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery with WMIC
+  guid: 8851b73a-3624-4bf7-8704-aa312411565c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1120
+  name: Peripheral Device Discovery via fsutil
+  guid: 424e18fd-48b8-4201-8d3a-bf591523a686
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1125
+  name: Registry artefact when application use webcam
+  guid: 6581e4a7-42e3-43c5-a0d2-5a0d62f9702a
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1123
+  name: Registry artefact when application use microphone
+  guid: 7a21cce2-6ada-4f7c-afd9-e1e9c481e44a
+  executor: command_prompt
+  elevation: false
+  step: 4

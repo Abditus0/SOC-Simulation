@@ -1,0 +1,36 @@
+scenario: scenario_113
+name: MSBuild Proxy Execution
+description: Attacker abuses MSBuild for proxy execution
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - General privesc checks
+  guid: 5b6f39a2-6ec7-4783-a5fd-2c54a55409ed
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1127.001
+  name: MSBuild Bypass Using Inline Tasks (C#)
+  guid: 58742c0f-cb01-44cd-a60b-fb26e8871c93
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: Obfuscated PowerShell Command via Character Array
+  guid: 6683baf0-6e77-4f58-b114-814184ea8150
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

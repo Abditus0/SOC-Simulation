@@ -1,0 +1,36 @@
+scenario: scenario_100
+name: Firewall Rule Manipulation
+description: Attacker modifies firewall rules to allow malicious traffic
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - VM Discovery using ESXCLI
+  guid: 2040405c-eea6-4c1c-aef3-c2acc430fac9
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1562.004
+  name: Open a local port through Windows Firewall to any profile
+  guid: 9636dd6e-7599-40d2-8eee-ac16434f35ed
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: List Open Egress Ports
+  guid: 4b467538-f102-491d-ace7-ed487b853bf5
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

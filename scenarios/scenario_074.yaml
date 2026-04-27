@@ -1,0 +1,36 @@
+scenario: scenario_074
+name: Shadow Copy Credential Dump
+description: Attacker uses volume shadow copies to dump credential databases
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - winPEAS
+  guid: eea1d918-825e-47dd-acc2-814d6c58c0e1
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1003.002
+  name: Dumping of SAM, creds, and secrets(Reg Export)
+  guid: 21df41be-cdd8-4695-a650-c3981113aa3c
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0006
+  technique: T1003.003
+  name: Create Symlink to Volume Shadow Copy
+  guid: 21748c28-2793-4284-9e07-d6d028b66702
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4

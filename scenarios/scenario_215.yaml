@@ -1,0 +1,57 @@
+scenario: scenario_215
+name: Network Recon and Credential Harvest
+description: Combined network recon and credential harvesting
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1016
+  name: List Windows Firewall Rules
+  guid: 038263cb-00f4-4b0a-98ae-0696c67e1752
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1018
+  name: Remote System Discovery - nslookup
+  guid: baa01aaa-5e13-45ec-8a0d-e46c93c9760f
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1046
+  name: WinPwn - fruit
+  guid: bb037826-cbe8-4a41-93ea-b94059d6bb98
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1135
+  name: View available share drives
+  guid: ab39a04f-0c93-4540-9ff2-83f862c385ae
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0006
+  technique: T1003.001
+  name: Create Mini Dump of LSASS.exe using ProcDump
+  guid: 7cede33f-0acd-44ef-9774-15511300b24b
+  executor: command_prompt
+  elevation: true
+  step: 5
+- tactic: TA0006
+  technique: T1187
+  name: Trigger an authenticated RPC call to a target server with no Sign flag set
+  guid: 81cfdd7f-1f41-4cc5-9845-bb5149438e37
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 7

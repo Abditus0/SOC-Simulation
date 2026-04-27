@@ -1,0 +1,36 @@
+scenario: scenario_155
+name: BITS Transfer Exfiltration
+description: Attacker uses BITS for stealthy data transfer
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Enumerate Available Drives via gdr
+  guid: c187c9bc-4511-40b3-aa10-487b2c70b6a5
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0010
+  technique: T1197
+  name: Bitsadmin Download (cmd)
+  guid: 3c73d728-75fb-4180-a12f-6712864d7421
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

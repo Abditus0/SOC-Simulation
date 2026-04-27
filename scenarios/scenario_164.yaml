@@ -1,0 +1,43 @@
+scenario: scenario_164
+name: PowerShell Download Cradle
+description: Attacker uses PowerShell download cradle for tool staging
+apt_inspiration: APT29
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: BIOS Information Discovery through Registry
+  guid: f2f91612-d904-49d7-87c2-6c165d23bead
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1059.001
+  name: PowerUp Invoke-AllChecks
+  guid: 1289f78d-22d2-4590-ac76-166737e1811b
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0011
+  technique: T1105
+  name: certutil download (verifyctl)
+  guid: ffd492e3-0455-4518-9fb1-46527c9f241b
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1027
+  name: Execute base64-encoded PowerShell
+  guid: a50d5a97-2531-499e-a1de-5544c74432c6
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 5

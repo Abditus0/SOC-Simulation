@@ -1,0 +1,36 @@
+scenario: scenario_068
+name: Cached Credential Dump
+description: Attacker dumps cached domain credentials
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1003.005
+  name: Cached Credential Dump via Cmdkey
+  guid: 56506854-89d6-46a3-9804-b7fde90791f9
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery
+  guid: 4c4959bf-addf-4b4a-be86-8d09cc1857aa
+  executor: command_prompt
+  elevation: false
+  step: 4

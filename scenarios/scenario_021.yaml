@@ -1,0 +1,36 @@
+scenario: scenario_021
+name: Group Policy Discovery
+description: Attacker enumerates group policy settings
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery with WMIC
+  guid: 8851b73a-3624-4bf7-8704-aa312411565c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1615
+  name: MSFT Get-GPO Cmdlet
+  guid: 52778a8f-a10b-41a4-9eae-52ddb74072bf
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery Using Command Prompt
+  guid: ba38e193-37a6-4c41-b214-61b33277fe36
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1069.001
+  name: Basic Permission Groups Discovery Windows (Local)
+  guid: 1f454dd6-e134-44df-bebb-67de70fb6cd8
+  executor: command_prompt
+  elevation: false
+  step: 4

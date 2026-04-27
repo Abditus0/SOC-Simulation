@@ -1,0 +1,57 @@
+scenario: scenario_230
+name: Lateral Movement Preparation
+description: Attacker prepares for lateral movement by gathering credentials and mapping
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Seatbelt
+  guid: 5c16ceb4-ba3a-43d7-b848-a13c1f216d95
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: System Network Configuration Discovery on Windows
+  guid: 970ab6a1-0157-4f3f-9a73-ec4166754b23
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1018
+  name: Adfind - Enumerate Active Directory Domain Controller Objects
+  guid: 5838c31e-a0e2-4b9f-b60a-d79d2cb7995e
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1135
+  name: PowerView ShareFinder
+  guid: d07e4cc1-98ae-447e-9d31-36cb430d28c4
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory using direct system calls and API unhooking
+  guid: 7ae7102c-a099-45c8-b985-4c7a2d05790d
+  executor: command_prompt
+  elevation: true
+  step: 5
+- tactic: TA0006
+  technique: T1187
+  name: Trigger an authenticated RPC call to a target server with no Sign flag set
+  guid: 81cfdd7f-1f41-4cc5-9845-bb5149438e37
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0007
+  technique: T1049
+  name: System Discovery using SharpView
+  guid: 96f974bb-a0da-4d87-a744-ff33e73367e9
+  executor: powershell
+  elevation: true
+  step: 7

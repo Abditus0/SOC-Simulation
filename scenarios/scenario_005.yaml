@@ -1,0 +1,43 @@
+scenario: scenario_005
+name: WMI Reconnaissance
+description: Attacker uses WMI for stealthy system discovery
+apt_inspiration: Lazarus
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1047
+  name: WMI Execute Remote Process
+  guid: 9c8ef159-c666-472f-9874-90c8d60d136b
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: Enumerate Available Drives via gdr
+  guid: c187c9bc-4511-40b3-aa10-487b2c70b6a5
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - get-wmiObject
+  guid: b51239b4-0129-474f-a2b4-70f855b9f2c2
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1007
+  name: System Service Discovery - Services Registry Enumeration
+  guid: d70d82bd-bb00-4837-b146-b40d025551b2
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1033
+  name: GetCurrent User with PowerShell Script
+  guid: 1392bd0f-5d5a-429e-81d9-eb9d4d4d5b3b
+  executor: powershell
+  elevation: false
+  step: 5

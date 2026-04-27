@@ -1,0 +1,43 @@
+scenario: scenario_191
+name: Privilege Escalation via UAC Bypass
+description: Attacker escalates privileges by bypassing UAC
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Watson searching for missing windows patches
+  guid: 07b18a66-6304-47d2-bad0-ef421eb2e107
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: GetCurrent User with PowerShell Script
+  guid: 1392bd0f-5d5a-429e-81d9-eb9d4d4d5b3b
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0004
+  technique: T1548.002
+  name: Bypass UAC using sdclt DelegateExecute
+  guid: 3be891eb-4608-4173-87e8-78b494c029b7
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - tasklist
+  guid: c5806a4f-62b8-4900-980b-c7ec004e9908
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

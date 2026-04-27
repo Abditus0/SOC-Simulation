@@ -1,0 +1,51 @@
+scenario: scenario_087
+name: Credential Sweep and Evasion
+description: Attacker sweeps for credentials while cleaning up traces
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Watson searching for missing windows patches
+  guid: 07b18a66-6304-47d2-bad0-ef421eb2e107
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1552.001
+  name: List Credential Files via PowerShell
+  guid: 0d4f2281-f720-4572-adc8-d5bb1618affe
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0006
+  technique: T1555
+  name: Enumerate credentials from Windows Credential Manager using vaultcmd.exe [Web
+    Credentials]
+  guid: bc071188-459f-44d5-901a-f8f2625b2d2e
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.001
+  name: Delete System Logs Using Clear-EventLog
+  guid: b13e9306-3351-4b4b-a6e8-477358b0b498
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1562.002
+  name: Kill Event Log Service Threads
+  guid: 41ac52ba-5d5e-40c0-b267-573ed90489bd
+  executor: powershell
+  elevation: true
+  step: 6

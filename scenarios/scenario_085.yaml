@@ -1,0 +1,43 @@
+scenario: scenario_085
+name: Credential Reuse Preparation
+description: Attacker collects and organises credentials for reuse attacks
+apt_inspiration: FIN7
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - Darkside system information discovery
+  guid: f89812e5-67d1-4f49-86fa-cbc6609ea86a
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1003.001
+  name: Powershell Mimikatz
+  guid: 66fb0bc1-3c3f-47e9-a298-550ecfefacbc
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0006
+  technique: T1555
+  name: WinPwn - Loot local Credentials - lazagne
+  guid: 079ee2e9-6f16-47ca-a635-14efcd994118
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1087.001
+  name: Enumerate all accounts on Windows (Local)
+  guid: 80887bec-5a9b-4efc-a81d-f83eb2eb32ab
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0009
+  technique: T1074.001
+  name: Stage data from Discovery.bat
+  guid: 107706a5-6f9f-451a-adae-bab8c667829f
+  executor: powershell
+  elevation: false
+  step: 5

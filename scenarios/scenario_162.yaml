@@ -1,0 +1,36 @@
+scenario: scenario_162
+name: FTP Exfiltration
+description: Attacker exfiltrates data via FTP
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: BIOS Information Discovery through Registry
+  guid: f2f91612-d904-49d7-87c2-6c165d23bead
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - FTP - Rclone
+  guid: b854eb97-bf9b-45ab-a1b5-b94e4880c56b
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

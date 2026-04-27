@@ -1,0 +1,43 @@
+scenario: scenario_056
+name: Registry Persistence with Evasion
+description: Attacker combines registry persistence with log clearing
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Seatbelt
+  guid: 5c16ceb4-ba3a-43d7-b848-a13c1f216d95
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: Change Startup Folder - HKCU Modify User Shell Folders Startup Value
+  guid: 8834b65a-f808-4ece-ad7e-2acdf647aafa
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1562.002
+  name: Modify Event Log Access Permissions via Registry - PowerShell
+  guid: a0cb81f8-44d0-4ac4-a8f3-c5c7f43a12c1
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

@@ -1,0 +1,58 @@
+scenario: scenario_209
+name: PowerShell Heavy Attack
+description: Attack chain relying almost entirely on PowerShell
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: Mimikatz
+  guid: f3132740-55bc-48c4-bcc0-758a459cd027
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 66703791-c902-4560-8770-42b8a91f7667
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0003
+  technique: T1547.001
+  name: Creating Boot Verification Program Key for application execution during successful
+    boot
+  guid: 6e1666d5-3f2b-4b9a-80aa-f011322380d4
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0006
+  technique: T1003.001
+  name: Create Mini Dump of LSASS.exe using ProcDump
+  guid: 7cede33f-0acd-44ef-9774-15511300b24b
+  executor: command_prompt
+  elevation: true
+  step: 5
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 7

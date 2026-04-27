@@ -1,0 +1,36 @@
+scenario: scenario_227
+name: Service Binary Hijacking
+description: Attacker hijacks service registry for code execution
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1007
+  name: System Service Discovery - net.exe
+  guid: 5f864a3f-8ce9-45c0-812c-bdf7d8aeacc3
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1574.011
+  name: Service ImagePath Change with reg.exe
+  guid: f38e9eea-e1d7-4ba6-b716-584791963827
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

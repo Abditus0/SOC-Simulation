@@ -1,0 +1,36 @@
+scenario: scenario_071
+name: PowerShell History Mining
+description: Attacker searches PowerShell history for credentials
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 4060ee98-01ae-4c8e-8aad-af8300519cc7
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0006
+  technique: T1552
+  name: Search for Passwords in Powershell History
+  guid: f9c3d0ab-479b-4019-945f-22ace2b1731a
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0006
+  technique: T1552.001
+  name: WinPwn - powershellsensitive
+  guid: 75f66e03-37d3-4704-9520-3210efbe33ce
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

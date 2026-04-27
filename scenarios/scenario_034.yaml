@@ -1,0 +1,37 @@
+scenario: scenario_034
+name: Startup Folder Persistence
+description: Attacker drops files in startup folder for persistence
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - winPEAS
+  guid: eea1d918-825e-47dd-acc2-814d6c58c0e1
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: Creating Boot Verification Program Key for application execution during successful
+    boot
+  guid: 6e1666d5-3f2b-4b9a-80aa-f011322380d4
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1564.001
+  name: Create Windows System File with powershell
+  guid: d380c318-0b34-45cb-9dad-828c11891e43
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0007
+  technique: T1033
+  name: Find computers where user has session - Stealth mode (PowerView)
+  guid: 29857f27-a36f-4f7e-8084-4557cd6207ca
+  executor: powershell
+  elevation: false
+  step: 4

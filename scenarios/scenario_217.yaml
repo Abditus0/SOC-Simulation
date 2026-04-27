@@ -1,0 +1,64 @@
+scenario: scenario_217
+name: Data Theft and Cover Up
+description: Data theft followed by thorough evidence destruction
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery with WMIC
+  guid: 8851b73a-3624-4bf7-8704-aa312411565c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0009
+  technique: T1074.001
+  name: Zip a Folder with PowerShell for Staging in Temp
+  guid: a57fbe4b-3440-452a-88a7-943531ac872a
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0010
+  technique: T1048.003
+  name: MAZE FTP Upload
+  guid: 57799bc2-ad1e-4130-a793-fb0c385130ba
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.004
+  name: Delete a single file - Windows cmd
+  guid: 861ea0b4-708a-4d17-848d-186c9c7f17e3
+  executor: command_prompt
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.006
+  name: Windows - Timestomp a File
+  guid: d7512c33-3a75-4806-9893-69abc3ccdd43
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 7
+- tactic: TA0005
+  technique: T1562.002
+  name: Modify Event Log Channel Access Permissions via Registry - PowerShell
+  guid: 8e81d090-0cd6-4d46-863c-eec11311298f
+  executor: powershell
+  elevation: true
+  step: 8

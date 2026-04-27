@@ -1,0 +1,57 @@
+scenario: scenario_197
+name: Red Team Recon Phase
+description: Professional red team reconnaissance phase
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - General privesc checks
+  guid: 5b6f39a2-6ec7-4783-a5fd-2c54a55409ed
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery Using Command Prompt
+  guid: ba38e193-37a6-4c41-b214-61b33277fe36
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: List Windows Firewall Rules
+  guid: 038263cb-00f4-4b0a-98ae-0696c67e1752
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1049
+  name: System Discovery using SharpView
+  guid: 96f974bb-a0da-4d87-a744-ff33e73367e9
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0007
+  technique: T1018
+  name: Get-DomainController with PowerView
+  guid: b9d2e8ca-5520-4737-8076-4f08913da2c4
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0007
+  technique: T1083
+  name: Simulating MAZE Directory Enumeration
+  guid: c6c34f61-1c3e-40fb-8a58-d017d88286d8
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0007
+  technique: T1518
+  name: Find and Display Internet Explorer Browser Version
+  guid: 68981660-6670-47ee-a5fa-7e74806420a4
+  executor: command_prompt
+  elevation: false
+  step: 7

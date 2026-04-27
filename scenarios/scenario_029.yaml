@@ -1,0 +1,29 @@
+scenario: scenario_029
+name: Environment Variables Discovery
+description: Attacker reads environment variables for sensitive data
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Watson searching for missing windows patches
+  guid: 07b18a66-6304-47d2-bad0-ef421eb2e107
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery
+  guid: 4c4959bf-addf-4b4a-be86-8d09cc1857aa
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1057
+  name: Launch Taskmgr from cmd to View running processes
+  guid: 4fd35378-39aa-481e-b7c4-e3bf49375c67
+  executor: command_prompt
+  elevation: false
+  step: 3

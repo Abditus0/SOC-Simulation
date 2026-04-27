@@ -1,0 +1,64 @@
+scenario: scenario_203
+name: Defense Evasion Focus
+description: Attack chain focused entirely on evading defenses
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0005
+  technique: T1562.001
+  name: AMSI Bypass - AMSI InitFailed
+  guid: 695eed40-e949-40e5-b306-b4031e4154bd
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1562.002
+  name: Disable Event Logging with wevtutil
+  guid: b26a3340-dad7-4360-9176-706269c74103
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1562.006
+  name: Disable .NET Event Tracing for Windows Via Registry (cmd)
+  guid: 8a4c33be-a0d3-434a-bee6-315405edbd5b
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1036
+  name: System File Copied to Unusual Location
+  guid: 51005ac7-52e2-45e0-bdab-d17c6d4916cd
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 7
+- tactic: TA0005
+  technique: T1562.004
+  name: Blackbit - Disable Windows Firewall using netsh firewall
+  guid: 91f348e6-3760-4997-a93b-2ceee7f254ee
+  executor: command_prompt
+  elevation: true
+  step: 8

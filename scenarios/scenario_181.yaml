@@ -1,0 +1,51 @@
+scenario: scenario_181
+name: IcedID Style Operations
+description: IcedID botnet-inspired operations chain
+apt_inspiration: IcedID
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: Adfind - Enumerate Active Directory Subnet Objects
+  guid: 9bb45dd7-c466-4f93-83a1-be30e56033ee
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0011
+  technique: T1105
+  name: Curl Download File
+  guid: 2b080b99-0deb-4d51-af0f-833d37c4ca6a
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled Task Persistence via Eventviewer.msc
+  guid: 02124c37-767e-4b76-9383-c9fc366d9d4c
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0006
+  technique: T1555
+  name: Enumerate credentials from Windows Credential Manager using vaultcmd.exe [Windows
+    Credentials]
+  guid: 36753ded-e5c4-4eb5-bc3c-e8fba236878d
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0010
+  technique: T1020
+  name: IcedID Botnet HTTP PUT
+  guid: 9c780d3d-3a14-4278-8ee5-faaeb2ccfbe0
+  executor: powershell
+  elevation: false
+  step: 6

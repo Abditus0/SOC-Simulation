@@ -1,0 +1,43 @@
+scenario: scenario_132
+name: Fileless PowerShell Execution
+description: Attacker runs PowerShell entirely in memory
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Enumerate Available Drives via gdr
+  guid: c187c9bc-4511-40b3-aa10-487b2c70b6a5
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1059.001
+  name: SOAPHound - Build Cache
+  guid: 4099086c-1470-4223-8085-8186e1ed5948
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1562.001
+  name: Disable EventLog-Application Auto Logger Session Via Registry - PowerShell
+  guid: da86f239-9bd3-4e85-92ed-4a94ef111a1c
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

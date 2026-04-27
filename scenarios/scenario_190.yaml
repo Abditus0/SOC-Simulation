@@ -1,0 +1,57 @@
+scenario: scenario_190
+name: DarkSide Style Pre-Encryption
+description: DarkSide ransomware-inspired pre-encryption chain
+apt_inspiration: DarkSide
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Hostname Discovery (Windows)
+  guid: 85cfbf23-4a1e-4342-8792-007e004b975f
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: List Open Egress Ports
+  guid: 4b467538-f102-491d-ace7-ed487b853bf5
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1018
+  name: Remote System Discovery - adidnsdump
+  guid: 95e19466-469e-4316-86d2-1dc401b5a959
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory using direct system calls and API unhooking
+  guid: 7ae7102c-a099-45c8-b985-4c7a2d05790d
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0009
+  technique: T1074.001
+  name: Stage data from Discovery.bat
+  guid: 107706a5-6f9f-451a-adae-bab8c667829f
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1562.001
+  name: Stop and Remove Arbitrary Security Windows Service
+  guid: ae753dda-0f15-4af6-a168-b9ba16143143
+  executor: powershell
+  elevation: true
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 7

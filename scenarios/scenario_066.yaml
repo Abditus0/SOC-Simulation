@@ -1,0 +1,36 @@
+scenario: scenario_066
+name: Registry Credential Hunting
+description: Attacker hunts for credentials stored in registry
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - VM Discovery using ESXCLI
+  guid: 2040405c-eea6-4c1c-aef3-c2acc430fac9
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1012
+  name: Check Software Inventory Logging (SIL) status via Registry
+  guid: 5c784969-1d43-4ac7-8c3d-ed6d025ed10d
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0006
+  technique: T1552.002
+  name: Enumeration for PuTTY Credentials in Registry
+  guid: af197fd7-e868-448e-9bd5-05d1bcd9d9e5
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

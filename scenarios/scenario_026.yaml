@@ -1,0 +1,43 @@
+scenario: scenario_026
+name: WMI Deep Recon
+description: Attacker uses WMI extensively for all discovery tasks
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1047
+  name: Create a Process using WMI Query and an Encoded Command
+  guid: 7db7a7f9-9531-4840-9b30-46220135441c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - tasklist
+  guid: c5806a4f-62b8-4900-980b-c7ec004e9908
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1518
+  name: Applications Installed
+  guid: c49978f6-bd6e-4221-ad2c-9e3e30cc1e3b
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1007
+  name: System Service Discovery - net.exe
+  guid: 5f864a3f-8ce9-45c0-812c-bdf7d8aeacc3
+  executor: command_prompt
+  elevation: false
+  step: 5

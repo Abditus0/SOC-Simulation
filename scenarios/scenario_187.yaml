@@ -1,0 +1,50 @@
+scenario: scenario_187
+name: TA505 Style Operations
+description: TA505 threat actor-inspired operations chain
+apt_inspiration: TA505
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: PowerShell Fileless Script Execution
+  guid: fa050f5e-bc75-4230-af73-b6fd7852cd73
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: Check OS version via "ver" command
+  guid: f6ecb109-df24-4303-8d85-1987dbae6160
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1218.011
+  name: Rundll32 advpack.dll Execution
+  guid: d91cae26-7fc1-457b-a854-34c8aad48c89
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled Task Persistence via Eventviewer.msc
+  guid: 02124c37-767e-4b76-9383-c9fc366d9d4c
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe using imported Microsoft DLLs
+  guid: 86fc3f40-237f-4701-b155-81c01c48d697
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - SMTP
+  guid: ec3a835e-adca-4c7c-88d2-853b69c11bb9
+  executor: powershell
+  elevation: false
+  step: 6

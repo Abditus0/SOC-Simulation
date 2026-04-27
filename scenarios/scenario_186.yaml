@@ -1,0 +1,58 @@
+scenario: scenario_186
+name: Blind Eagle Style
+description: Blind Eagle (APT-C-36)-inspired targeted attack chain
+apt_inspiration: Blind Eagle
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: PowerShell Command Execution
+  guid: a538de64-1c74-46ed-aa60-b995ed302598
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Powersploits privesc checks
+  guid: 345cb8e4-d2de-4011-a580-619cf5a9e2d7
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1547.001
+  name: Allowing custom application to execute during new RDP logon session
+  guid: b051b3c0-66e7-4a81-916d-e6383bd3a669
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0006
+  technique: T1552.001
+  name: WinPwn - Loot local Credentials - AWS, Microsoft Azure, and Google Compute
+    credentials
+  guid: aaa87b0e-5232-4649-ae5c-f1724a4b2798
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over HTTP
+  guid: e2d85e66-cb66-4ed7-93b1-833fc56c9319
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 7

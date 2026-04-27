@@ -1,0 +1,43 @@
+scenario: scenario_017
+name: System Owner Deep Profile
+description: Attacker builds a complete profile of the system owner
+apt_inspiration: APT29
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1033
+  name: User Discovery With Env Vars PowerShell Script
+  guid: dcb6cdee-1fb0-4087-8bf8-88cfd136ba51
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: 'operating system discovery '
+  guid: 70e13ef4-5a74-47e4-9d16-760b41b0e2db
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1087.001
+  name: Enumerate logged on users via CMD (Local)
+  guid: a138085e-bfe5-46ba-a242-74a6fb884af3
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1069.001
+  name: Basic Permission Groups Discovery Windows (Local)
+  guid: 1f454dd6-e134-44df-bebb-67de70fb6cd8
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1201
+  name: Examine local password policy - Windows
+  guid: 4588d243-f24e-4549-b2e3-e627acc089f6
+  executor: command_prompt
+  elevation: false
+  step: 5

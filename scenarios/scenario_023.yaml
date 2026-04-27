@@ -1,0 +1,36 @@
+scenario: scenario_023
+name: Clipboard and Input Discovery
+description: Attacker monitors clipboard and input for credentials
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Hostname Discovery (Windows)
+  guid: 85cfbf23-4a1e-4342-8792-007e004b975f
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0009
+  technique: T1115
+  name: Utilize Clipboard to store or execute commands from
+  guid: 0cd14633-58d4-4422-9ede-daa2c9474ae7
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1056.002
+  name: PowerShell - Prompt User for Password
+  guid: 2b162bfd-0928-4d4c-9ec3-4d9f88374b52
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1033
+  name: System Discovery - SocGholish whoami
+  guid: 3d257a03-eb80-41c5-b744-bb37ac7f65c7
+  executor: powershell
+  elevation: false
+  step: 4

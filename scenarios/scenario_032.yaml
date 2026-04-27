@@ -1,0 +1,43 @@
+scenario: scenario_032
+name: Scheduled Task Persistence
+description: Attacker creates scheduled tasks for persistence
+apt_inspiration: FIN7
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - GeneralRecon
+  guid: 7804659b-fdbf-4cf6-b06a-c03e758590e8
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: System Discovery - SocGholish whoami
+  guid: 3d257a03-eb80-41c5-b744-bb37ac7f65c7
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled Task Startup Script
+  guid: fec27f65-db86-4c2d-b66c-61945aee87c2
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - tasklist
+  guid: c5806a4f-62b8-4900-980b-c7ec004e9908
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 5

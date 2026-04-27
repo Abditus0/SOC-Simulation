@@ -1,0 +1,37 @@
+scenario: scenario_041
+name: Active Setup Persistence
+description: Attacker abuses Active Setup for persistence on user logon
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - winPEAS
+  guid: eea1d918-825e-47dd-acc2-814d6c58c0e1
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.014
+  name: HKLM - re-execute 'Internet Explorer Core Fonts' StubPath payload by decreasing
+    version number
+  guid: 04d55cef-f283-40ba-ae2a-316bc3b5e78c
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: GetCurrent User with PowerShell Script
+  guid: 1392bd0f-5d5a-429e-81d9-eb9d4d4d5b3b
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

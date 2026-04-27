@@ -1,0 +1,36 @@
+scenario: scenario_226
+name: COR Profiler Hijacking
+description: Attacker uses COR_PROFILER for persistence and evasion
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - General privesc checks
+  guid: 5b6f39a2-6ec7-4783-a5fd-2c54a55409ed
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1574.012
+  name: User scope COR_PROFILER
+  guid: 9d5f89dc-c3a5-4f8a-a4fc-a6ed02e7cb5a
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1546
+  name: WMI Invoke-CimMethod Start Process
+  guid: adae83d3-0df6-45e7-b2c3-575f91584577
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

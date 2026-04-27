@@ -1,0 +1,36 @@
+scenario: scenario_079
+name: Wifi Password Extraction
+description: Attacker extracts saved WiFi credentials
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0007
+  technique: T1016.002
+  name: Enumerate Stored Wi-Fi Profiles And Passwords via netsh
+  guid: 53cf1903-0fa7-4177-ab14-f358ae809eec
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1555
+  name: WinPwn - Loot local Credentials - Decrypt Teamviewer Passwords
+  guid: db965264-3117-4bad-b7b7-2523b7856b92
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

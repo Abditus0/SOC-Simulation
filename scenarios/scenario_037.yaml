@@ -1,0 +1,43 @@
+scenario: scenario_037
+name: Boot Persistence via Registry
+description: Attacker modifies boot-related registry keys for persistence
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: 'operating system discovery '
+  guid: 70e13ef4-5a74-47e4-9d16-760b41b0e2db
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: HKLM - Append Command to Winlogon Userinit KEY Value
+  guid: f7fab6cc-8ece-4ca7-a0f1-30a22fccd374
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1112
+  name: Disable Windows Shutdown Button
+  guid: 6e0d1131-2d7e-4905-8ca5-d6172f05d03d
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - wmic process
+  guid: 640cbf6d-659b-498b-ba53-f6dd1a1cc02c
+  executor: command_prompt
+  elevation: false
+  step: 5

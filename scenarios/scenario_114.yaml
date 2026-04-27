@@ -1,0 +1,36 @@
+scenario: scenario_114
+name: Regsvr32 Bypass
+description: Attacker uses regsvr32 for application control bypass
+apt_inspiration: FIN7
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 66703791-c902-4560-8770-42b8a91f7667
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1218.010
+  name: Regsvr32 local DLL execution
+  guid: 08ffca73-9a3d-471a-aeb0-68b4aa3ab37b
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: Execute base64-encoded PowerShell
+  guid: a50d5a97-2531-499e-a1de-5544c74432c6
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

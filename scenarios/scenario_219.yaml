@@ -1,0 +1,50 @@
+scenario: scenario_219
+name: Credential Harvest and Stage
+description: Harvest credentials and stage for exfiltration
+apt_inspiration: FIN6
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery with WMIC
+  guid: 8851b73a-3624-4bf7-8704-aa312411565c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe using lolbin rdrleakdiag.exe
+  guid: 47a539d1-61b9-4364-bf49-a68bc2a95ef0
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0006
+  technique: T1555
+  name: WinPwn - Loot local Credentials - Wifi Credentials
+  guid: afe369c2-b42e-447f-98a3-fb1f4e2b8552
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0009
+  technique: T1074.001
+  name: Zip a Folder with PowerShell for Staging in Temp
+  guid: a57fbe4b-3440-452a-88a7-943531ac872a
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0009
+  technique: T1560
+  name: Compress Data for Exfiltration With PowerShell
+  guid: 41410c60-614d-4b9d-b66e-b0192dd9c597
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - SMTP
+  guid: ec3a835e-adca-4c7c-88d2-853b69c11bb9
+  executor: powershell
+  elevation: false
+  step: 6

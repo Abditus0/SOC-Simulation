@@ -1,0 +1,43 @@
+scenario: scenario_248
+name: Backup and Recovery Targeting
+description: Attacker targets backup and recovery infrastructure
+apt_inspiration: Sandworm
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Morerecon
+  guid: 3278b2f6-f733-4875-9ef4-bfed34244f0a
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1083
+  name: File and Directory Discovery (cmd.exe)
+  guid: 0e36303b-6762-4500-b003-127743b80ba6
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1135
+  name: Network Share Discovery command prompt
+  guid: 20f1097d-81c1-405c-8380-32174d493bbb
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1562.001
+  name: Tamper with Windows Defender Registry - Reg.exe
+  guid: 1f6743da-6ecc-4a93-b03f-dc357e4b313f
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1070.001
+  name: Delete System Logs Using Clear-EventLog
+  guid: b13e9306-3351-4b4b-a6e8-477358b0b498
+  executor: powershell
+  elevation: true
+  step: 5

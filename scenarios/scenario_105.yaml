@@ -1,0 +1,36 @@
+scenario: scenario_105
+name: Hidden Window Execution
+description: Attacker runs processes in hidden windows
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Seatbelt
+  guid: 5c16ceb4-ba3a-43d7-b848-a13c1f216d95
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1564.003
+  name: Hidden Window-Conhost Execution
+  guid: 5510d22f-2595-4911-8456-4d630c978616
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0002
+  technique: T1059.001
+  name: PowerShell Command Execution
+  guid: a538de64-1c74-46ed-aa60-b995ed302598
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

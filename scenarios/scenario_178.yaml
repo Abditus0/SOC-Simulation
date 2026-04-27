@@ -1,0 +1,51 @@
+scenario: scenario_178
+name: Qakbot Style Recon
+description: Qakbot-inspired reconnaissance and credential access
+apt_inspiration: Qakbot
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1016
+  name: Adfind - Enumerate Active Directory Subnet Objects
+  guid: 9bb45dd7-c466-4f93-83a1-be30e56033ee
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - PC Hunter
+  guid: b4ca838d-d013-4461-bf2c-f7132617b409
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0006
+  technique: T1555
+  name: Dump credentials from Windows Credential Manager With PowerShell [windows
+    Credentials]
+  guid: c89becbe-1758-4e7d-a0f4-97d2188a23e3
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0006
+  technique: T1003.001
+  name: Powershell Mimikatz
+  guid: 66fb0bc1-3c3f-47e9-a298-550ecfefacbc
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 6

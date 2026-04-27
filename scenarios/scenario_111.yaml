@@ -1,0 +1,37 @@
+scenario: scenario_111
+name: PowerShell History Clearing
+description: Attacker clears PowerShell history and disables logging
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: PowerShell Invoke Known Malicious Cmdlets
+  guid: 49eb9404-5e0f-4031-a179-b40f7be385e3
+  executor: powershell
+  elevation: true
+  step: 1
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1562.003
+  name: Disable Windows Command Line Auditing using reg.exe
+  guid: 1329d5ab-e10e-4e5e-93d1-4d907eb656e5
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1562.006
+  name: Disable .NET Event Tracing for Windows Via Environment Variable HKCU Registry
+    - PowerShell
+  guid: b42c1f8c-399b-47ae-8fd8-763181395fee
+  executor: powershell
+  elevation: false
+  step: 4

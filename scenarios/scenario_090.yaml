@@ -1,0 +1,43 @@
+scenario: scenario_090
+name: Credential Access via Process Injection
+description: Attacker injects into processes to steal credentials
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - Process Hacker
+  guid: 966f4c16-1925-4d9b-8ce0-01334ee0867d
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1055
+  name: Remote Process Injection in LSASS via mimikatz
+  guid: 3203ad24-168e-4bec-be36-f79b13ef8a83
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory using comsvcs.dll
+  guid: 2536dee2-12fb-459a-8c37-971844fa73be
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 5

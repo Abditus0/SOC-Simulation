@@ -1,0 +1,44 @@
+scenario: scenario_006
+name: Security Software Fingerprinting
+description: Attacker identifies installed security tools before proceeding
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 66703791-c902-4560-8770-42b8a91f7667
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1518.001
+  name: Security Software Discovery - AV Discovery via Get-CimInstance and Get-WmiObject
+    cmdlets
+  guid: 015cd268-996e-4c32-8347-94c80c6286ee
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1007
+  name: System Service Discovery - Services Registry Enumeration
+  guid: d70d82bd-bb00-4837-b146-b40d025551b2
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - get-wmiObject
+  guid: b51239b4-0129-474f-a2b4-70f855b9f2c2
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1012
+  name: Reg query for AlwaysInstallElevated status
+  guid: 6fb4c4c5-f949-4fd2-8af5-ddbc61595223
+  executor: command_prompt
+  elevation: true
+  step: 5

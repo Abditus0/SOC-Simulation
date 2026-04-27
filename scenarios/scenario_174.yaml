@@ -1,0 +1,57 @@
+scenario: scenario_174
+name: LockBit Style Attack
+description: LockBit-inspired attack chain pre-encryption
+apt_inspiration: LockBit
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Powersploits privesc checks
+  guid: 345cb8e4-d2de-4011-a580-619cf5a9e2d7
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1112
+  name: Modify EnableNonTPM Registry entry
+  guid: e672a340-a933-447c-954c-d68db38a09b1
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1484.001
+  name: LockBit Black - Modify Group policy settings -cmd
+  guid: 9ab80952-74ee-43da-a98c-1e740a985f28
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1562.001
+  name: Tamper with Windows Defender Evade Scanning -Folder
+  guid: 0b19f4ee-de90-4059-88cb-63c800c683ed
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0006
+  technique: T1003.001
+  name: Create Mini Dump of LSASS.exe using ProcDump
+  guid: 7cede33f-0acd-44ef-9774-15511300b24b
+  executor: command_prompt
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1562.004
+  name: Allow Executable Through Firewall Located in Non-Standard Location
+  guid: 6f5822d2-d38d-4f48-9bfc-916607ff6b8c
+  executor: powershell
+  elevation: true
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Delete System Logs Using Clear-EventLog
+  guid: b13e9306-3351-4b4b-a6e8-477358b0b498
+  executor: powershell
+  elevation: true
+  step: 7

@@ -1,0 +1,36 @@
+scenario: scenario_084
+name: Vault Credential Extraction
+description: Attacker extracts credentials from Windows Vault
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Check OS version via "ver" command
+  guid: f6ecb109-df24-4303-8d85-1987dbae6160
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1555.004
+  name: Access Saved Credentials via VaultCmd
+  guid: 9c2dd36d-5c8b-4b29-8d72-a11b0d5d7439
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1555
+  name: Dump credentials from Windows Credential Manager With PowerShell [web Credentials]
+  guid: 8fd5a296-6772-4766-9991-ff4e92af7240
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4

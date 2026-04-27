@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SOC Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #090c10;
+      --bg1:      #0d1117;
+      --bg2:      #161b22;
+      --bg3:      #1c2230;
+      --border:   #2a3346;
+      --border2:  #374151;
+      --text:     #cdd6f4;
+      --muted:    #a0aab4;
+      --accent:   #00d4aa;
+      --accent2:  #0099ff;
+      --warn:     #f59e0b;
+      --danger:   #ef4444;
+      --critical: #ff2d6b;
+      --low:      #8b949e;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-ui:   'Syne', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 17px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 58px;
+      background: var(--bg1);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-ui);
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    .topbar-status {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .topbar-status span { display: flex; align-items: center; gap: 7px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+    .dot.green  { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 58px);
+    }
+
+    .sidebar {
+      background: var(--bg1);
+      border-right: 1px solid var(--border);
+      padding: 24px 0;
+    }
+    .sidebar-section { padding: 0 18px; margin-bottom: 28px; }
+    .sidebar-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 15px;
+      transition: all 0.15s;
+      border: 1px solid transparent;
+      margin-bottom: 3px;
+      text-decoration: none;
+    }
+    .nav-item:hover { background: var(--bg2); color: var(--text); }
+    .nav-item.active { background: rgba(0,212,170,0.08); color: var(--accent); border-color: rgba(0,212,170,0.2); }
+    .nav-item .nav-icon { font-size: 15px; width: 20px; text-align: center; }
+    .nav-badge {
+      margin-left: auto;
+      background: var(--danger);
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    .step-progress { padding: 0 22px; margin-top: 36px; }
+    .step-prog-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .prog-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 7px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .prog-step.done   { color: var(--accent); }
+    .prog-step.active { color: var(--text); }
+    .prog-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .prog-step.done   .prog-num { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
+    .prog-step.active .prog-num { border-color: var(--accent2); color: var(--accent2); }
+
+    .main { padding: 32px; overflow-y: auto; }
+
+    .panel {
+      background: var(--bg1);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .panel.locked {
+      opacity: 1;
+      pointer-events: none;
+      background: #07090d;
+      border-color: #1a2130;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .panel.locked .panel-header {
+      background: #0a0d12;
+      border-bottom-color: #1a2130;
+    }
+    .panel.locked .panel-title { color: #3a4556; }
+    .panel.locked .panel-title::after {
+      content: ' 🔒';
+      font-size: 12px;
+      opacity: 0.5;
+    }
+    .panel.locked .panel-num { color: #2a3346; border-color: #1e2a3a; background: #0a0d12; }
+    .panel.locked .panel-body { opacity: 0.2; }
+    .panel.active { border-color: rgba(0,212,170,0.3); }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .panel-num {
+      font-size: 11px;
+      padding: 3px 9px;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+    .panel-body { padding: 24px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 22px;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--accent); color: #000; font-weight: 700; }
+    .btn-primary:hover { background: #00f0c0; box-shadow: 0 0 18px rgba(0,212,170,0.4); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid transparent; padding: 7px 14px; font-size: 13px; }
+    .btn-ghost:hover { color: var(--text); background: var(--bg2); }
+
+    .scenario-card {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: 7px;
+      overflow: hidden;
+      margin-top: 18px;
+    }
+    .scenario-stat { background: var(--bg2); padding: 16px 18px; }
+    .scenario-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+    .scenario-stat-value { font-size: 16px; font-weight: 700; color: var(--text); }
+    .scenario-stat-value.accent { color: var(--accent); }
+    .scenario-stat-value.warn   { color: var(--warn); }
+
+    .sim-status-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+    .sim-status-bar .status-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
+    .sim-status-bar.running  .status-dot { background: var(--warn);   animation: pulse 1s infinite; }
+    .sim-status-bar.complete .status-dot { background: var(--accent); }
+    .sim-status-text { color: var(--text); }
+    .sim-status-step { color: var(--muted); margin-left: auto; font-size: 12px; }
+
+    .alert-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .alert-count-badge {
+      font-size: 13px;
+      padding: 5px 12px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--muted);
+    }
+    .alert-count-badge span { color: var(--text); font-weight: 700; }
+    .filter-btn {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 5px 12px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--accent2); color: var(--accent2); background: rgba(0,153,255,0.06); }
+    .alert-table-wrap { overflow-x: auto; }
+    table.alert-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    table.alert-table th {
+      text-align: left;
+      padding: 10px 14px;
+      background: var(--bg3);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    table.alert-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(42,51,70,0.5);
+      vertical-align: middle;
+      color: var(--text);
+      font-size: 15px;
+    }
+    .alert-row:hover td { background: rgba(255,255,255,0.02); }
+    .alert-row { cursor: pointer; }
+
+    .sev-badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .sev-critical { background: rgba(255,45,107,0.15);  color: var(--critical); border: 1px solid rgba(255,45,107,0.3); }
+    .sev-high     { background: rgba(239,68,68,0.12);   color: var(--danger);   border: 1px solid rgba(239,68,68,0.3); }
+    .sev-medium   { background: rgba(245,158,11,0.12);  color: var(--warn);     border: 1px solid rgba(245,158,11,0.3); }
+    .sev-low      { background: rgba(139,148,158,0.12); color: var(--low);      border: 1px solid rgba(139,148,158,0.3); }
+
+    .mitre-tag {
+      display: inline-block;
+      padding: 2px 7px;
+      background: rgba(0,153,255,0.1);
+      border: 1px solid rgba(0,153,255,0.25);
+      border-radius: 3px;
+      color: var(--accent2);
+      font-size: 13px;
+      margin: 2px 2px 2px 0;
+      white-space: nowrap;
+    }
+    .group-tag {
+      display: inline-block;
+      padding: 2px 6px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 2px 1px 2px 0;
+    }
+
+    .ts-cell   { color: var(--muted); white-space: nowrap; font-size: 13px; }
+
+    .desc-cell {
+      max-width: 300px;
+      font-size: 14px;
+      line-height: 1.5;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--muted);
+    }
+
+    .rule-id   { color: var(--muted); font-size: 13px; white-space: nowrap; }
+
+    .expand-arrow { color: var(--muted); font-size: 11px; transition: transform 0.2s; user-select: none; }
+    .expand-arrow.open { transform: rotate(90deg); color: var(--accent); }
+
+    .detail-panel td { padding: 0 !important; border-bottom: 2px solid rgba(0,212,170,0.15) !important; }
+    .detail-container {
+      padding: 18px 24px;
+      background: rgba(0,212,170,0.03);
+      border-top: 1px solid rgba(0,212,170,0.1);
+    }
+
+    .detail-description {
+      display: flex;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(0,153,255,0.06);
+      border: 1px solid rgba(0,153,255,0.2);
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+      line-height: 1.6;
+    }
+    .detail-description .detail-label {
+      color: var(--accent2);
+      white-space: nowrap;
+      min-width: 90px;
+      flex-shrink: 0;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding-top: 2px;
+    }
+    .detail-description .detail-desc-text {
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .detail-row {
+      display: flex;
+      gap: 10px;
+      padding: 7px 10px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 13px;
+      align-items: flex-start;
+    }
+    .detail-label {
+      color: var(--muted);
+      white-space: nowrap;
+      min-width: 130px;
+      flex-shrink: 0;
+      font-size: 12px;
+      padding-top: 1px;
+    }
+    .detail-value {
+      color: var(--text);
+      word-break: break-all;
+      font-family: var(--font-mono);
+    }
+    .detail-raw {
+      margin-top: 10px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .detail-raw-label {
+      padding: 7px 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+    }
+    .detail-raw pre {
+      padding: 16px;
+      font-size: 13px;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-all;
+      line-height: 1.7;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    .no-alerts { text-align: center; padding: 48px; color: var(--muted); font-size: 14px; }
+    .no-alerts .icon { font-size: 32px; margin-bottom: 12px; opacity: 0.4; }
+
+    .report-guidance {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+    }
+    .report-guidance-title {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .report-checklist {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .report-check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .report-check-icon {
+      color: var(--accent2);
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .report-check-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .report-check-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+      line-height: 1.5;
+    }
+    .report-scoring-note {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: rgba(245,158,11,0.06);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .report-scoring-note strong { color: var(--warn); }
+
+    textarea#report-text {
+      width: 100%;
+      min-height: 280px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    textarea#report-text:focus { border-color: var(--accent2); }
+    textarea#report-text::placeholder { color: var(--muted); }
+    textarea#report-text:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      border-color: var(--border);
+      background: var(--bg3);
+    }
+
+    .report-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+    .word-count { font-size: 13px; color: var(--muted); }
+
+    .score-header {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 22px;
+      background: var(--bg2);
+      border-radius: 8px;
+      margin-bottom: 22px;
+    }
+    .score-ring {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border: 3px solid var(--border2);
+      flex-shrink: 0;
+    }
+    .score-ring-pct   { font-family: var(--font-ui); font-size: 26px; font-weight: 800; line-height: 1; }
+    .score-ring-label { font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .score-meta h3    { font-family: var(--font-ui); font-size: 18px; font-weight: 700; margin-bottom: 7px; }
+    .score-meta p     { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .score-total      { font-size: 14px; color: var(--muted); margin-top: 8px; }
+    .score-total span { color: var(--text); font-weight: 700; }
+
+    .score-breakdown { display: flex; flex-direction: column; gap: 14px; margin-bottom: 22px; }
+    .score-row { background: var(--bg2); border: 1px solid var(--border); border-radius: 7px; padding: 16px 18px; }
+    .score-row-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
+    .score-row-name { font-family: var(--font-ui); font-size: 15px; font-weight: 600; color: var(--text); }
+    .score-val { font-size: 15px; font-weight: 700; color: var(--accent); }
+    .score-bar-track { height: 5px; background: var(--bg3); border-radius: 3px; margin-bottom: 10px; overflow: hidden; }
+    .score-bar-fill  { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+    .score-feedback  { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+    .missed-techniques, .detectable-techniques {
+      border-radius: 7px; padding: 16px 18px; margin-bottom: 18px;
+    }
+    .missed-techniques     { background: rgba(239,68,68,0.06);  border: 1px solid rgba(239,68,68,0.2); }
+    .detectable-techniques { background: rgba(0,212,170,0.04);  border: 1px solid rgba(0,212,170,0.15); }
+    .missed-techniques h4     { font-family: var(--font-ui); font-size: 13px; font-weight: 700; color: var(--danger); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .detectable-techniques h4 { font-family: var(--font-ui); font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .missed-techniques .mitre-tag { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: var(--danger); }
+
+    .score-loading {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 56px; gap: 16px; color: var(--muted); font-size: 14px;
+    }
+    .score-loading-spinner { width: 36px; height: 36px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .hidden { display: none !important; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .panel { animation: fadeIn 0.3s ease both; }
+    .panel:nth-child(2) { animation-delay: 0.05s; }
+    .panel:nth-child(3) { animation-delay: 0.1s; }
+    .panel:nth-child(4) { animation-delay: 0.15s; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">SOC Simulator</div>
+  <div class="topbar-status">
+    <span id="clock" style="font-size:12px;color:var(--muted);font-family:var(--font-mono)"></span>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Workspace</div>
+      <div class="nav-item active"><span class="nav-icon">⬡</span> Incident Response</div>
+      <div class="nav-item"><span class="nav-icon">◈</span> Alert Queue <span class="nav-badge" id="nav-alert-count" style="display:none">0</span></div>
+      <a href="https://192.168.152.6" target="_blank" class="nav-item"><span class="nav-icon">↗</span> Wazuh Dashboard</a>
+    </div>
+    <div class="step-progress">
+      <div class="step-prog-label">Workflow</div>
+      <div class="prog-step" id="prog-1"><div class="prog-num">1</div>Simulation</div>
+      <div class="prog-step" id="prog-2"><div class="prog-num">2</div>Investigate</div>
+      <div class="prog-step" id="prog-3"><div class="prog-num">3</div>Write Report</div>
+      <div class="prog-step" id="prog-4"><div class="prog-num">4</div>AI Feedback</div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="panel active" id="step-1">
+      <div class="panel-header">
+        <div class="panel-title"><span class="panel-num">01</span>Start Simulation</div>
+      </div>
+      <div class="panel-body">
+        <p style="color:var(--muted);font-size:14px;margin-bottom:18px">A randomly selected attack scenario will execute silently on the target machine. You will not be told what the attack is — investigate Wazuh to find out.</p>
+        <button class="btn btn-primary" id="start-btn" onclick="startSimulation()">▶ Start Simulation</button>
+        <div id="sim-status-bar" class="sim-status-bar hidden">
+          <span class="status-dot"></span>
+          <span class="sim-status-text" id="sim-status-text">Idle</span>
+          <span class="sim-status-step" id="sim-status-step"></span>
+        </div>
+        <div id="scenario-card" class="scenario-card hidden">
+          <div class="scenario-stat"><div class="scenario-stat-label">Scenario</div><div class="scenario-stat-value accent" id="sc-name">—</div></div>
+          <div class="scenario-stat"><div class="scenario-stat-label">Difficulty</div><div class="scenario-stat-value warn" id="sc-diff">—</div></div>
+          <div class="scenario-stat"><div class="scenario-stat-label">Steps</div><div class="scenario-stat-value" id="sc-steps">—</div></div>
+            <div class="scenario-stat" style="grid-column: 1 / -1"><div class="scenario-stat-label">Status</div><div class="scenario-stat-value" style="font-size:13px;color:var(--muted)">Attack running — investigation unlocks automatically</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel locked" id="step-2">
+      <div class="panel-header">
+        <div class="panel-title"><span class="panel-num">02</span>Alert Investigation</div>
+      </div>
+      <div class="panel-body">
+        <div class="alert-toolbar">
+          <div class="alert-count-badge">Alerts: <span id="alert-count">0</span></div>
+          <button class="filter-btn active" onclick="filterAlerts('all',this)">All</button>
+          <button class="filter-btn" onclick="filterAlerts('critical',this)">Critical <span id="count-critical">0</span></button>
+          <button class="filter-btn" onclick="filterAlerts('high',this)">High <span id="count-high">0</span></button>
+          <button class="filter-btn" onclick="filterAlerts('medium',this)">Medium <span id="count-medium">0</span></button>
+          <button class="filter-btn" onclick="filterAlerts('low',this)">Low <span id="count-low">0</span></button>
+        </div>
+        <div class="alert-table-wrap">
+          <table class="alert-table">
+            <thead>
+              <tr>
+                <th>Severity</th>
+                <th>Timestamp</th>
+                <th>Rule ID</th>
+                <th>Description</th>
+                <th>MITRE ATT&CK</th>
+                <th>Groups</th>
+                <th>Agent</th>
+                <th style="width:32px"></th>
+              </tr>
+            </thead>
+            <tbody id="alerts-tbody">
+              <tr><td colspan="8"><div class="no-alerts"><div class="icon">⬡</div>No alerts loaded. Start a simulation and click Refresh.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel locked" id="step-3">
+      <div class="panel-header">
+        <div class="panel-title"><span class="panel-num">03</span>Incident Report</div>
+      </div>
+      <div class="panel-body">
+        <div class="report-guidance">
+          <div class="report-guidance-title">Report Requirements</div>
+          <div class="report-checklist">
+            <div class="report-check-item">
+              <span class="report-check-icon">◈</span>
+              <div>
+                <div class="report-check-label">Attack Timeline</div>
+                <div class="report-check-desc">Sequence of events with specific timestamps from the alerts</div>
+              </div>
+            </div>
+            <div class="report-check-item">
+              <span class="report-check-icon">◈</span>
+              <div>
+                <div class="report-check-label">ATT&CK Techniques</div>
+                <div class="report-check-desc">Technique IDs observed (e.g. T1059.001) with supporting alert evidence</div>
+              </div>
+            </div>
+            <div class="report-check-item">
+              <span class="report-check-icon">◈</span>
+              <div>
+                <div class="report-check-label">ATT&CK Tactics</div>
+                <div class="report-check-desc">Tactic IDs mapped to each technique (e.g. TA0002 Execution)</div>
+              </div>
+            </div>
+            <div class="report-check-item">
+              <span class="report-check-icon">◈</span>
+              <div>
+                <div class="report-check-label">Affected Systems & Accounts</div>
+                <div class="report-check-desc">Hostnames, usernames, and process names involved</div>
+              </div>
+            </div>
+            <div class="report-check-item">
+              <span class="report-check-icon">◈</span>
+              <div>
+                <div class="report-check-label">Severity Assessment</div>
+                <div class="report-check-desc">Critical / High / Medium / Low with business impact justification</div>
+              </div>
+            </div>
+            <div class="report-check-item">
+              <span class="report-check-icon">◈</span>
+              <div>
+                <div class="report-check-label">Recommendations</div>
+                <div class="report-check-desc">Specific containment and remediation steps — not generic advice</div>
+              </div>
+            </div>
+          </div>
+          <div class="report-scoring-note">
+            <strong>Scoring note:</strong> Naming techniques without citing specific alert evidence scores no higher than 3/5. Generic recommendations ("isolate the host") score no higher than 2/5. A report under 50 words scores no higher than 2/5 on any dimension.
+          </div>
+        </div>
+        <textarea id="report-text" placeholder="  Write your report here..." oninput="updateWordCount()"></textarea>
+        <div class="report-footer">
+          <span class="word-count" id="word-count">0 words</span>
+          <button class="btn btn-primary" id="submit-btn" onclick="submitReport()">Submit Report →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel locked" id="step-4">
+      <div class="panel-header">
+        <div class="panel-title"><span class="panel-num">04</span>AI Feedback</div>
+      </div>
+      <div class="panel-body">
+        <div id="feedback-container">
+          <p style="color:var(--muted);font-size:14px">Submit your incident report to receive AI-powered feedback and scoring.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  let allAlerts       = [];
+  let currentFilter   = 'all';
+  let simRunning      = false;
+  let statusPollTimer = null;
+  let openRows        = new Set();
+
+  function updateClock() {
+    document.getElementById('clock').textContent = new Date().toLocaleString('no-NO', {
+      timeZone: 'Europe/Oslo',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hour12: false
+    }) + ' CET';
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  window.addEventListener('load', () => {
+    fetch('/api/simulation-status')
+      .then(r => r.json())
+      .then(data => {
+        if (data.status === 'idle') return;
+
+        setProgStep(1, 'done');
+        const bar = document.getElementById('sim-status-bar');
+        bar.classList.remove('hidden');
+
+        if (data.name) {
+          document.getElementById('sc-name').textContent  = data.name;
+          document.getElementById('sc-diff').textContent  = (data.difficulty || '').toUpperCase();
+          document.getElementById('sc-steps').textContent = data.step_count || '—';
+          document.getElementById('scenario-card').classList.remove('hidden');
+        }
+
+        if (data.status === 'running' || data.status === 'starting') {
+          simRunning = true;
+          bar.classList.add('running');
+          document.getElementById('sim-status-text').textContent = 'Attack simulation running...';
+          document.getElementById('start-btn').disabled    = true;
+          document.getElementById('start-btn').textContent = '◈ Simulation Active';
+          unlockStep('step-2');
+          setProgStep(2, 'active');
+          startStatusPoll();
+        } else if (data.status === 'complete') {
+          bar.classList.add('complete');
+          document.getElementById('start-btn').textContent = '◈ Simulation Complete';
+          document.getElementById('start-btn').disabled   = true;
+          if (data.investigation_locked) {
+            unlockStep('step-2');
+            unlockStep('step-3');
+            setProgStep(2, 'done');
+            setProgStep(3, 'active');
+            document.getElementById('sim-status-text').textContent = 'Investigation ready. Analyse the alerts and write your report.';
+            loadAlerts();
+          } else {
+            unlockStep('step-2');
+            setProgStep(2, 'active');
+            document.getElementById('sim-status-text').textContent = 'Collecting alerts — investigation unlocks shortly...';
+            startStatusPoll();
+          }
+        }
+      })
+      .catch(() => {});
+  });
+
+  function unlockStep(id) {
+    document.getElementById(id).classList.remove('locked');
+    document.getElementById(id).classList.add('active');
+  }
+  function setProgStep(num, state) {
+    const el = document.getElementById('prog-' + num);
+    el.classList.remove('active','done');
+    el.classList.add(state);
+    if (state === 'done') el.querySelector('.prog-num').textContent = '✓';
+  }
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function startSimulation() {
+    const btn = document.getElementById('start-btn');
+    btn.disabled    = true;
+    btn.textContent = '◌ Starting...';
+
+    fetch('/api/start-simulation', { method: 'POST' })
+      .then(r => r.json())
+      .then(data => {
+        if (data.error) { alert(data.error); btn.disabled = false; btn.textContent = '▶ Start Simulation'; return; }
+        simRunning      = true;
+        btn.textContent = '◈ Simulation Active';
+        setProgStep(1, 'done');
+        setProgStep(2, 'active');
+        document.getElementById('sc-name').textContent  = data.message.replace('Scenario started: ','');
+        document.getElementById('sc-diff').textContent  = (data.difficulty || '').toUpperCase();
+        document.getElementById('sc-steps').textContent = data.step_count;
+        document.getElementById('scenario-card').classList.remove('hidden');
+        const bar = document.getElementById('sim-status-bar');
+        bar.classList.remove('hidden');
+        bar.classList.add('running');
+        document.getElementById('sim-status-text').textContent = 'Attack simulation running...';
+        startStatusPoll();
+      })
+      .catch(err => { btn.disabled = false; btn.textContent = '▶ Start Simulation'; alert('Error: ' + err); });
+  }
+
+  function startStatusPoll() {
+    clearInterval(statusPollTimer);
+    statusPollTimer = setInterval(() => {
+      fetch('/api/simulation-status')
+        .then(r => r.json())
+        .then(data => {
+          if (data.status === 'complete') {
+            document.getElementById('sim-status-step').textContent = '';
+            const bar = document.getElementById('sim-status-bar');
+            bar.classList.remove('running');
+            bar.classList.add('complete');
+            if (data.investigation_locked) {
+              clearInterval(statusPollTimer);
+              simRunning = false;
+              loadAlerts();
+              unlockStep('step-2');
+              unlockStep('step-3');
+              setProgStep(2, 'done');
+              setProgStep(3, 'active');
+              document.getElementById('sim-status-text').textContent = 'Investigation ready. Analyse the alerts and write your report.';
+            } else {
+              document.getElementById('sim-status-text').textContent = 'Collecting alerts — investigation unlocks shortly...';
+            }
+          } else if (data.status === 'running' || data.status === 'starting') {
+            if (data.current_step) {
+              document.getElementById('sim-status-step').textContent = data.current_step;
+            }
+          }
+        })
+        .catch(() => {});
+    }, 3000);
+  }
+
+  function loadAlerts() {
+    fetch('/api/alerts')
+      .then(r => r.json())
+      .then(data => {
+        if (data.error) return;
+        allAlerts = data.alerts;
+        const count = allAlerts.length;
+        document.getElementById('alert-count').textContent = count;
+        const badge = document.getElementById('nav-alert-count');
+        badge.style.display = count > 0 ? '' : 'none';
+        badge.textContent   = count;
+        renderAlerts();
+        document.getElementById('count-critical').textContent = allAlerts.filter(a => getSevClass(a.level) === 'critical').length;
+        document.getElementById('count-high').textContent     = allAlerts.filter(a => getSevClass(a.level) === 'high').length;
+        document.getElementById('count-medium').textContent   = allAlerts.filter(a => getSevClass(a.level) === 'medium').length;
+        document.getElementById('count-low').textContent      = allAlerts.filter(a => getSevClass(a.level) === 'low').length;
+      })
+      .catch(() => {});
+  }
+
+  function renderAlerts() {
+    const tbody    = document.getElementById('alerts-tbody');
+    const filtered = currentFilter === 'all'
+      ? allAlerts
+      : allAlerts.filter(a => getSevClass(a.level) === currentFilter);
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8"><div class="no-alerts"><div class="icon">⬡</div>No alerts${currentFilter !== 'all' ? ' matching filter' : ' yet'}.</div></td></tr>`;
+      return;
+    }
+
+    const previouslyOpen = new Set(openRows);
+
+    tbody.innerHTML = filtered.map(a => {
+      const sev    = getSevClass(a.level);
+      const mitre  = (a.mitre  || []).map(t => `<span class="mitre-tag">${t}</span>`).join('');
+      const groups = (a.groups || []).filter(g => g && g.trim()).map(g => `<span class="group-tag">${g.trim()}</span>`).join('');
+      const safeId = a.id.replace(/[^a-zA-Z0-9_-]/g, '_');
+
+      const fields = [
+        ['Sysmon Event ID',  a.event_id],
+        ['Computer',         a.computer],
+        ['User',             a.user],
+        ['Process',          a.image],
+        ['Command Line',     a.command_line],
+        ['Parent Process',   a.parent_image],
+        ['Parent Command',   a.parent_command],
+        ['PID',              a.process_id],
+        ['Parent PID',       a.parent_pid],
+        ['Source Image',     a.source_image],
+        ['Target Image',     a.target_image],
+        ['Target File',      a.target_filename],
+        ['Dest IP',          a.destination_ip],
+        ['Dest Port',        a.destination_port],
+        ['Dest Hostname',    a.destination_hostname],
+        ['Registry Key',     a.target_object],
+        ['Registry Value',   a.details],
+        ['Rule Name',        a.rule_name],
+        ['MITRE Tactic',     (a.mitre_tactic    || []).join(', ')],
+        ['MITRE Technique',  (a.mitre_technique || []).join(', ')],
+      ].filter(([, v]) => v && v.toString().trim());
+
+      const detailGrid = fields.length
+        ? fields.map(([label, val]) => `
+            <div class="detail-row">
+              <span class="detail-label">${label}</span>
+              <span class="detail-value">${escHtml(val.toString())}</span>
+            </div>`).join('')
+        : '<div style="color:var(--muted);font-size:12px;padding:6px 0">No additional Sysmon fields for this alert.</div>';
+
+      const rawBlock = a.raw_message
+        ? `<div class="detail-raw">
+             <div class="detail-raw-label">Raw Event</div>
+             <pre>${escHtml(a.raw_message)}</pre>
+           </div>`
+        : '';
+
+      const descriptionBlock = `
+        <div class="detail-description">
+          <span class="detail-label">Description</span>
+          <span class="detail-desc-text">${escHtml(a.description || '—')}</span>
+        </div>`;
+
+      return `
+        <tr class="alert-row" onclick="toggleDetail('${safeId}')">
+          <td><span class="sev-badge sev-${sev}">${getSevLabel(a.level)}</span></td>
+          <td class="ts-cell">${formatTs(a.timestamp)}</td>
+          <td class="rule-id">${a.rule_id}</td>
+          <td class="desc-cell" title="${escHtml(a.description || '')}">${escHtml(a.description || '—')}</td>
+          <td>${mitre  || '<span style="color:var(--muted)">—</span>'}</td>
+          <td>${groups || '<span style="color:var(--muted)">—</span>'}</td>
+          <td style="color:var(--muted);font-size:12px">${a.agent}</td>
+          <td><span class="expand-arrow" id="arrow-${safeId}">▶</span></td>
+        </tr>
+        <tr class="detail-panel hidden" id="detail-${safeId}">
+          <td colspan="8">
+            <div class="detail-container">
+              ${descriptionBlock}
+              <div class="detail-grid">${detailGrid}</div>
+              ${rawBlock}
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+
+    previouslyOpen.forEach(safeId => {
+      const panel = document.getElementById('detail-' + safeId);
+      const arrow = document.getElementById('arrow-' + safeId);
+      if (panel && arrow) {
+        panel.classList.remove('hidden');
+        arrow.classList.add('open');
+      }
+    });
+  }
+
+  function toggleDetail(safeId) {
+    const panel = document.getElementById('detail-' + safeId);
+    const arrow = document.getElementById('arrow-' + safeId);
+    const isOpen = !panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', isOpen);
+    arrow.classList.toggle('open', !isOpen);
+    if (isOpen) {
+      openRows.delete(safeId);
+    } else {
+      openRows.add(safeId);
+    }
+  }
+
+  function filterAlerts(level, btn) {
+    currentFilter = level;
+    openRows.clear();
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderAlerts();
+  }
+
+  function updateWordCount() {
+    const words = document.getElementById('report-text').value.trim().split(/\s+/).filter(Boolean).length;
+    document.getElementById('word-count').textContent = words + ' word' + (words !== 1 ? 's' : '');
+  }
+
+  function submitReport() {
+    const report = document.getElementById('report-text').value.trim();
+    if (!report) { alert('Please write your incident report before submitting.'); return; }
+    const btn = document.getElementById('submit-btn');
+    btn.disabled    = true;
+    btn.textContent = '◌ Analysing...';
+    document.getElementById('report-text').disabled = true;
+    unlockStep('step-4');
+    setProgStep(3, 'done');
+    setProgStep(4, 'active');
+    document.getElementById('feedback-container').innerHTML = `
+      <div class="score-loading">
+        <div class="score-loading-spinner"></div>
+        <span>Claude is evaluating your report...</span>
+      </div>`;
+    document.getElementById('step-4').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    fetch('/api/submit-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ report })
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (data.error) {
+          btn.disabled    = false;
+          btn.textContent = 'Submit Report →';
+          document.getElementById('report-text').disabled = false;
+          document.getElementById('feedback-container').innerHTML = `
+            <div style="color:var(--danger);font-size:14px;padding:18px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:7px">✕ Error: ${data.error}</div>`;
+          return;
+        }
+        btn.textContent = 'Report Submitted ✓';
+        renderScore(data);
+        setProgStep(4, 'done');
+      })
+      .catch(err => {
+        btn.disabled    = false;
+        btn.textContent = 'Submit Report →';
+        document.getElementById('report-text').disabled = false;
+        document.getElementById('feedback-container').innerHTML = `
+          <div style="color:var(--danger);font-size:14px;padding:18px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:7px">✕ Network error: ${err}</div>`;
+      });
+  }
+
+  function renderScore(data) {
+    const sd  = data.score_data;
+    const pct = sd.percentage;
+    const ringColor = pct >= 70 ? 'var(--accent)' : pct >= 40 ? 'var(--warn)' : 'var(--danger)';
+    const dimLabels = {
+      technique_identification: 'Technique Identification',
+      tactic_identification:    'Tactic Identification',
+      timeline_accuracy:        'Timeline Accuracy',
+      severity_assessment:      'Severity Assessment',
+      recommendations:          'Recommendations'
+    };
+    const breakdownHTML = Object.entries(sd.scores).map(([key, val]) => {
+      const barPct   = (val / 5) * 100;
+      const barColor = val >= 4 ? 'var(--accent)' : val >= 3 ? 'var(--warn)' : 'var(--danger)';
+      return `
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-row-name">${dimLabels[key] || key}</span>
+            <span class="score-val">${val}<span style="color:var(--muted);font-size:12px">/5</span></span>
+          </div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:${barPct}%;background:${barColor}"></div></div>
+          <div class="score-feedback">${sd.feedback[key] || ''}</div>
+        </div>`;
+    }).join('');
+
+    const missedHTML = (sd.missed_techniques || []).length > 0 ? `
+      <div class="missed-techniques">
+        <h4>Missed techniques</h4>
+        ${sd.missed_techniques.map(t => `<span class="mitre-tag">${t}</span>`).join('')}
+      </div>` : '';
+
+    const detectableHTML = (sd.detectable_techniques || []).length > 0 ? `
+      <div class="detectable-techniques">
+        <h4>Techniques with Wazuh alerts</h4>
+        ${sd.detectable_techniques.map(t => `<span class="mitre-tag">${t}</span>`).join('')}
+      </div>` : '';
+
+    let revealBanner = '';
+    if (data.false_alarm) {
+      const gotIt      = sd.student_correctly_identified_false_alarm;
+      const bColor     = gotIt ? 'var(--accent)' : 'var(--danger)';
+      const bBg        = gotIt ? 'rgba(0,212,170,0.06)' : 'rgba(239,68,68,0.06)';
+      const bBorder    = gotIt ? 'rgba(0,212,170,0.25)' : 'rgba(239,68,68,0.25)';
+      const bIcon      = gotIt ? '\u2713' : '\u2715';
+      const bTitle     = gotIt ? 'False Alarm \u2014 Correctly Identified' : 'False Alarm \u2014 Missed';
+      const bText      = gotIt
+        ? 'This was a false alarm and you correctly identified it. No real attack occurred. All alerts were benign background activity.'
+        : 'This was a false alarm but your report indicated a real attack. No malicious techniques were executed. All alerts were benign background activity.';
+      revealBanner = `
+        <div style="padding:16px 20px;background:${bBg};border:1px solid ${bBorder};border-radius:8px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start">
+          <span style="font-size:20px;color:${bColor};flex-shrink:0;margin-top:1px">${bIcon}</span>
+          <div>
+            <div style="font-family:var(--font-ui);font-weight:700;font-size:14px;color:${bColor};margin-bottom:4px">${bTitle}</div>
+            <div style="font-size:13px;color:var(--muted);line-height:1.6">${bText}</div>
+          </div>
+        </div>`;
+    }
+
+    document.getElementById('feedback-container').innerHTML =
+      revealBanner +
+      `<div class="score-header">
+        <div class="score-ring" style="border-color:${ringColor}">
+          <div class="score-ring-pct" style="color:${ringColor}">${pct}%</div>
+          <div class="score-ring-label">Overall</div>
+        </div>
+        <div class="score-meta">
+          <h3>${data.false_alarm ? 'False Alarm Scenario' : data.scenario.name}</h3>
+          <p>${sd.summary}</p>
+          <div class="score-total">
+            Score: <span>${sd.total} / 25</span>
+            &nbsp;\u00b7&nbsp; Difficulty: <span>${data.scenario.difficulty}</span>
+            &nbsp;\u00b7&nbsp; Alerts shown: <span>${data.alert_count}</span>
+          </div>
+        </div>
+      </div>` +
+      missedHTML + detectableHTML +
+      `<div class="score-breakdown">${breakdownHTML}</div>`;
+  }
+
+  function getSevClass(level) {
+    if (level >= 15) return 'critical';
+    if (level >= 10) return 'high';
+    if (level >= 4)  return 'medium';
+    return 'low';
+  }
+  function getSevLabel(level) {
+    if (level >= 15) return 'CRITICAL';
+    if (level >= 10) return 'HIGH';
+    if (level >= 4)  return 'MEDIUM';
+    return 'LOW';
+  }
+  function formatTs(ts) {
+    if (!ts) return '—';
+    return new Date(ts).toLocaleString('no-NO', { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+  }
+</script>
+</body>
+</html>

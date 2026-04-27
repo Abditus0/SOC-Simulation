@@ -1,0 +1,36 @@
+scenario: scenario_153
+name: HTTPS C2 Beaconing
+description: Attacker establishes HTTPS C2 communications
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Sharpup checking common Privesc vectors
+  guid: efb79454-1101-4224-a4d0-30c9c8b29ffc
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0011
+  technique: T1071.001
+  name: Malicious User Agents - CMD
+  guid: dc3488b0-08c7-4fea-b585-905c83b48180
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1562.004
+  name: Opening ports for proxy - HARDRAIN
+  guid: 15e57006-79dd-46df-9bf9-31bc24fb5a80
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4

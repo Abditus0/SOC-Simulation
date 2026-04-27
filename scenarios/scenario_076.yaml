@@ -1,0 +1,36 @@
+scenario: scenario_076
+name: Credential Dump and Stage
+description: Attacker dumps credentials and stages them for exfiltration
+apt_inspiration: FIN6
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Product Name via Registry
+  guid: be3b5fe3-a575-4fb8-83f6-ad4a68dd5ce7
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1003.001
+  name: Powershell Mimikatz
+  guid: 66fb0bc1-3c3f-47e9-a298-550ecfefacbc
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0009
+  technique: T1074.001
+  name: Zip a Folder with PowerShell for Staging in Temp
+  guid: a57fbe4b-3440-452a-88a7-943531ac872a
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0010
+  technique: T1048.003
+  name: MAZE FTP Upload
+  guid: 57799bc2-ad1e-4130-a793-fb0c385130ba
+  executor: powershell
+  elevation: false
+  step: 4

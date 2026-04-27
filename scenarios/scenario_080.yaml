@@ -1,0 +1,59 @@
+scenario: scenario_080
+name: Credential Access Full Chain
+description: Comprehensive credential harvesting across all available sources
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Seatbelt
+  guid: 5c16ceb4-ba3a-43d7-b848-a13c1f216d95
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe using lolbin rdrleakdiag.exe
+  guid: 47a539d1-61b9-4364-bf49-a68bc2a95ef0
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0006
+  technique: T1003.002
+  name: Registry dump of SAM, creds, and secrets
+  guid: 5c2571d0-1572-416d-9676-812e64ca9f44
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0006
+  technique: T1552.001
+  name: WinPwn - Loot local Credentials - AWS, Microsoft Azure, and Google Compute
+    credentials
+  guid: aaa87b0e-5232-4649-ae5c-f1724a4b2798
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0006
+  technique: T1555
+  name: Dump credentials from Windows Credential Manager With PowerShell [windows
+    Credentials]
+  guid: c89becbe-1758-4e7d-a0f4-97d2188a23e3
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0006
+  technique: T1555.003
+  name: Simulating access to Windows Edge Login Data
+  guid: a6a5ec26-a2d1-4109-9d35-58b867689329
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 7

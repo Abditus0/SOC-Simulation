@@ -1,0 +1,36 @@
+scenario: scenario_221
+name: Attacker using Proxy Tools
+description: Attacker installs proxy tools for persistent access
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery with WMIC
+  guid: 8851b73a-3624-4bf7-8704-aa312411565c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0011
+  technique: T1090.003
+  name: Psiphon
+  guid: 14d55ca0-920e-4b44-8425-37eedd72b173
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1562.004
+  name: Allow Executable Through Firewall Located in Non-Standard Location
+  guid: 6f5822d2-d38d-4f48-9bfc-916607ff6b8c
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

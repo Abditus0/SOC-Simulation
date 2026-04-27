@@ -1,0 +1,50 @@
+scenario: scenario_182
+name: Snake Malware Operations
+description: Snake/Turla malware-inspired operations
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Environment variables discovery on windows
+  guid: f400d1c0-1804-4ff8-b069-ef5ddd2adbf3
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1547.006
+  name: Snake Malware Kernel Driver Comadmin
+  guid: e5cb5564-cc7b-4050-86e8-f2d9eec1941f
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1112
+  name: Abusing MyComputer Disk Backup Path for Persistence
+  guid: 599f3b5c-0323-44ed-bb63-4551623bf675
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 6

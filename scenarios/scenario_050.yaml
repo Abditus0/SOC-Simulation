@@ -1,0 +1,36 @@
+scenario: scenario_050
+name: AppInit DLL Persistence
+description: Attacker installs AppInit DLL for persistence on process creation
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Watson searching for missing windows patches
+  guid: 07b18a66-6304-47d2-bad0-ef421eb2e107
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1546.010
+  name: Install AppInit Shim
+  guid: a58d9386-3080-4242-ab5f-454c16503d18
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1112
+  name: Disable Windows Prefetch Through Registry
+  guid: 7979dd41-2045-48b2-a54e-b1bc2415c9da
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

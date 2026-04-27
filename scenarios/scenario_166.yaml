@@ -1,0 +1,71 @@
+scenario: scenario_166
+name: APT29 Lite - Smash and Grab
+description: Simplified APT29 espionage focusing on quick data collection
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: Mimikatz
+  guid: f3132740-55bc-48c4-bcc0-758a459cd027
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 4060ee98-01ae-4c8e-8aad-af8300519cc7
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: List Windows Firewall Rules
+  guid: 038263cb-00f4-4b0a-98ae-0696c67e1752
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1087.001
+  name: Enumerate all accounts via PowerShell (Local)
+  guid: ae4b6361-b5f8-46cb-a3f9-9cf108ccfe7b
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0003
+  technique: T1547.001
+  name: HKLM - Append Command to Winlogon Userinit KEY Value
+  guid: f7fab6cc-8ece-4ca7-a0f1-30a22fccd374
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled Task ("Ghost Task") via Registry Key Manipulation
+  guid: 704333ca-cc12-4bcf-9916-101844881f54
+  executor: command_prompt
+  elevation: true
+  step: 6
+- tactic: TA0005
+  technique: T1027
+  name: Snake Malware Encrypted crmlog file
+  guid: 7e47ee60-9dd1-4269-9c4f-97953b183268
+  executor: powershell
+  elevation: true
+  step: 7
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 8
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - ICMP
+  guid: dd4b4421-2e25-4593-90ae-7021947ad12e
+  executor: powershell
+  elevation: false
+  step: 9

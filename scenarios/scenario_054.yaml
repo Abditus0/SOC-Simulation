@@ -1,0 +1,29 @@
+scenario: scenario_054
+name: Recycle Bin Persistence
+description: Attacker adds persistence via recycle bin registry key
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Environment variables discovery on windows
+  guid: f400d1c0-1804-4ff8-b069-ef5ddd2adbf3
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: Suspicious bat file run from startup Folder
+  guid: 5b6768e4-44d2-44f0-89da-a01d1430fd5e
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery Using Command Prompt
+  guid: ba38e193-37a6-4c41-b214-61b33277fe36
+  executor: command_prompt
+  elevation: false
+  step: 3

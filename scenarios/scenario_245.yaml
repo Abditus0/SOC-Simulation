@@ -1,0 +1,50 @@
+scenario: scenario_245
+name: Backdoor Establishment
+description: Full backdoor establishment and maintenance chain
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Morerecon
+  guid: 3278b2f6-f733-4875-9ef4-bfed34244f0a
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: Add persistance via Recycle bin
+  guid: bda6a3d6-7aa7-4e89-908b-306772e9662f
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1543.003
+  name: Remote Service Installation CMD
+  guid: fb4151a2-db33-4f8c-b7f8-78ea8790f961
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1564
+  name: Create an "Administrator " user (with a space on the end)
+  guid: 5bb20389-39a5-4e99-9264-aeb92a55a85c
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1027
+  name: Snake Malware Encrypted crmlog file
+  guid: 7e47ee60-9dd1-4269-9c4f-97953b183268
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 6

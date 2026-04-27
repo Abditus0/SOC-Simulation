@@ -1,0 +1,57 @@
+scenario: scenario_194
+name: Stealthy Long Dwell
+description: Patient attacker with emphasis on staying hidden
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Watson searching for missing windows patches
+  guid: 07b18a66-6304-47d2-bad0-ef421eb2e107
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1562.002
+  name: Disable Event Logging with wevtutil
+  guid: b26a3340-dad7-4360-9176-706269c74103
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1546.003
+  name: Persistence via WMI Event Subscription - CommandLineEventConsumer
+  guid: 3c64f177-28e2-49eb-a799-d767b24dd1e0
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.006
+  name: Windows - Modify file last modified timestamp with PowerShell
+  guid: f8f6634d-93e1-4238-8510-f8a90a20dcf2
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1564.001
+  name: Create Windows System File with Attrib
+  guid: f70974c8-c094-4574-b542-2c545af95a32
+  executor: command_prompt
+  elevation: true
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 7

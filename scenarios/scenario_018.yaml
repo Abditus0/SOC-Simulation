@@ -1,0 +1,43 @@
+scenario: scenario_018
+name: Network Configuration Deep Dive
+description: Attacker thoroughly maps network configuration
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1016
+  name: Qakbot Recon
+  guid: 121de5c6-5818-4868-b8a7-8fd07c455c1b
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016.001
+  name: Check internet connection using Test-NetConnection in PowerShell (ICMP-Ping)
+  guid: f8160cde-4e16-4c8b-8450-6042d5363eb0
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1049
+  name: System Network Connections Discovery
+  guid: 0940a971-809a-48f1-9c4d-b1d785e96ee5
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1018
+  name: Remote System Discovery - net group Domain Controller
+  guid: 5843529a-5056-4bc1-9c13-a311e2af4ca0
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1135
+  name: Enumerate All Network Shares with Snaffler
+  guid: b19d74b7-5e72-450a-8499-82e49e379d1a
+  executor: powershell
+  elevation: false
+  step: 5

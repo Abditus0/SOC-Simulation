@@ -1,0 +1,43 @@
+scenario: scenario_246
+name: Cloud Credential Targeting
+description: Attacker targets cloud credentials stored locally
+apt_inspiration: APT29
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Product Name via Registry
+  guid: be3b5fe3-a575-4fb8-83f6-ad4a68dd5ce7
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1083
+  name: ESXi - Enumerate VMDKs available on an ESXi Host
+  guid: 4a233a40-caf7-4cf1-890a-c6331bbc72cf
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1552.001
+  name: List Credential Files via Command Prompt
+  guid: b0cdacf6-8949-4ffe-9274-a9643a788e55
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

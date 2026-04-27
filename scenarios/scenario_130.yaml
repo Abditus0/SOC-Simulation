@@ -1,0 +1,36 @@
+scenario: scenario_130
+name: BITS Job Execution
+description: Attacker uses BITS jobs for execution and persistence
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Check computer location
+  guid: 96be6002-9200-47db-94cb-c3e27de1cb36
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1197
+  name: Bitsadmin Download (cmd)
+  guid: 3c73d728-75fb-4180-a12f-6712864d7421
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1197
+  name: Bits download using desktopimgdownldr.exe (cmd)
+  guid: afb5e09e-e385-4dee-9a94-6ee60979d114
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

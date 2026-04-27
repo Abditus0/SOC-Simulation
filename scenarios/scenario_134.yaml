@@ -1,0 +1,36 @@
+scenario: scenario_134
+name: Service Execution Chain
+description: Attacker executes code via Windows services
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Powersploits privesc checks
+  guid: 345cb8e4-d2de-4011-a580-619cf5a9e2d7
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1569.002
+  name: Pipe Creation - PsExec Tool Execution From Suspicious Locations
+  guid: 004a5d68-627b-452d-af3d-43bd1fc75a3b
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - PC Hunter
+  guid: b4ca838d-d013-4461-bf2c-f7132617b409
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

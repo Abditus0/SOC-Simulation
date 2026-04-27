@@ -1,0 +1,36 @@
+scenario: scenario_104
+name: DLL Sideloading Evasion
+description: Attacker uses DLL sideloading for stealthy execution
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Environment variables discovery on windows
+  guid: f400d1c0-1804-4ff8-b069-ef5ddd2adbf3
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1574.001
+  name: Phantom Dll Hijacking - ualapi.dll
+  guid: 5898902d-c5ad-479a-8545-6f5ab3cfc87f
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - PC Hunter
+  guid: b4ca838d-d013-4461-bf2c-f7132617b409
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4

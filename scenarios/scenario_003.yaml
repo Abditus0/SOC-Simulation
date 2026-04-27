@@ -1,0 +1,36 @@
+scenario: scenario_003
+name: Account and Group Enumeration
+description: Attacker enumerates local accounts and permission groups
+apt_inspiration: FIN6
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1087.001
+  name: Enumerate all accounts via PowerShell (Local)
+  guid: ae4b6361-b5f8-46cb-a3f9-9cf108ccfe7b
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1069.001
+  name: SharpHound3 - LocalAdmin
+  guid: e03ada14-0980-4107-aff1-7783b2b59bb1
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery
+  guid: 4c4959bf-addf-4b4a-be86-8d09cc1857aa
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - Process Hacker
+  guid: 966f4c16-1925-4d9b-8ce0-01334ee0867d
+  executor: powershell
+  elevation: true
+  step: 4

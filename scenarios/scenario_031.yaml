@@ -1,0 +1,43 @@
+scenario: scenario_031
+name: Registry Run Key Persistence
+description: Attacker establishes persistence via registry run keys
+apt_inspiration: APT29
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 66703791-c902-4560-8770-42b8a91f7667
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: System Discovery - SocGholish whoami
+  guid: 3d257a03-eb80-41c5-b744-bb37ac7f65c7
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1547.001
+  name: HKCU - Policy Settings Explorer Run Key
+  guid: a70faea1-e206-4f6f-8d9a-67379be8f6f1
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1112
+  name: Event Viewer Registry Modification - Redirection Program
+  guid: 81483501-b8a5-4225-8b32-52128e2f69db
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - get-wmiObject
+  guid: b51239b4-0129-474f-a2b4-70f855b9f2c2
+  executor: powershell
+  elevation: false
+  step: 5

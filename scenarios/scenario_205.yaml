@@ -1,0 +1,57 @@
+scenario: scenario_205
+name: Persistence Focus Attack
+description: Attack chain focused on establishing multiple persistence mechanisms
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: Suspicious bat file run from startup Folder
+  guid: 5b6768e4-44d2-44f0-89da-a01d1430fd5e
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled Task Executing Base64 Encoded Commands From Registry
+  guid: e895677d-4f06-49ab-91b6-ae3742d0a2ba
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0003
+  technique: T1543.003
+  name: TinyTurla backdoor service w64time
+  guid: ef0581fd-528e-4662-87bc-4c2affb86940
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0003
+  technique: T1546.003
+  name: Persistence via WMI Event Subscription - ActiveScriptEventConsumer
+  guid: fecd0dfd-fb55-45fa-a10b-6250272d0832
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1112
+  name: Activate Windows NoFileMenu Group Policy Feature
+  guid: 5e27bdb4-7fd9-455d-a2b5-4b4b22c9dea4
+  executor: command_prompt
+  elevation: true
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 7

@@ -1,0 +1,50 @@
+scenario: scenario_212
+name: Registry Heavy Attack
+description: Attack chain heavily using registry for all stages
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1012
+  name: Inspect SystemStartOptions Value in Registry
+  guid: 96257079-cdc1-4aba-8705-3146e94b6dce
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: 'operating system discovery '
+  guid: 70e13ef4-5a74-47e4-9d16-760b41b0e2db
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1112
+  name: Adding custom paths for application execution
+  guid: 573d15da-c34e-4c59-a7d2-18f20d92dfa3
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0003
+  technique: T1547.001
+  name: Add Executable Shortcut Link to User Startup Folder
+  guid: 24e55612-85f6-4bd6-ae74-a73d02e3441d
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0006
+  technique: T1552.002
+  name: Enumeration for Credentials in Registry
+  guid: b6ec082c-7384-46b3-a111-9a9b8b14e5e7
+  executor: command_prompt
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 6

@@ -1,0 +1,50 @@
+scenario: scenario_002
+name: Deep Environment Discovery
+description: Thorough environment enumeration including services, software and registry
+apt_inspiration: APT29
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: BIOS Information Discovery through Registry
+  guid: f2f91612-d904-49d7-87c2-6c165d23bead
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1007
+  name: System Service Discovery - net.exe
+  guid: 5f864a3f-8ce9-45c0-812c-bdf7d8aeacc3
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1012
+  name: Check Software Inventory Logging (SIL) status via Registry
+  guid: 5c784969-1d43-4ac7-8c3d-ed6d025ed10d
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0007
+  technique: T1518
+  name: Applications Installed
+  guid: c49978f6-bd6e-4221-ad2c-9e3e30cc1e3b
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1083
+  name: File and Directory Discovery (PowerShell)
+  guid: 2158908e-b7ef-4c21-8a83-3ce4dd05a924
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0007
+  technique: T1124
+  name: System Time with Windows time Command
+  guid: 53ead5db-7098-4111-bb3f-563be390e72e
+  executor: command_prompt
+  elevation: false
+  step: 6

@@ -1,0 +1,36 @@
+scenario: scenario_065
+name: Windows Credential Manager Dump
+description: Attacker dumps Windows Credential Manager
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - GeneralRecon
+  guid: 7804659b-fdbf-4cf6-b06a-c03e758590e8
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1555
+  name: WinPwn - Loot local Credentials - Decrypt Teamviewer Passwords
+  guid: db965264-3117-4bad-b7b7-2523b7856b92
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1555.004
+  name: WinPwn - Loot local Credentials - Invoke-WCMDump
+  guid: fa714db1-63dd-479e-a58e-7b2b52ca5997
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

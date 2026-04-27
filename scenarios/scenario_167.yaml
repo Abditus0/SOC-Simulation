@@ -1,0 +1,64 @@
+scenario: scenario_167
+name: APT29 Stealth - Long Term Access
+description: APT29-style long-term stealthy access and espionage
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 66703791-c902-4560-8770-42b8a91f7667
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1027
+  name: Execute base64-encoded PowerShell from Windows Registry
+  guid: 450e7218-7915-4be4-8b9b-464a49eafcec
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1547.001
+  name: 'HKLM - Modify default System Shell - Winlogon Shell KEY Value '
+  guid: 1d958c61-09c6-4d9e-b26b-4130314e520e
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0003
+  technique: T1546.003
+  name: Windows MOFComp.exe Load MOF File
+  guid: 29786d7e-8916-4de6-9c55-be7b093b2706
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory through Silent Process Exit
+  guid: eb5adf16-b601-4926-bca7-dad22adffb37
+  executor: command_prompt
+  elevation: true
+  step: 5
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 7
+- tactic: TA0005
+  technique: T1562.002
+  name: Modify Event Log Channel Access Permissions via Registry 2 - PowerShell
+  guid: 85e6eff8-3ed4-4e03-ae50-aa6a404898a5
+  executor: powershell
+  elevation: true
+  step: 8

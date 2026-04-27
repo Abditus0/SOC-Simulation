@@ -1,0 +1,43 @@
+scenario: scenario_106
+name: Base64 Encoded Payload
+description: Attacker uses base64 encoding to obfuscate payloads
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0002
+  technique: T1059.001
+  name: Mimikatz - Cradlecraft PsSendKeys
+  guid: af1800cf-9f9d-4fd1-a709-14b1e6de020d
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1140
+  name: Deobfuscate/Decode Files Or Information
+  guid: dc6fe391-69e6-4506-bd06-ea5eeb4082f8
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 5

@@ -1,0 +1,92 @@
+scenario: scenario_202
+name: Full Kill Chain Hard
+description: Complete attack chain - hard difficulty
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: PowerShell Session Creation and Use
+  guid: 7c1acec2-78fa-4305-a3e0-db2a54cddecd
+  executor: powershell
+  elevation: true
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Watson searching for missing windows patches
+  guid: 07b18a66-6304-47d2-bad0-ef421eb2e107
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: Qakbot Recon
+  guid: 121de5c6-5818-4868-b8a7-8fd07c455c1b
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1018
+  name: Get-WmiObject to Enumerate Domain Controllers
+  guid: e3cf5123-f6c9-4375-bdf2-1bb3ba43a1ad
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0003
+  technique: T1547.001
+  name: 'HKLM - Modify default System Shell - Winlogon Shell KEY Value '
+  guid: 1d958c61-09c6-4d9e-b26b-4130314e520e
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled Task Executing Base64 Encoded Commands From Registry
+  guid: e895677d-4f06-49ab-91b6-ae3742d0a2ba
+  executor: command_prompt
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1027
+  name: Execution from Compressed JScript File
+  guid: fad04df1-5229-4185-b016-fb6010cd87ac
+  executor: command_prompt
+  elevation: false
+  step: 7
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe using lolbin rdrleakdiag.exe
+  guid: 47a539d1-61b9-4364-bf49-a68bc2a95ef0
+  executor: powershell
+  elevation: true
+  step: 8
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 9
+- tactic: TA0009
+  technique: T1074.001
+  name: Stage data from Discovery.bat
+  guid: 107706a5-6f9f-451a-adae-bab8c667829f
+  executor: powershell
+  elevation: false
+  step: 10
+- tactic: TA0005
+  technique: T1070.001
+  name: Delete System Logs Using Clear-EventLog
+  guid: b13e9306-3351-4b4b-a6e8-477358b0b498
+  executor: powershell
+  elevation: true
+  step: 11
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - HTTP
+  guid: 6aa58451-1121-4490-a8e9-1dada3f1c68c
+  executor: powershell
+  elevation: false
+  step: 12

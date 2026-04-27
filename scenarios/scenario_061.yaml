@@ -1,0 +1,43 @@
+scenario: scenario_061
+name: LSASS Memory Dump
+description: Attacker dumps LSASS memory for credential harvesting
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - winPEAS
+  guid: eea1d918-825e-47dd-acc2-814d6c58c0e1
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: System Discovery - SocGholish whoami
+  guid: 3d257a03-eb80-41c5-b744-bb37ac7f65c7
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1562.001
+  name: Tamper with Windows Defender Registry
+  guid: 1b3e0146-a1e5-4c5c-89fb-1bb2ffe8fc45
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0006
+  technique: T1003.001
+  name: Powershell Mimikatz
+  guid: 66fb0bc1-3c3f-47e9-a298-550ecfefacbc
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - wmic process
+  guid: 640cbf6d-659b-498b-ba53-f6dd1a1cc02c
+  executor: command_prompt
+  elevation: false
+  step: 5

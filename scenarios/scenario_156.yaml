@@ -1,0 +1,36 @@
+scenario: scenario_156
+name: DNS C2 Beaconing
+description: Attacker uses DNS for command and control
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Check computer location
+  guid: 96be6002-9200-47db-94cb-c3e27de1cb36
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0011
+  technique: T1071.004
+  name: DNS Regular Beaconing
+  guid: 3efc144e-1af8-46bb-8ca2-1376bb6db8b6
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0011
+  technique: T1572
+  name: DNS over HTTPS Large Query Volume
+  guid: ae9ef4b0-d8c1-49d4-8758-06206f19af0a
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4

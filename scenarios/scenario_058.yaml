@@ -1,0 +1,36 @@
+scenario: scenario_058
+name: Ghost Task Persistence
+description: Attacker creates hidden scheduled task via registry manipulation
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Product Name via Registry
+  guid: be3b5fe3-a575-4fb8-83f6-ad4a68dd5ce7
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled Task Persistence via CompMgmt.msc
+  guid: 8fcfa3d5-ea7d-4e1c-bd3e-3c4ed315b7d2
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1112
+  name: Disable Windows Notification Center
+  guid: c0d6d67f-1f63-42cc-95c0-5fd6b20082ad
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4

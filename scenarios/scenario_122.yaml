@@ -1,0 +1,43 @@
+scenario: scenario_122
+name: WMI Execution Chain
+description: Attacker uses WMI to execute commands
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: 'operating system discovery '
+  guid: 70e13ef4-5a74-47e4-9d16-760b41b0e2db
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1047
+  name: WMI Execute Local Process
+  guid: b3bdfc91-b33e-4c6d-a5c8-d64bee0276b3
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - get-wmiObject
+  guid: b51239b4-0129-474f-a2b4-70f855b9f2c2
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1033
+  name: User Discovery With Env Vars PowerShell Script
+  guid: dcb6cdee-1fb0-4087-8bf8-88cfd136ba51
+  executor: powershell
+  elevation: false
+  step: 5

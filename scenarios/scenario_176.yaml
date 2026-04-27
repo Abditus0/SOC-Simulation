@@ -1,0 +1,50 @@
+scenario: scenario_176
+name: Emotet Style Initial Access
+description: Emotet-inspired chain post-initial access
+apt_inspiration: Emotet
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: PowerShell Session Creation and Use
+  guid: 7c1acec2-78fa-4305-a3e0-db2a54cddecd
+  executor: powershell
+  elevation: true
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - GeneralRecon
+  guid: 7804659b-fdbf-4cf6-b06a-c03e758590e8
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled Task Startup Script
+  guid: fec27f65-db86-4c2d-b66c-61945aee87c2
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0011
+  technique: T1105
+  name: Windows pull file using scp.exe
+  guid: 401667dc-05a6-4da0-a2a7-acfe4819559c
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory using NanoDump
+  guid: dddd4aca-bbed-46f0-984d-e4c5971c51ea
+  executor: command_prompt
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 6

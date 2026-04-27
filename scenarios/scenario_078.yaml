@@ -1,0 +1,36 @@
+scenario: scenario_078
+name: Certificate Theft
+description: Attacker exports certificates for impersonation
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0006
+  technique: T1552.004
+  name: Export Root Certificate with Export-PFXCertificate
+  guid: 7617f689-bbd8-44bc-adcd-6f8968897848
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0009
+  technique: T1649
+  name: Staging Local Certificates via Export-Certificate
+  guid: eb121494-82d1-4148-9e2b-e624e03fbf3d
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

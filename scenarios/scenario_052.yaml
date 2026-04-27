@@ -1,0 +1,36 @@
+scenario: scenario_052
+name: Persistence via CommandProcessor AutoRun
+description: Attacker abuses CommandProcessor AutoRun for persistence
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Griffon Recon
+  guid: 69bd4abe-8759-49a6-8d21-0f15822d6370
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1546
+  name: Load custom DLL on mstsc execution
+  guid: 2db7852e-5a32-4ec7-937f-f4e027881700
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery Using Command Prompt
+  guid: ba38e193-37a6-4c41-b214-61b33277fe36
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

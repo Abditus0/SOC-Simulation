@@ -1,0 +1,36 @@
+scenario: scenario_086
+name: PuTTY Credential Harvest
+description: Attacker harvests PuTTY saved session credentials
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Powersploits privesc checks
+  guid: 345cb8e4-d2de-4011-a580-619cf5a9e2d7
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1552.002
+  name: Enumeration for PuTTY Credentials in Registry
+  guid: af197fd7-e868-448e-9bd5-05d1bcd9d9e5
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1083
+  name: ESXi - Enumerate VMDKs available on an ESXi Host
+  guid: 4a233a40-caf7-4cf1-890a-c6331bbc72cf
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

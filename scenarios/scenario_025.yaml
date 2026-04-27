@@ -1,0 +1,43 @@
+scenario: scenario_025
+name: Stealth Discovery with LOLBins
+description: Attacker uses built-in Windows tools for stealthy discovery
+apt_inspiration: Turla
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Sharpup checking common Privesc vectors
+  guid: efb79454-1101-4224-a4d0-30c9c8b29ffc
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1047
+  name: WMI Execute rundll32
+  guid: 00738d2a-4651-4d76-adf2-c43a41dfb243
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: Adfind - Enumerate Active Directory Subnet Objects
+  guid: 9bb45dd7-c466-4f93-83a1-be30e56033ee
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1202
+  name: Indirect Command Execution - RunMRU Dialog
+  guid: de323a93-2f18-4bd5-ba60-d6fca6aeff76
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - tasklist
+  guid: c5806a4f-62b8-4900-980b-c7ec004e9908
+  executor: command_prompt
+  elevation: false
+  step: 5

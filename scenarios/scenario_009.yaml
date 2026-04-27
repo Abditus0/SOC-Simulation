@@ -1,0 +1,37 @@
+scenario: scenario_009
+name: Password Policy Enumeration
+description: Attacker enumerates password policies before credential attacks
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - winPEAS
+  guid: eea1d918-825e-47dd-acc2-814d6c58c0e1
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1201
+  name: Use of SecEdit.exe to export the local security policy (including the password
+    policy)
+  guid: 510cc97f-56ac-4cd3-a198-d3218c23d889
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1087.001
+  name: Enumerate logged on users via CMD (Local)
+  guid: a138085e-bfe5-46ba-a242-74a6fb884af3
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1069.001
+  name: Permission Groups Discovery PowerShell (Local)
+  guid: a580462d-2c19-4bc7-8b9a-57a41b7d3ba4
+  executor: powershell
+  elevation: false
+  step: 4

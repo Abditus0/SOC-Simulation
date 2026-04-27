@@ -1,0 +1,36 @@
+scenario: scenario_019
+name: Browser and Credential File Discovery
+description: Attacker searches for browser profiles and credential files
+apt_inspiration: Lazarus
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Watson searching for missing windows patches
+  guid: 07b18a66-6304-47d2-bad0-ef421eb2e107
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1083
+  name: Simulating MAZE Directory Enumeration
+  guid: c6c34f61-1c3e-40fb-8a58-d017d88286d8
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1217
+  name: List Google Chrome / Opera Bookmarks on Windows with powershell
+  guid: faab755e-4299-48ec-8202-fc7885eb6545
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1552.001
+  name: WinPwn - passhunt
+  guid: 00e3e3c7-6c3c-455e-bd4b-461c7f0e7797
+  executor: powershell
+  elevation: false
+  step: 4

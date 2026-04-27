@@ -1,0 +1,43 @@
+scenario: scenario_138
+name: Credential and File Staging
+description: Attacker collects and stages files for exfiltration
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1552.001
+  name: WinPwn - passhunt
+  guid: 00e3e3c7-6c3c-455e-bd4b-461c7f0e7797
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0009
+  technique: T1074.001
+  name: Stage data from Discovery.bat
+  guid: 107706a5-6f9f-451a-adae-bab8c667829f
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0009
+  technique: T1560
+  name: Compress Data for Exfiltration With PowerShell
+  guid: 41410c60-614d-4b9d-b66e-b0192dd9c597
+  executor: powershell
+  elevation: false
+  step: 5

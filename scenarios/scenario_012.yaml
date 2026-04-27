@@ -1,0 +1,36 @@
+scenario: scenario_012
+name: Registry Enumeration
+description: Attacker queries registry for configuration and credential data
+apt_inspiration: APT29
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Environment variables discovery on windows
+  guid: f400d1c0-1804-4ff8-b069-ef5ddd2adbf3
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1012
+  name: Inspect SystemStartOptions Value in Registry
+  guid: 96257079-cdc1-4aba-8705-3146e94b6dce
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1552.002
+  name: Enumeration for Credentials in Registry
+  guid: b6ec082c-7384-46b3-a111-9a9b8b14e5e7
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1033
+  name: System Discovery - SocGholish whoami
+  guid: 3d257a03-eb80-41c5-b744-bb37ac7f65c7
+  executor: powershell
+  elevation: false
+  step: 4

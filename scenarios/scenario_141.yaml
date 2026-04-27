@@ -1,0 +1,43 @@
+scenario: scenario_141
+name: Browser Data Collection
+description: Attacker collects browser history bookmarks and stored data
+apt_inspiration: Lazarus
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Enumerate Available Drives via gdr
+  guid: c187c9bc-4511-40b3-aa10-487b2c70b6a5
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0009
+  technique: T1217
+  name: Extract chrome Browsing History
+  guid: cfe6315c-4945-40f7-b5a4-48f7af2262af
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0006
+  technique: T1555.003
+  name: Simulating access to Windows Edge Login Data
+  guid: a6a5ec26-a2d1-4109-9d35-58b867689329
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1539
+  name: Steal Firefox Cookies (Windows)
+  guid: 4b437357-f4e9-4c84-9fa6-9bcee6f826aa
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5

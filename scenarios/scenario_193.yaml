@@ -1,0 +1,43 @@
+scenario: scenario_193
+name: Quick and Dirty Attack
+description: Fast noisy attack chain - attacker does not care about stealth
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.003
+  name: Simulate BlackByte Ransomware Print Bombing
+  guid: 6b2903ac-8f36-450d-9ad5-b220e8a2dcb9
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - VM Discovery using ESXCLI
+  guid: 2040405c-eea6-4c1c-aef3-c2acc430fac9
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory using NanoDump
+  guid: dddd4aca-bbed-46f0-984d-e4c5971c51ea
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0003
+  technique: T1547.001
+  name: PowerShell Registry RunOnce
+  guid: eb44f842-0457-4ddc-9b92-c4caa144ac42
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5

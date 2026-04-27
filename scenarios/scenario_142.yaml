@@ -1,0 +1,43 @@
+scenario: scenario_142
+name: Archive and Compress Data
+description: Attacker archives sensitive data for exfiltration
+apt_inspiration: FIN6
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Seatbelt
+  guid: 5c16ceb4-ba3a-43d7-b848-a13c1f216d95
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0009
+  technique: T1074.001
+  name: Stage data from Discovery.bat
+  guid: 107706a5-6f9f-451a-adae-bab8c667829f
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0009
+  technique: T1560
+  name: Compress Data for Exfiltration With PowerShell
+  guid: 41410c60-614d-4b9d-b66e-b0192dd9c597
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0009
+  technique: T1560.001
+  name: ESXi - Remove Syslog remote IP
+  guid: 36c62584-d360-41d6-886f-d194654be7c2
+  executor: powershell
+  elevation: true
+  step: 5

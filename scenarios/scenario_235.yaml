@@ -1,0 +1,36 @@
+scenario: scenario_235
+name: Brute Force Credential Chain
+description: Attacker attempts brute force credential access
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - General privesc checks
+  guid: 5b6f39a2-6ec7-4783-a5fd-2c54a55409ed
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1087.001
+  name: ESXi - Local Account Discovery via ESXCLI
+  guid: 9762ac6e-aa60-4449-a2f0-cbbd0e1fd22c
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1110.001
+  name: Password Brute User using Kerbrute Tool
+  guid: 59dbeb1a-79a7-4c2a-baf4-46d0f4c761c4
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

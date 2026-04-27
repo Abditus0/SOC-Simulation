@@ -1,0 +1,57 @@
+scenario: scenario_184
+name: OceanLotus APT32 Style
+description: APT32/OceanLotus-inspired espionage chain
+apt_inspiration: APT32
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Windows MachineGUID Discovery
+  guid: 224b4daf-db44-404e-b6b2-f4d1f0126ef8
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1059.001
+  name: PowerShell Session Creation and Use
+  guid: 7c1acec2-78fa-4305-a3e0-db2a54cddecd
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0003
+  technique: T1547.001
+  name: Add persistance via Recycle bin
+  guid: bda6a3d6-7aa7-4e89-908b-306772e9662f
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory using ProcDump
+  guid: 0be2230c-9ab3-4ac2-8826-3199b9a0ebf8
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 7

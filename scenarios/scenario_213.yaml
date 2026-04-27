@@ -1,0 +1,43 @@
+scenario: scenario_213
+name: Scheduled Task Heavy Attack
+description: Attack chain using scheduled tasks for execution and persistence
+apt_inspiration: FIN7
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Powersploits privesc checks
+  guid: 345cb8e4-d2de-4011-a580-619cf5a9e2d7
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1053.005
+  name: Scheduled Task Startup Script
+  guid: fec27f65-db86-4c2d-b66c-61945aee87c2
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0003
+  technique: T1053.005
+  name: WMI Invoke-CimMethod Scheduled Task
+  guid: e16b3b75-dc9e-4cde-a23d-dfa2d0507b3b
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - PC Hunter
+  guid: b4ca838d-d013-4461-bf2c-f7132617b409
+  executor: powershell
+  elevation: true
+  step: 5

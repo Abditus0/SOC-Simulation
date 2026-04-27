@@ -1,0 +1,78 @@
+scenario: scenario_024
+name: Full Recon Sweep
+description: Comprehensive system reconnaissance sweep
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Seatbelt
+  guid: 5c16ceb4-ba3a-43d7-b848-a13c1f216d95
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: User Discovery With Env Vars PowerShell Script
+  guid: dcb6cdee-1fb0-4087-8bf8-88cfd136ba51
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - tasklist
+  guid: c5806a4f-62b8-4900-980b-c7ec004e9908
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1007
+  name: System Service Discovery - Windows Scheduled Tasks (schtasks)
+  guid: 7cd7eaa3-9ccc-460d-96d2-c6fb13e6d58a
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1016
+  name: System Network Configuration Discovery (TrickBot Style)
+  guid: dafaf052-5508-402d-bf77-51e0700c02e2
+  executor: command_prompt
+  elevation: false
+  step: 5
+- tactic: TA0007
+  technique: T1049
+  name: System Discovery using SharpView
+  guid: 96f974bb-a0da-4d87-a744-ff33e73367e9
+  executor: powershell
+  elevation: true
+  step: 6
+- tactic: TA0007
+  technique: T1083
+  name: ESXi - Enumerate VMDKs available on an ESXi Host
+  guid: 4a233a40-caf7-4cf1-890a-c6331bbc72cf
+  executor: command_prompt
+  elevation: false
+  step: 7
+- tactic: TA0007
+  technique: T1518
+  name: Applications Installed
+  guid: c49978f6-bd6e-4221-ad2c-9e3e30cc1e3b
+  executor: powershell
+  elevation: false
+  step: 8
+- tactic: TA0007
+  technique: T1135
+  name: View available share drives
+  guid: ab39a04f-0c93-4540-9ff2-83f862c385ae
+  executor: command_prompt
+  elevation: false
+  step: 9
+- tactic: TA0007
+  technique: T1124
+  name: System Time Discovery
+  guid: 20aba24b-e61f-4b26-b4ce-4784f763ca20
+  executor: command_prompt
+  elevation: false
+  step: 10

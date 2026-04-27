@@ -1,0 +1,36 @@
+scenario: scenario_008
+name: Time and Locale Discovery
+description: Attacker checks system time and locale to profile the victim
+apt_inspiration: Lazarus
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Griffon Recon
+  guid: 69bd4abe-8759-49a6-8d21-0f15822d6370
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1124
+  name: System Time Discovery
+  guid: 20aba24b-e61f-4b26-b4ce-4784f763ca20
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1614.001
+  name: Discover System Language with Powershell
+  guid: 1f23bfe8-36d4-49ce-903a-19a1e8c6631b
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1033
+  name: GetCurrent User with PowerShell Script
+  guid: 1392bd0f-5d5a-429e-81d9-eb9d4d4d5b3b
+  executor: powershell
+  elevation: false
+  step: 4

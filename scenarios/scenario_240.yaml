@@ -1,0 +1,43 @@
+scenario: scenario_240
+name: LOLBAS Download and Execute
+description: Attacker uses LOLBAS for downloading and executing payloads
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Environment variables discovery on windows
+  guid: f400d1c0-1804-4ff8-b069-ef5ddd2adbf3
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0011
+  technique: T1105
+  name: OSTAP Worming Activity
+  guid: 2ca61766-b456-4fcf-a35a-1233685e1cad
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1218.011
+  name: Rundll32 with desk.cpl
+  guid: 83a95136-a496-423c-81d3-1c6750133917
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1218.010
+  name: Regsvr32 local DLL execution
+  guid: 08ffca73-9a3d-471a-aeb0-68b4aa3ab37b
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 5

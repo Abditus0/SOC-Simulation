@@ -1,0 +1,50 @@
+scenario: scenario_244
+name: RAT Style Operations
+description: Remote Access Trojan-style operations chain
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: List Windows Firewall Rules
+  guid: 038263cb-00f4-4b0a-98ae-0696c67e1752
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0011
+  technique: T1071.001
+  name: Malicious User Agents - Powershell
+  guid: 81c13829-f6c9-45b8-85a6-053366d55297
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0009
+  technique: T1113
+  name: Windows Recall Feature Enabled - DisableAIDataAnalysis Value Deleted
+  guid: 5a496325-0115-4274-8eb9-755b649ad0fb
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0006
+  technique: T1056.001
+  name: Input Capture
+  guid: d9b633ca-8efb-45e6-b838-70f595c6ae26
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 6

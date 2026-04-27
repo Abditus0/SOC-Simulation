@@ -1,0 +1,57 @@
+scenario: scenario_177
+name: Cobalt Strike Style Operations
+description: Cobalt Strike beacon-style operations chain
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Identify System Locale and Regional Settings with PowerShell
+  guid: ce479c1a-e8fa-42b2-812a-96b0f2f4d28a
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: Adfind - Enumerate Active Directory Subnet Objects
+  guid: 9bb45dd7-c466-4f93-83a1-be30e56033ee
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1049
+  name: System Discovery using SharpView
+  guid: 96f974bb-a0da-4d87-a744-ff33e73367e9
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0011
+  technique: T1071.001
+  name: Malicious User Agents - CMD
+  guid: dc3488b0-08c7-4fea-b585-905c83b48180
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1055
+  name: Section View Injection
+  guid: c6952f41-6cf0-450a-b352-2ca8dae7c178
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over HTTP
+  guid: e2d85e66-cb66-4ed7-93b1-833fc56c9319
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 7

@@ -1,0 +1,36 @@
+scenario: scenario_158
+name: Non-Standard Port C2
+description: Attacker uses non-standard ports for C2 communications
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - VM Discovery using ESXCLI
+  guid: 2040405c-eea6-4c1c-aef3-c2acc430fac9
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0011
+  technique: T1571
+  name: Testing usage of uncommonly used port with PowerShell
+  guid: 21fe622f-8e53-4b31-ba83-6d333c2583f4
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0011
+  technique: T1095
+  name: ICMP C2
+  guid: 0268e63c-e244-42db-bef7-72a9e59fc1fc
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

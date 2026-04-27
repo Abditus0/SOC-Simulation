@@ -1,0 +1,36 @@
+scenario: scenario_143
+name: Network Share Data Collection
+description: Attacker collects data from accessible network shares
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1135
+  name: Network Share Discovery via dir command
+  guid: 13daa2cf-195a-43df-a8bd-7dd5ffb607b5
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0009
+  technique: T1039
+  name: Copy a sensitive File over Administrative share with copy
+  guid: 6ed67921-1774-44ba-bac6-adb51ed60660
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0009
+  technique: T1074.001
+  name: Zip a Folder with PowerShell for Staging in Temp
+  guid: a57fbe4b-3440-452a-88a7-943531ac872a
+  executor: powershell
+  elevation: false
+  step: 4

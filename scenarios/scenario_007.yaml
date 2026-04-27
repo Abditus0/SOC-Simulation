@@ -1,0 +1,36 @@
+scenario: scenario_007
+name: Peripheral and Hardware Discovery
+description: Attacker enumerates hardware and peripheral devices
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Enumerate Available Drives via gdr
+  guid: c187c9bc-4511-40b3-aa10-487b2c70b6a5
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1120
+  name: Win32_PnPEntity Hardware Inventory
+  guid: 2cb4dbf2-2dca-4597-8678-4d39d207a3a5
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery Using Command Prompt
+  guid: ba38e193-37a6-4c41-b214-61b33277fe36
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Discover Specific Process - tasklist
+  guid: 11ba69ee-902e-4a0f-b3b6-418aed7d7ddb
+  executor: command_prompt
+  elevation: false
+  step: 4

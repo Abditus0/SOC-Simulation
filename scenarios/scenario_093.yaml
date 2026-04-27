@@ -1,0 +1,43 @@
+scenario: scenario_093
+name: LOLBin Defense Evasion
+description: Attacker abuses living-off-the-land binaries
+apt_inspiration: FIN7
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 4060ee98-01ae-4c8e-8aad-af8300519cc7
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0005
+  technique: T1218.011
+  name: Rundll32 with desk.cpl
+  guid: 83a95136-a496-423c-81d3-1c6750133917
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1218.010
+  name: Regsvr32 Registering Non DLL
+  guid: 1ae5ea1f-0a4e-4e54-b2f5-4ac328a7f421
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1218.005
+  name: Mshta Executes Remote HTML Application (HTA)
+  guid: c4b97eeb-5249-4455-a607-59f95485cb45
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1057
+  name: Discover Specific Process - tasklist
+  guid: 11ba69ee-902e-4a0f-b3b6-418aed7d7ddb
+  executor: command_prompt
+  elevation: false
+  step: 5

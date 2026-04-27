@@ -1,0 +1,57 @@
+scenario: scenario_216
+name: Evasion and Persistence Combo
+description: Combines strong evasion with multiple persistence mechanisms
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0005
+  technique: T1562.001
+  name: Stop and Remove Arbitrary Security Windows Service
+  guid: ae753dda-0f15-4af6-a168-b9ba16143143
+  executor: powershell
+  elevation: true
+  step: 1
+- tactic: TA0005
+  technique: T1562.002
+  name: Clear Windows Audit Policy Config
+  guid: 913c0e4e-4b37-4b78-ad0b-90e7b25010f6
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0003
+  technique: T1547.001
+  name: Modify BootExecute Value
+  guid: befc2b40-d487-4a5a-8813-c11085fb5672
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0003
+  technique: T1053.005
+  name: WMI Invoke-CimMethod Scheduled Task
+  guid: e16b3b75-dc9e-4cde-a23d-dfa2d0507b3b
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1027
+  name: Snake Malware Encrypted crmlog file
+  guid: 7e47ee60-9dd1-4269-9c4f-97953b183268
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 7

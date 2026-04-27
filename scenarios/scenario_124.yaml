@@ -1,0 +1,43 @@
+scenario: scenario_124
+name: CMD Shell Execution Chain
+description: Attacker uses Windows command shell for execution
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.003
+  name: Suspicious Execution via Windows Command Shell
+  guid: d0eb3597-a1b3-4d65-b33b-2cda8d397f20
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery
+  guid: 4c4959bf-addf-4b4a-be86-8d09cc1857aa
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1083
+  name: Recursive Enumerate Files And Directories By Powershell
+  guid: 95a21323-770d-434c-80cd-6f6fbf7af432
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.004
+  name: Delete TeamViewer Log Files
+  guid: 69f50a5f-967c-4327-a5bb-e1a9a9983785
+  executor: powershell
+  elevation: false
+  step: 5

@@ -1,0 +1,36 @@
+scenario: scenario_223
+name: Web Shell Deployment
+description: Attacker deploys web shell for persistent access
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - General privesc checks
+  guid: 5b6f39a2-6ec7-4783-a5fd-2c54a55409ed
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1505.003
+  name: Web Shell Written to Disk
+  guid: 0a2ce662-1efa-496f-a472-2fe7b080db16
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: Obfuscated Command in PowerShell
+  guid: 8b3f4ed6-077b-4bdd-891c-2d237f19410f
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

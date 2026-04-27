@@ -1,0 +1,36 @@
+scenario: scenario_011
+name: File and Directory Enumeration
+description: Attacker enumerates files and directories for sensitive data
+apt_inspiration: FIN6
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Check OS version via "ver" command
+  guid: f6ecb109-df24-4303-8d85-1987dbae6160
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1083
+  name: File and Directory Discovery (cmd.exe)
+  guid: 0e36303b-6762-4500-b003-127743b80ba6
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery Using Command Prompt
+  guid: ba38e193-37a6-4c41-b214-61b33277fe36
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - PC Hunter
+  guid: b4ca838d-d013-4461-bf2c-f7132617b409
+  executor: powershell
+  elevation: true
+  step: 4

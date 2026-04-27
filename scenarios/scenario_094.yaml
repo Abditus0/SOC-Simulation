@@ -1,0 +1,43 @@
+scenario: scenario_094
+name: Timestomping and File Hiding
+description: Attacker modifies timestamps and hides files
+apt_inspiration: Turla
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Environment variables discovery on windows
+  guid: f400d1c0-1804-4ff8-b069-ef5ddd2adbf3
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1070.006
+  name: Windows - Modify file last modified timestamp with PowerShell
+  guid: f8f6634d-93e1-4238-8510-f8a90a20dcf2
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1564.001
+  name: Create Windows System File with powershell
+  guid: d380c318-0b34-45cb-9dad-828c11891e43
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1564.004
+  name: Create Hidden Directory via $index_allocation
+  guid: 3e6791e7-232c-481c-a680-a52f86b83fdf
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.004
+  name: Delete Prefetch File
+  guid: 36f96049-0ad7-4a5f-8418-460acaeb92fb
+  executor: powershell
+  elevation: true
+  step: 5

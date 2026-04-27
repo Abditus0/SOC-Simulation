@@ -1,0 +1,36 @@
+scenario: scenario_083
+name: Keylogger Installation
+description: Attacker installs keylogger for credential capture
+apt_inspiration: Lazarus
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - RBCD-Check
+  guid: dec6a0d8-bcaf-4c22-9d48-2aee59fb692b
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1056.001
+  name: Input Capture
+  guid: d9b633ca-8efb-45e6-b838-70f595c6ae26
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0003
+  technique: T1547.001
+  name: Reg Key RunOnce
+  guid: 554cbd88-cde1-4b56-8168-0be552eed9eb
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

@@ -1,0 +1,36 @@
+scenario: scenario_098
+name: Alternate Data Streams Evasion
+description: Attacker hides payloads in alternate data streams
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Morerecon
+  guid: 3278b2f6-f733-4875-9ef4-bfed34244f0a
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1564.004
+  name: Store file in Alternate Data Stream (ADS)
+  guid: 2ab75061-f5d5-4c1a-b666-ba2a50df5b02
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: Execute base64-encoded PowerShell
+  guid: a50d5a97-2531-499e-a1de-5544c74432c6
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

@@ -1,0 +1,36 @@
+scenario: scenario_133
+name: WMIC Execution Chain
+description: Attacker abuses WMIC for execution
+apt_inspiration: FIN6
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery with WMIC
+  guid: 8851b73a-3624-4bf7-8704-aa312411565c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1047
+  name: Create a Process using WMI Query and an Encoded Command
+  guid: 7db7a7f9-9531-4840-9b30-46220135441c
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1220
+  name: MSXSL Bypass using local files
+  guid: ca23bfb2-023f-49c5-8802-e66997de462d
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

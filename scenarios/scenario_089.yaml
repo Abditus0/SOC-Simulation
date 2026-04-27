@@ -1,0 +1,36 @@
+scenario: scenario_089
+name: Kerberos Ticket Abuse
+description: Attacker abuses Kerberos for credential access
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - RBCD-Check
+  guid: dec6a0d8-bcaf-4c22-9d48-2aee59fb692b
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1558.003
+  name: WinPwn - PowerSharpPack - Kerberoasting Using Rubeus
+  guid: 29094950-2c96-4cbd-b5e4-f7c65079678f
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1558.004
+  name: Get-DomainUser with PowerView
+  guid: d6139549-7b72-4e48-9ea1-324fc9bdf88a
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

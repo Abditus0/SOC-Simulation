@@ -1,0 +1,36 @@
+scenario: scenario_165
+name: Wscript Download and Execute
+description: Attacker uses wscript to download and execute payloads
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Product Name via Registry
+  guid: be3b5fe3-a575-4fb8-83f6-ad4a68dd5ce7
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0011
+  technique: T1105
+  name: Download a file with OneDrive Standalone Updater
+  guid: 3dd6a6cf-9c78-462c-bd75-e9b54fc8925b
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0002
+  technique: T1059.005
+  name: Visual Basic script execution to gather local computer information
+  guid: 1620de42-160a-4fe5-bbaf-d3fef0181ce9
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

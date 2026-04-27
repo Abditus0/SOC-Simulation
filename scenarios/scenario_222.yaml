@@ -1,0 +1,36 @@
+scenario: scenario_222
+name: Remote Access Tool Installation
+description: Attacker installs legitimate remote access tool as backdoor
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Hostname Discovery (Windows)
+  guid: 85cfbf23-4a1e-4342-8792-007e004b975f
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1219
+  name: Splashtop Streamer Execution
+  guid: 3e1858ee-3550-401c-86ec-5e70ed79295b
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0003
+  technique: T1547.001
+  name: Reg Key Run
+  guid: e55be3fd-3521-4610-9d1a-e210e42dcf05
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

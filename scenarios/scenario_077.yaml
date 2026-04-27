@@ -1,0 +1,36 @@
+scenario: scenario_077
+name: Input Capture for Credentials
+description: Attacker captures keyboard input for credential harvesting
+apt_inspiration: Lazarus
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - Darkside system information discovery
+  guid: f89812e5-67d1-4f49-86fa-cbc6609ea86a
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1056.001
+  name: Input Capture
+  guid: d9b633ca-8efb-45e6-b838-70f595c6ae26
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: GetCurrent User with PowerShell Script
+  guid: 1392bd0f-5d5a-429e-81d9-eb9d4d4d5b3b
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

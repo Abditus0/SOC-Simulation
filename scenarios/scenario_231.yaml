@@ -1,0 +1,50 @@
+scenario: scenario_231
+name: SMB Lateral Movement Prep
+description: Attacker gathers everything needed for SMB lateral movement
+apt_inspiration: FIN6
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1135
+  name: Network Share Discovery via dir command
+  guid: 13daa2cf-195a-43df-a8bd-7dd5ffb607b5
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: System Network Configuration Discovery (TrickBot Style)
+  guid: dafaf052-5508-402d-bf77-51e0700c02e2
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory through Silent Process Exit
+  guid: eb5adf16-b601-4926-bca7-dad22adffb37
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0007
+  technique: T1049
+  name: System Network Connections Discovery with PowerShell
+  guid: f069f0f1-baad-4831-aa2b-eddac4baac4a
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1562.004
+  name: ESXi - Disable Firewall via Esxcli
+  guid: bac8a340-be64-4491-a0cc-0985cb227f5a
+  executor: command_prompt
+  elevation: false
+  step: 6

@@ -1,0 +1,36 @@
+scenario: scenario_020
+name: Driver and Kernel Discovery
+description: Attacker enumerates drivers and kernel modules
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0007
+  technique: T1652
+  name: Device Driver Discovery
+  guid: 235b30a2-e5b1-441f-9705-be6231c88ddd
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1007
+  name: System Service Discovery - Services Registry Enumeration
+  guid: d70d82bd-bb00-4837-b146-b40d025551b2
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Launch Taskmgr from cmd to View running processes
+  guid: 4fd35378-39aa-481e-b7c4-e3bf49375c67
+  executor: command_prompt
+  elevation: false
+  step: 4

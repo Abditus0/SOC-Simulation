@@ -1,0 +1,43 @@
+scenario: scenario_241
+name: Startup Impact Chain
+description: Attacker modifies startup components to impact system
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Powersploits privesc checks
+  guid: 345cb8e4-d2de-4011-a580-619cf5a9e2d7
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: Add persistence via Windows Context Menu
+  guid: de47f4a0-2acb-416d-9a6b-cee584a4c4d1
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1112
+  name: Disable Remote Desktop Security Settings Through Registry
+  guid: 4b81bcfa-fb0a-45e9-90c2-e3efe5160140
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1562.001
+  name: AMSI Bypass - Remove AMSI Provider Reg Key
+  guid: 13f09b91-c953-438e-845b-b585e51cac9b
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 5

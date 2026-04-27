@@ -1,0 +1,36 @@
+scenario: scenario_119
+name: Installer Package Abuse
+description: Attacker abuses MSI installer packages for execution
+apt_inspiration: FIN7
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - GeneralRecon
+  guid: 7804659b-fdbf-4cf6-b06a-c03e758590e8
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1218.007
+  name: Msiexec.exe - Execute the DllRegisterServer function of a DLL
+  guid: 0106ffa5-fab6-4c7d-82e3-e6b8867d5e5d
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

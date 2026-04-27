@@ -1,0 +1,57 @@
+scenario: scenario_189
+name: Carbanak Style Financial Attack
+description: Carbanak-inspired financial institution attack
+apt_inspiration: Carbanak
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - itm4nprivesc
+  guid: 3d256a2f-5e57-4003-8eb6-64d91b1da7ce
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - PC Hunter
+  guid: b4ca838d-d013-4461-bf2c-f7132617b409
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS with createdump.exe from .Net v5
+  guid: 9d0072c8-7cca-45c4-bd14-f852cfa35cf0
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0009
+  technique: T1113
+  name: Windows Screencapture
+  guid: 3c898f62-626c-47d5-aad2-6de873d69153
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - SMTP
+  guid: ec3a835e-adca-4c7c-88d2-853b69c11bb9
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 7

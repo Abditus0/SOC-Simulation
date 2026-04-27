@@ -1,0 +1,44 @@
+scenario: scenario_234
+name: Password Spray Prep Chain
+description: Full chain to prepare and execute password spraying
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - itm4nprivesc
+  guid: 3d256a2f-5e57-4003-8eb6-64d91b1da7ce
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1087.001
+  name: Enumerate all accounts on Windows (Local)
+  guid: 80887bec-5a9b-4efc-a81d-f83eb2eb32ab
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1201
+  name: Use of SecEdit.exe to export the local security policy (including the password
+    policy)
+  guid: 510cc97f-56ac-4cd3-a198-d3218c23d889
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0006
+  technique: T1110.003
+  name: Password Spray Invoke-DomainPasswordSpray Light
+  guid: b15bc9a5-a4f3-4879-9304-ea0011ace63a
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 5

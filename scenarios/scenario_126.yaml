@@ -1,0 +1,36 @@
+scenario: scenario_126
+name: Native API Execution
+description: Attacker uses Windows native API for execution
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Product Name via Registry
+  guid: be3b5fe3-a575-4fb8-83f6-ad4a68dd5ce7
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1106
+  name: WinPwn - Get SYSTEM shell - Bind System Shell using CreateProcess technique
+  guid: 7ec5b74e-8289-4ff2-a162-b6f286a33abd
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: Obfuscated Command in PowerShell
+  guid: 8b3f4ed6-077b-4bdd-891c-2d237f19410f
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 4

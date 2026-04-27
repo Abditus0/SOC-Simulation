@@ -1,0 +1,36 @@
+scenario: scenario_112
+name: Disable Audit Policy
+description: Attacker disables Windows audit policy to avoid detection
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - General privesc checks
+  guid: 5b6f39a2-6ec7-4783-a5fd-2c54a55409ed
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1562.002
+  name: Makes Eventlog blind with Phant0m
+  guid: 3ddf3d03-f5d6-462a-ad76-2c5ff7b6d741
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1562.003
+  name: Disable Windows Command Line Auditing using reg.exe
+  guid: 1329d5ab-e10e-4e5e-93d1-4d907eb656e5
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 4

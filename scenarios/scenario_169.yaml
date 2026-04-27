@@ -1,0 +1,57 @@
+scenario: scenario_169
+name: FIN6 Retail Breach
+description: FIN6-style retail breach targeting credential access
+apt_inspiration: FIN6
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: Powershell MsXml COM object - with prompt
+  guid: 388a7340-dbc1-4c9d-8e59-b75ad8c6d5da
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: GetCurrent User with PowerShell Script
+  guid: 1392bd0f-5d5a-429e-81d9-eb9d4d4d5b3b
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - GeneralRecon
+  guid: 7804659b-fdbf-4cf6-b06a-c03e758590e8
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1018
+  name: Remote System Discovery - adidnsdump
+  guid: 95e19466-469e-4316-86d2-1dc401b5a959
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS with createdump.exe from .Net v5
+  guid: 9d0072c8-7cca-45c4-bd14-f852cfa35cf0
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0007
+  technique: T1087.001
+  name: Enumerate all accounts on Windows (Local)
+  guid: 80887bec-5a9b-4efc-a81d-f83eb2eb32ab
+  executor: command_prompt
+  elevation: false
+  step: 6
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - FTP - Rclone
+  guid: b854eb97-bf9b-45ab-a1b5-b94e4880c56b
+  executor: powershell
+  elevation: true
+  step: 7

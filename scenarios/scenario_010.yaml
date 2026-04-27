@@ -1,0 +1,36 @@
+scenario: scenario_010
+name: Virtualization Detection
+description: Attacker checks if running inside a VM or sandbox
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Powersploits privesc checks
+  guid: 345cb8e4-d2de-4011-a580-619cf5a9e2d7
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1497.001
+  name: Detect Virtualization Environment (Windows)
+  guid: 502a7dc4-9d6f-4d28-abf2-f0e84692562d
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Discovery - SocGholish whoami
+  guid: 3d257a03-eb80-41c5-b744-bb37ac7f65c7
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1057
+  name: Launch Taskmgr from cmd to View running processes
+  guid: 4fd35378-39aa-481e-b7c4-e3bf49375c67
+  executor: command_prompt
+  elevation: false
+  step: 4

@@ -1,0 +1,36 @@
+scenario: scenario_059
+name: Startup Script Persistence
+description: Attacker creates startup script for persistence
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Identify System Locale and Regional Settings with PowerShell
+  guid: ce479c1a-e8fa-42b2-812a-96b0f2f4d28a
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled task Local
+  guid: 42f53695-ad4a-4546-abb6-7d837f644a71
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: User Discovery With Env Vars PowerShell Script
+  guid: dcb6cdee-1fb0-4087-8bf8-88cfd136ba51
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.004
+  name: Delete a single file - Windows PowerShell
+  guid: 9dee89bd-9a98-4c4f-9e2d-4256690b0e72
+  executor: powershell
+  elevation: false
+  step: 4

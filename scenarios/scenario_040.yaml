@@ -1,0 +1,36 @@
+scenario: scenario_040
+name: Winlogon Persistence
+description: Attacker abuses Winlogon registry keys for persistence
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - Darkside system information discovery
+  guid: f89812e5-67d1-4f49-86fa-cbc6609ea86a
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.004
+  name: Winlogon Notify Key Logon Persistence - PowerShell
+  guid: d40da266-e073-4e5a-bb8b-2b385023e5f9
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1112
+  name: Activate Windows NoFileMenu Group Policy Feature
+  guid: 5e27bdb4-7fd9-455d-a2b5-4b4b22c9dea4
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

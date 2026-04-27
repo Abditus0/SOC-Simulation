@@ -1,0 +1,36 @@
+scenario: scenario_045
+name: Windows Terminal Profile Persistence
+description: Attacker modifies Windows Terminal profile for persistence
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - RBCD-Check
+  guid: dec6a0d8-bcaf-4c22-9d48-2aee59fb692b
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.015
+  name: Persistence by modifying Windows Terminal profile
+  guid: ec5d76ef-82fe-48da-b931-bdb25a62bc65
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery
+  guid: 4c4959bf-addf-4b4a-be86-8d09cc1857aa
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

@@ -1,0 +1,57 @@
+scenario: scenario_173
+name: Ransomware Precursor
+description: 'Pre-ransomware chain: recon, persistence, credential access, evasion'
+apt_inspiration: Generic Ransomware
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.003
+  name: Command prompt writing script to file then executes it
+  guid: 00682c9f-7df4-4df8-950b-6dcaaa3ad9af
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0011
+  technique: T1105
+  name: Nimgrab - Transfer Files
+  guid: b1729c57-9384-4d1c-9b99-9b220afb384e
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1218.011
+  name: Rundll32 setupapi.dll Execution
+  guid: 71d771cd-d6b3-4f34-bc76-a63d47a10b19
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory using comsvcs.dll
+  guid: 2536dee2-12fb-459a-8c37-971844fa73be
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1562.004
+  name: ESXi - Disable Firewall via Esxcli
+  guid: bac8a340-be64-4491-a0cc-0985cb227f5a
+  executor: command_prompt
+  elevation: false
+  step: 5
+- tactic: TA0007
+  technique: T1069.001
+  name: WMIObject Group Discovery
+  guid: 69119e58-96db-4110-ad27-954e48f3bb13
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 7

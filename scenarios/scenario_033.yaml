@@ -1,0 +1,43 @@
+scenario: scenario_033
+name: Service Installation Persistence
+description: Attacker installs a malicious service for persistence
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Environment variables discovery on windows
+  guid: f400d1c0-1804-4ff8-b069-ef5ddd2adbf3
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1007
+  name: System Service Discovery - Services Registry Enumeration
+  guid: d70d82bd-bb00-4837-b146-b40d025551b2
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1543.003
+  name: Modify Fax service to run PowerShell
+  guid: ed366cde-7d12-49df-a833-671904770b9f
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1112
+  name: Modify Registry of Local Machine - cmd
+  guid: 282f929a-6bc5-42b8-bd93-960c3ba35afe
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - PC Hunter
+  guid: b4ca838d-d013-4461-bf2c-f7132617b409
+  executor: powershell
+  elevation: true
+  step: 5

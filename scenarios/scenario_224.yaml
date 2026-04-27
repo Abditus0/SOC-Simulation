@@ -1,0 +1,43 @@
+scenario: scenario_224
+name: ADS and Hidden Files Chain
+description: Attacker hides tools using ADS and hidden file attributes
+apt_inspiration: Turla
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0005
+  technique: T1564.004
+  name: Create Hidden Directory via $index_allocation
+  guid: 3e6791e7-232c-481c-a680-a52f86b83fdf
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1564.001
+  name: Create Windows Hidden File with powershell
+  guid: 7f66d539-4fbe-4cfa-9a56-4a2bf660c58a
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.006
+  name: Windows - Modify file last access timestamp with PowerShell
+  guid: da627f63-b9bd-4431-b6f8-c5b44d061a62
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

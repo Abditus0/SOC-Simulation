@@ -1,0 +1,43 @@
+scenario: scenario_092
+name: Obfuscated PowerShell Execution
+description: Attacker uses obfuscated PowerShell to evade detection
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: PowerShell Invoke Known Malicious Cmdlets
+  guid: 49eb9404-5e0f-4031-a179-b40f7be385e3
+  executor: powershell
+  elevation: true
+  step: 1
+- tactic: TA0005
+  technique: T1027
+  name: Snake Malware Encrypted crmlog file
+  guid: 7e47ee60-9dd1-4269-9c4f-97953b183268
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1140
+  name: Deobfuscate/Decode Files Or Information
+  guid: dc6fe391-69e6-4506-bd06-ea5eeb4082f8
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1082
+  name: Check computer location
+  guid: 96be6002-9200-47db-94cb-c3e27de1cb36
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 5

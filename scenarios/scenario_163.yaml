@@ -1,0 +1,36 @@
+scenario: scenario_163
+name: Curl-based Exfiltration
+description: Attacker uses curl for data exfiltration
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Enumerate Available Drives via gdr
+  guid: c187c9bc-4511-40b3-aa10-487b2c70b6a5
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0010
+  technique: T1048.002
+  name: Exfiltrate data HTTPS using curl windows
+  guid: 1cdf2fb0-51b6-4fd8-96af-77020d5f1bf0
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.004
+  name: Delete an entire folder - Windows cmd
+  guid: ded937c4-2add-42f7-9c2c-c742b7a98698
+  executor: command_prompt
+  elevation: false
+  step: 4

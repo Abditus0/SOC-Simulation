@@ -1,0 +1,36 @@
+scenario: scenario_030
+name: Quick Triage Discovery
+description: Fast initial triage to understand the environment
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 66703791-c902-4560-8770-42b8a91f7667
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1033
+  name: System Discovery - SocGholish whoami
+  guid: 3d257a03-eb80-41c5-b744-bb37ac7f65c7
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: System Network Configuration Discovery on Windows
+  guid: 970ab6a1-0157-4f3f-9a73-ec4166754b23
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1049
+  name: System Network Connections Discovery
+  guid: 0940a971-809a-48f1-9c4d-b1d785e96ee5
+  executor: command_prompt
+  elevation: false
+  step: 4

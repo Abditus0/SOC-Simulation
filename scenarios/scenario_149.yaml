@@ -1,0 +1,36 @@
+scenario: scenario_149
+name: AppData Collection
+description: Attacker collects and compresses AppData folder
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Product Name via Registry
+  guid: be3b5fe3-a575-4fb8-83f6-ad4a68dd5ce7
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1083
+  name: Launch DirLister Executable
+  guid: c5bec457-43c9-4a18-9a24-fe151d8971b7
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0009
+  technique: T1560
+  name: Compress Data for Exfiltration With PowerShell
+  guid: 41410c60-614d-4b9d-b66e-b0192dd9c597
+  executor: powershell
+  elevation: false
+  step: 4

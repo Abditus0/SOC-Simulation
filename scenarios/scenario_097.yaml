@@ -1,0 +1,43 @@
+scenario: scenario_097
+name: Event Log Manipulation
+description: Attacker manipulates event logs to hide activity
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Watson searching for missing windows patches
+  guid: 07b18a66-6304-47d2-bad0-ef421eb2e107
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1562.002
+  name: Impair Windows Audit Log Policy
+  guid: 5102a3a7-e2d7-4129-9e45-f483f2e0eea8
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1562.006
+  name: Disable .NET Event Tracing for Windows Via Registry (powershell)
+  guid: 19c07a45-452d-4620-90ed-4c34fffbe758
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1562.003
+  name: Disable Windows Command Line Auditing using reg.exe
+  guid: 1329d5ab-e10e-4e5e-93d1-4d907eb656e5
+  executor: command_prompt
+  elevation: true
+  step: 5

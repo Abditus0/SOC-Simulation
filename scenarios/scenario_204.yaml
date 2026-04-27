@@ -1,0 +1,64 @@
+scenario: scenario_204
+name: Credential Focus Attack
+description: Attack chain focused entirely on credential harvesting
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Check OS version via "ver" command
+  guid: f6ecb109-df24-4303-8d85-1987dbae6160
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1087.001
+  name: Enumerate all accounts via PowerShell (Local)
+  guid: ae4b6361-b5f8-46cb-a3f9-9cf108ccfe7b
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS with createdump.exe from .Net v5
+  guid: 9d0072c8-7cca-45c4-bd14-f852cfa35cf0
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0006
+  technique: T1003.002
+  name: dump volume shadow copy hives with System.IO.File
+  guid: 9d77fed7-05f8-476e-a81b-8ff0472c64d0
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0006
+  technique: T1552.001
+  name: Access unattend.xml
+  guid: 367d4004-5fc0-446d-823f-960c74ae52c3
+  executor: command_prompt
+  elevation: true
+  step: 5
+- tactic: TA0006
+  technique: T1555
+  name: WinPwn - Loot local Credentials - lazagne
+  guid: 079ee2e9-6f16-47ca-a635-14efcd994118
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0006
+  technique: T1555.003
+  name: WinPwn - BrowserPwn
+  guid: 764ea176-fb71-494c-90ea-72e9d85dce76
+  executor: powershell
+  elevation: false
+  step: 7
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 8

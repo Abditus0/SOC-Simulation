@@ -1,0 +1,50 @@
+scenario: scenario_220
+name: Recon Persist Exfil
+description: 'Classic three-phase attack: recon, persist, exfil'
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Watson searching for missing windows patches
+  guid: 07b18a66-6304-47d2-bad0-ef421eb2e107
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: System Network Configuration Discovery on Windows
+  guid: 970ab6a1-0157-4f3f-9a73-ec4166754b23
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery Using Command Prompt
+  guid: ba38e193-37a6-4c41-b214-61b33277fe36
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0003
+  technique: T1547.001
+  name: HKCU - Policy Settings Explorer Run Key
+  guid: a70faea1-e206-4f6f-8d9a-67379be8f6f1
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - FTP - Rclone
+  guid: b854eb97-bf9b-45ab-a1b5-b94e4880c56b
+  executor: powershell
+  elevation: true
+  step: 6

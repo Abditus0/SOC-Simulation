@@ -1,0 +1,50 @@
+scenario: scenario_210
+name: CMD Heavy Attack
+description: Attack chain relying almost entirely on cmd.exe
+apt_inspiration: FIN6
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.003
+  name: Writes text to a file and displays it.
+  guid: 127b4afe-2346-4192-815c-69042bec570e
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - Powersploits privesc checks
+  guid: 345cb8e4-d2de-4011-a580-619cf5a9e2d7
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: System Network Configuration Discovery on Windows
+  guid: 970ab6a1-0157-4f3f-9a73-ec4166754b23
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1049
+  name: System Network Connections Discovery
+  guid: 0940a971-809a-48f1-9c4d-b1d785e96ee5
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0006
+  technique: T1552.002
+  name: Enumeration for PuTTY Credentials in Registry
+  guid: af197fd7-e868-448e-9bd5-05d1bcd9d9e5
+  executor: command_prompt
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 6

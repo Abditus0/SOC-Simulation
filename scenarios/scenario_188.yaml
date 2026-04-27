@@ -1,0 +1,57 @@
+scenario: scenario_188
+name: OilRig Style Operations
+description: OilRig/APT34-inspired targeted operations
+apt_inspiration: APT34
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Sharpup checking common Privesc vectors
+  guid: efb79454-1101-4224-a4d0-30c9c8b29ffc
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: DNS Server Discovery Using nslookup
+  guid: 34557863-344a-468f-808b-a1bfb89b4fa9
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0002
+  technique: T1059.001
+  name: Run Bloodhound from Memory using Download Cradle
+  guid: bf8c1441-4674-4dab-8e4e-39d93d08f9b7
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory using ProcDump
+  guid: 0be2230c-9ab3-4ac2-8826-3199b9a0ebf8
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0011
+  technique: T1071.004
+  name: DNS C2
+  guid: e7bf9802-2e78-4db9-93b5-181b7bcd37d7
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 7

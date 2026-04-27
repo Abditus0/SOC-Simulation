@@ -1,0 +1,57 @@
+scenario: scenario_185
+name: menuPass Style Operations
+description: menuPass/APT10-inspired managed service provider attack
+apt_inspiration: APT10
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - VM Discovery using ESXCLI
+  guid: 2040405c-eea6-4c1c-aef3-c2acc430fac9
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: System Network Configuration Discovery on Windows
+  guid: 970ab6a1-0157-4f3f-9a73-ec4166754b23
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1018
+  name: Remote System Discovery - net
+  guid: 85321a9c-897f-4a60-9f20-29788e50bccd
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1003.001
+  name: LSASS read with pypykatz
+  guid: c37bc535-5c62-4195-9cc3-0517673171d8
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - HTTP
+  guid: 6aa58451-1121-4490-a8e9-1dada3f1c68c
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 7

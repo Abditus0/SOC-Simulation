@@ -1,0 +1,43 @@
+scenario: scenario_110
+name: Registry Evasion
+description: Attacker uses registry for both persistence and evasion
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - Darkside system information discovery
+  guid: f89812e5-67d1-4f49-86fa-cbc6609ea86a
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1112
+  name: Windows HideSCAHealth Group Policy Feature
+  guid: a4637291-40b1-4a96-8c82-b28f1d73e54e
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: Obfuscated Command in PowerShell
+  guid: 8b3f4ed6-077b-4bdd-891c-2d237f19410f
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0003
+  technique: T1547.001
+  name: Reg Key Run
+  guid: e55be3fd-3521-4610-9d1a-e210e42dcf05
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 5

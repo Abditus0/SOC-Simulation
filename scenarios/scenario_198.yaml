@@ -1,0 +1,57 @@
+scenario: scenario_198
+name: Red Team Exploitation Phase
+description: Professional red team exploitation and persistence phase
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: Abuse Nslookup with DNS Records
+  guid: 999bff6d-dc15-44c9-9f5c-e1051bfc86e1
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - itm4nprivesc
+  guid: 3d256a2f-5e57-4003-8eb6-64d91b1da7ce
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1547.001
+  name: secedit used to create a Run key in the HKLM Hive
+  guid: 14fdc3f1-6fc3-4556-8d36-aa89d9d42d02
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1548.002
+  name: UACME Bypass Method 33
+  guid: e514bb03-f71c-4b22-9092-9f961ec6fb03
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe using imported Microsoft DLLs
+  guid: 86fc3f40-237f-4701-b155-81c01c48d697
+  executor: powershell
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1027
+  name: Obfuscated Command in PowerShell
+  guid: 8b3f4ed6-077b-4bdd-891c-2d237f19410f
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 7

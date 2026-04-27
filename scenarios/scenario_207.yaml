@@ -1,0 +1,50 @@
+scenario: scenario_207
+name: Low and Slow Attack
+description: Patient attacker taking time between each step
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Check computer location
+  guid: 96be6002-9200-47db-94cb-c3e27de1cb36
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: Suspicious vbs file run from startup Folder
+  guid: 2cb98256-625e-4da9-9d44-f2e5f90b8bd5
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1070.006
+  name: Event Log Manipulations- Time slipping via Powershell
+  guid: 7bcf83bf-f5ef-425c-9d9a-71618ad9ed12
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0006
+  technique: T1003.001
+  name: LSASS read with pypykatz
+  guid: c37bc535-5c62-4195-9cc3-0517673171d8
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.001
+  name: Delete System Logs Using Clear-EventLog
+  guid: b13e9306-3351-4b4b-a6e8-477358b0b498
+  executor: powershell
+  elevation: true
+  step: 6

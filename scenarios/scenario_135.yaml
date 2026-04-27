@@ -1,0 +1,43 @@
+scenario: scenario_135
+name: Multi-Script Execution
+description: Attacker chains multiple script types for execution
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: Run Bloodhound from Memory using Download Cradle
+  guid: bf8c1441-4674-4dab-8e4e-39d93d08f9b7
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1059.003
+  name: Simulate BlackByte Ransomware Print Bombing
+  guid: 6b2903ac-8f36-450d-9ad5-b220e8a2dcb9
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0002
+  technique: T1059.005
+  name: Visual Basic script execution to gather local computer information
+  guid: 1620de42-160a-4fe5-bbaf-d3fef0181ce9
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1027
+  name: Obfuscated PowerShell Command via Character Array
+  guid: 6683baf0-6e77-4f58-b114-814184ea8150
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

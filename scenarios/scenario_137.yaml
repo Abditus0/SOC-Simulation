@@ -1,0 +1,43 @@
+scenario: scenario_137
+name: Screenshot and Clipboard Collection
+description: Attacker captures screenshots and clipboard data
+apt_inspiration: Lazarus
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Windows MachineGUID Discovery
+  guid: 224b4daf-db44-404e-b6b2-f4d1f0126ef8
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0009
+  technique: T1113
+  name: Windows Screen Capture (CopyFromScreen)
+  guid: e9313014-985a-48ef-80d9-cde604ffc187
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0009
+  technique: T1115
+  name: Execute Commands from Clipboard using PowerShell
+  guid: d6dc21af-bec9-4152-be86-326b6babd416
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1033
+  name: System Owner/User Discovery
+  guid: 4c4959bf-addf-4b4a-be86-8d09cc1857aa
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

@@ -1,0 +1,36 @@
+scenario: scenario_013
+name: Network Share Discovery
+description: Attacker discovers network shares for lateral movement or data theft
+apt_inspiration: FIN6
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery with WMIC
+  guid: 8851b73a-3624-4bf7-8704-aa312411565c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1135
+  name: WinPwn - shareenumeration
+  guid: 987901d1-5b87-4558-a6d9-cffcabc638b8
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: List Open Egress Ports
+  guid: 4b467538-f102-491d-ace7-ed487b853bf5
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1049
+  name: System Network Connections Discovery via PowerShell (Process Mapping)
+  guid: b52c8233-8f71-4bd7-9928-49fec8215cf5
+  executor: powershell
+  elevation: false
+  step: 4

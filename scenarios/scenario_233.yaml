@@ -1,0 +1,43 @@
+scenario: scenario_233
+name: RDP Lateral Movement Prep
+description: Attacker enables and prepares RDP for lateral movement
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: 'operating system discovery '
+  guid: 70e13ef4-5a74-47e4-9d16-760b41b0e2db
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: Qakbot Recon
+  guid: 121de5c6-5818-4868-b8a7-8fd07c455c1b
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1021.001
+  name: Disable NLA for RDP via Command Prompt
+  guid: 01d1c6c0-faf0-408e-b368-752a02285cb2
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1112
+  name: Requires the BitLocker PIN for Pre-boot authentication
+  guid: 26fc7375-a551-4336-90d7-3f2817564304
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1562.004
+  name: ESXi - Disable Firewall via Esxcli
+  guid: bac8a340-be64-4491-a0cc-0985cb227f5a
+  executor: command_prompt
+  elevation: false
+  step: 5

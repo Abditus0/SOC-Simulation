@@ -1,0 +1,36 @@
+scenario: scenario_148
+name: Sensitive File Hunter
+description: Attacker specifically hunts for sensitive file types
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Sharpup checking common Privesc vectors
+  guid: efb79454-1101-4224-a4d0-30c9c8b29ffc
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1083
+  name: Launch DirLister Executable
+  guid: c5bec457-43c9-4a18-9a24-fe151d8971b7
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0009
+  technique: T1560.001
+  name: Compress Data and lock with password for Exfiltration with 7zip
+  guid: d1334303-59cb-4a03-8313-b3e24d02c198
+  executor: command_prompt
+  elevation: false
+  step: 4

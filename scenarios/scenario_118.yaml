@@ -1,0 +1,36 @@
+scenario: scenario_118
+name: CMSTP Bypass
+description: Attacker uses CMSTP for UAC bypass and proxy execution
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Display volume shadow copies with "vssadmin"
+  guid: 7161b085-816a-491f-bab4-d68e974b7995
+  executor: command_prompt
+  elevation: true
+  step: 1
+- tactic: TA0005
+  technique: T1218.003
+  name: CMSTP Executing Remote Scriptlet
+  guid: 34e63321-9683-496b-bbc1-7566bc55e624
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: Snake Malware Encrypted crmlog file
+  guid: 7e47ee60-9dd1-4269-9c4f-97953b183268
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

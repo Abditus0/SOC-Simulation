@@ -1,0 +1,43 @@
+scenario: scenario_161
+name: Multi-Protocol C2
+description: Attacker uses multiple protocols for redundant C2
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: 'operating system discovery '
+  guid: 70e13ef4-5a74-47e4-9d16-760b41b0e2db
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0011
+  technique: T1071.001
+  name: Malicious User Agents - Powershell
+  guid: 81c13829-f6c9-45b8-85a6-053366d55297
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0011
+  technique: T1071.004
+  name: DNS Large Query Volume
+  guid: 1700f5d6-5a44-487b-84de-bc66f507b0a6
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0011
+  technique: T1095
+  name: ICMP C2
+  guid: 0268e63c-e244-42db-bef7-72a9e59fc1fc
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

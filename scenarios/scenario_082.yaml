@@ -1,0 +1,36 @@
+scenario: scenario_082
+name: Credential Dump via Task Manager
+description: Attacker uses task manager approach to dump process memory
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - winPEAS
+  guid: eea1d918-825e-47dd-acc2-814d6c58c0e1
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - get-wmiObject
+  guid: b51239b4-0129-474f-a2b4-70f855b9f2c2
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS with createdump.exe from .Net v5
+  guid: 9d0072c8-7cca-45c4-bd14-f852cfa35cf0
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.004
+  name: Delete Prefetch File
+  guid: 36f96049-0ad7-4a5f-8418-460acaeb92fb
+  executor: powershell
+  elevation: true
+  step: 4

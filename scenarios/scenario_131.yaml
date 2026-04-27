@@ -1,0 +1,36 @@
+scenario: scenario_131
+name: Batch Script Execution
+description: Attacker creates and executes malicious batch scripts
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - winPEAS
+  guid: eea1d918-825e-47dd-acc2-814d6c58c0e1
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1059.003
+  name: Suspicious Execution via Windows Command Shell
+  guid: d0eb3597-a1b3-4d65-b33b-2cda8d397f20
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1564.001
+  name: Hide Files Through Registry
+  guid: f650456b-bd49-4bc1-ae9d-271b5b9581e7
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.004
+  name: Delete an entire folder - Windows cmd
+  guid: ded937c4-2add-42f7-9c2c-c742b7a98698
+  executor: command_prompt
+  elevation: false
+  step: 4

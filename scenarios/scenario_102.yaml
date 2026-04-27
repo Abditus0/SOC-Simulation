@@ -1,0 +1,36 @@
+scenario: scenario_102
+name: ETW Provider Disabling
+description: Attacker disables ETW providers to blind monitoring tools
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Windows MachineGUID Discovery
+  guid: 224b4daf-db44-404e-b6b2-f4d1f0126ef8
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1562.006
+  name: Disable .NET Event Tracing for Windows Via Registry (cmd)
+  guid: 8a4c33be-a0d3-434a-bee6-315405edbd5b
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1562.002
+  name: Modify Event Log Channel Access Permissions via Registry - PowerShell
+  guid: 8e81d090-0cd6-4d46-863c-eec11311298f
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4

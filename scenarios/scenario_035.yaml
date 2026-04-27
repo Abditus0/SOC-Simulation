@@ -1,0 +1,43 @@
+scenario: scenario_035
+name: WMI Event Subscription Persistence
+description: Attacker uses WMI event subscriptions for fileless persistence
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - itm4nprivesc
+  guid: 3d256a2f-5e57-4003-8eb6-64d91b1da7ce
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1047
+  name: WMI Reconnaissance Processes
+  guid: 5750aa16-0e59-4410-8b9a-8a47ca2788e2
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1546.003
+  name: Persistence via WMI Event Subscription - CommandLineEventConsumer
+  guid: 3c64f177-28e2-49eb-a799-d767b24dd1e0
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - wmic process
+  guid: 640cbf6d-659b-498b-ba53-f6dd1a1cc02c
+  executor: command_prompt
+  elevation: false
+  step: 5

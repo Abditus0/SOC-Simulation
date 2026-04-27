@@ -1,0 +1,43 @@
+scenario: scenario_123
+name: Scheduled Task Execution
+description: Attacker creates and executes via scheduled tasks
+apt_inspiration: FIN6
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Product Name via Registry
+  guid: be3b5fe3-a575-4fb8-83f6-ad4a68dd5ce7
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1053.005
+  name: Scheduled Task ("Ghost Task") via Registry Key Manipulation
+  guid: 704333ca-cc12-4bcf-9916-101844881f54
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1057
+  name: Launch Taskmgr from cmd to View running processes
+  guid: 4fd35378-39aa-481e-b7c4-e3bf49375c67
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.004
+  name: Delete an entire folder - Windows PowerShell
+  guid: edd779e4-a509-4cba-8dfa-a112543dbfb1
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 5

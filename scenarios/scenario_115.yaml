@@ -1,0 +1,36 @@
+scenario: scenario_115
+name: Mshta Proxy Execution
+description: Attacker abuses mshta.exe for proxy execution
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Watson searching for missing windows patches
+  guid: 07b18a66-6304-47d2-bad0-ef421eb2e107
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1218.005
+  name: Mshta used to Execute PowerShell
+  guid: 8707a805-2b76-4f32-b1c0-14e558205772
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over HTTP
+  guid: e2d85e66-cb66-4ed7-93b1-833fc56c9319
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4

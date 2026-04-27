@@ -1,0 +1,36 @@
+scenario: scenario_036
+name: COM Hijacking Persistence
+description: Attacker hijacks COM objects for persistence
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1012
+  name: Query Registry with Powershell cmdlets
+  guid: 0434d081-bb32-42ce-bcbb-3548e4f2628f
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0003
+  technique: T1546.015
+  name: COM hijacking via TreatAs
+  guid: 33eacead-f117-4863-8eb0-5c6304fbfaa9
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 4

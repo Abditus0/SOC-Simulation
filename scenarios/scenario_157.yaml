@@ -1,0 +1,43 @@
+scenario: scenario_157
+name: Certutil Download and Execute
+description: Attacker uses certutil to download and decode payloads
+apt_inspiration: FIN7
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Enumerate Available Drives via gdr
+  guid: c187c9bc-4511-40b3-aa10-487b2c70b6a5
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0011
+  technique: T1105
+  name: Download a file using wscript
+  guid: 97116a3f-efac-4b26-8336-b9cb18c45188
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1140
+  name: Certutil Rename and Decode
+  guid: 71abc534-3c05-4d0c-80f7-cbe93cb2aa94
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1027
+  name: Obfuscated Command in PowerShell
+  guid: 8b3f4ed6-077b-4bdd-891c-2d237f19410f
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.004
+  name: Delete a single file - Windows PowerShell
+  guid: 9dee89bd-9a98-4c4f-9e2d-4256690b0e72
+  executor: powershell
+  elevation: false
+  step: 5

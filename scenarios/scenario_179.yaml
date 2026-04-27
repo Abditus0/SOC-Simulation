@@ -1,0 +1,57 @@
+scenario: scenario_179
+name: MAZE Ransomware Style
+description: MAZE ransomware-inspired pre-encryption chain
+apt_inspiration: MAZE
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - General privesc checks
+  guid: 5b6f39a2-6ec7-4783-a5fd-2c54a55409ed
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: Qakbot Recon
+  guid: 121de5c6-5818-4868-b8a7-8fd07c455c1b
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1018
+  name: Adfind - Enumerate Active Directory Domain Controller Objects
+  guid: 5838c31e-a0e2-4b9f-b60a-d79d2cb7995e
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0011
+  technique: T1105
+  name: Windows pull file using sftp.exe
+  guid: 3d25f1f2-55cb-4a41-a523-d17ad4cfba19
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0010
+  technique: T1048.003
+  name: MAZE FTP Upload
+  guid: 57799bc2-ad1e-4130-a793-fb0c385130ba
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Delete System Logs Using Clear-EventLog
+  guid: b13e9306-3351-4b4b-a6e8-477358b0b498
+  executor: powershell
+  elevation: true
+  step: 7

@@ -1,0 +1,57 @@
+scenario: scenario_120
+name: Deep Evasion Chain
+description: Multi-layered evasion chain combining multiple techniques
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Seatbelt
+  guid: 5c16ceb4-ba3a-43d7-b848-a13c1f216d95
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1562.001
+  name: Disable Defender Using NirSoft AdvancedRun
+  guid: 81ce22fd-9612-4154-918e-8a1f285d214d
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1562.002
+  name: Impair Windows Audit Log Policy
+  guid: 5102a3a7-e2d7-4129-9e45-f483f2e0eea8
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1027
+  name: Obfuscated PowerShell Command via Character Array
+  guid: 6683baf0-6e77-4f58-b114-814184ea8150
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1036
+  name: Malware Masquerading and Execution from Zip File
+  guid: 4449c89b-ec82-43a4-89c1-91e2f1abeecc
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.001
+  name: Delete System Logs Using Clear-EventLog
+  guid: b13e9306-3351-4b4b-a6e8-477358b0b498
+  executor: powershell
+  elevation: true
+  step: 6
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 7

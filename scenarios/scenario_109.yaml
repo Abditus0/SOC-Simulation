@@ -1,0 +1,44 @@
+scenario: scenario_109
+name: Signed Binary Proxy Execution
+description: Attacker abuses signed Microsoft binaries for proxy execution
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1218
+  name: Lolbas ie4uinit.exe use as proxy
+  guid: 13c0804e-615e-43ad-b223-2dfbacd0b0b3
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1218.004
+  name: InstallUtil Uninstall method call - '/installtype=notransaction /action=uninstall'
+    variant
+  guid: 06d9deba-f732-48a8-af8e-bdd6e4d98c1d
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1218.009
+  name: Regsvcs Uninstall Method Call Test
+  guid: fd3c1c6a-02d2-4b72-82d9-71c527abb126
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear Powershell History by Deleting History File
+  guid: da75ae8d-26d6-4483-b0fe-700e4df4f037
+  executor: powershell
+  elevation: false
+  step: 5

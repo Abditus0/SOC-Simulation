@@ -1,0 +1,36 @@
+scenario: scenario_046
+name: File Association Hijack Persistence
+description: Attacker hijacks file associations for persistence
+apt_inspiration: APT28
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 66703791-c902-4560-8770-42b8a91f7667
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1546.001
+  name: Change Default File Association
+  guid: 10a08978-2045-4d62-8c42-1957bbbea102
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1112
+  name: Suppress Win Defender Notifications
+  guid: c30dada3-7777-4590-b970-dc890b8cf113
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4

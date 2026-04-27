@@ -1,0 +1,36 @@
+scenario: scenario_051
+name: Boot Verification Persistence
+description: Attacker creates boot verification program registry key
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Windows MachineGUID Discovery
+  guid: 224b4daf-db44-404e-b6b2-f4d1f0126ef8
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: HKLM - Policy Settings Explorer Run Key
+  guid: b5c9a9bc-dda3-4ea0-b16a-add8e81ab75f
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1112
+  name: NetWire RAT Registry Key Creation
+  guid: 65704cd4-6e36-4b90-b6c1-dc29a82c8e56
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1033
+  name: User Discovery With Env Vars PowerShell Script
+  guid: dcb6cdee-1fb0-4087-8bf8-88cfd136ba51
+  executor: powershell
+  elevation: false
+  step: 4

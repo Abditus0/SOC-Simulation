@@ -1,0 +1,44 @@
+scenario: scenario_237
+name: Sysmon Evasion Chain
+description: Attacker attempts to evade Sysmon monitoring
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Identify System Locale and Regional Settings with PowerShell
+  guid: ce479c1a-e8fa-42b2-812a-96b0f2f4d28a
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1518.001
+  name: Security Software Discovery - AV Discovery via Get-CimInstance and Get-WmiObject
+    cmdlets
+  guid: 015cd268-996e-4c32-8347-94c80c6286ee
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1562.001
+  name: Disable EventLog-Application Auto Logger Session Via Registry - PowerShell
+  guid: da86f239-9bd3-4e85-92ed-4a94ef111a1c
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over HTTP
+  guid: e2d85e66-cb66-4ed7-93b1-833fc56c9319
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 5

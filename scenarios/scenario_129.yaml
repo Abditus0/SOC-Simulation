@@ -1,0 +1,36 @@
+scenario: scenario_129
+name: AutoHotKey Execution
+description: Attacker uses AutoHotKey for execution
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1059.010
+  name: AutoHotKey script execution
+  guid: 7b5d350e-f758-43cc-a761-8e3f6b052a03
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0005
+  technique: T1027
+  name: Execution from Compressed File
+  guid: f8c8a909-5f29-49ac-9244-413936ce6d1f
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4

@@ -1,0 +1,57 @@
+scenario: scenario_175
+name: BlackCat Pre-Encryption
+description: BlackCat/ALPHV style pre-encryption reconnaissance and staging
+apt_inspiration: BlackCat
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Windows MachineGUID Discovery
+  guid: 224b4daf-db44-404e-b6b2-f4d1f0126ef8
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: Qakbot Recon
+  guid: 121de5c6-5818-4868-b8a7-8fd07c455c1b
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1018
+  name: Adfind - Enumerate Active Directory Domain Controller Objects
+  guid: 5838c31e-a0e2-4b9f-b60a-d79d2cb7995e
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1003.001
+  name: Dump LSASS.exe Memory using ProcDump
+  guid: 0be2230c-9ab3-4ac2-8826-3199b9a0ebf8
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0009
+  technique: T1074.001
+  name: Zip a Folder with PowerShell for Staging in Temp
+  guid: a57fbe4b-3440-452a-88a7-943531ac872a
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1562.004
+  name: Blackbit - Disable Windows Firewall using netsh firewall
+  guid: 91f348e6-3760-4997-a93b-2ceee7f254ee
+  executor: command_prompt
+  elevation: true
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 7

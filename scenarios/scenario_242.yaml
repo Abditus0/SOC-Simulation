@@ -1,0 +1,50 @@
+scenario: scenario_242
+name: Information Stealer Style
+description: Information stealer malware-inspired chain
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Check OS version via "ver" command
+  guid: f6ecb109-df24-4303-8d85-1987dbae6160
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0006
+  technique: T1555.003
+  name: WinPwn - BrowserPwn
+  guid: 764ea176-fb71-494c-90ea-72e9d85dce76
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1539
+  name: Steal Chrome v127+ cookies via Remote Debugging (Windows)
+  guid: b647f4ee-88de-40ac-9419-f17fac9489a7
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1552.001
+  name: List Credential Files via PowerShell
+  guid: 0d4f2281-f720-4572-adc8-d5bb1618affe
+  executor: powershell
+  elevation: true
+  step: 4
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0010
+  technique: T1048.003
+  name: Exfiltration Over Alternative Protocol - ICMP
+  guid: dd4b4421-2e25-4593-90ae-7021947ad12e
+  executor: powershell
+  elevation: false
+  step: 6

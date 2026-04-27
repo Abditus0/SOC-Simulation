@@ -1,0 +1,64 @@
+scenario: scenario_171
+name: Lazarus Financial Targeting
+description: Lazarus-style chain targeting financial data and credentials
+apt_inspiration: Lazarus
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: Powershell invoke mshta.exe download
+  guid: 8a2ad40b-12c7-4b25-8521-2737b0a415af
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Build Number via Registry
+  guid: acfcd709-0013-4f1e-b9ee-bc1e7bafaaec
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1083
+  name: Recursive Enumerate Files And Directories By Powershell
+  guid: 95a21323-770d-434c-80cd-6f6fbf7af432
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0006
+  technique: T1555.003
+  name: Simulating access to Windows Edge Login Data
+  guid: a6a5ec26-a2d1-4109-9d35-58b867689329
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0006
+  technique: T1539
+  name: Steal Chrome v127+ cookies via Remote Debugging (Windows)
+  guid: b647f4ee-88de-40ac-9419-f17fac9489a7
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0009
+  technique: T1074.001
+  name: Stage data from Discovery.bat
+  guid: 107706a5-6f9f-451a-adae-bab8c667829f
+  executor: powershell
+  elevation: false
+  step: 7
+- tactic: TA0010
+  technique: T1048.003
+  name: MAZE FTP Upload
+  guid: 57799bc2-ad1e-4130-a793-fb0c385130ba
+  executor: powershell
+  elevation: false
+  step: 8

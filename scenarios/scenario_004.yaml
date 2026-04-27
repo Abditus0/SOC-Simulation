@@ -1,0 +1,43 @@
+scenario: scenario_004
+name: Network Discovery Chain
+description: Attacker maps out the network environment
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1016
+  name: Qakbot Recon
+  guid: 121de5c6-5818-4868-b8a7-8fd07c455c1b
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1018
+  name: Remote System Discovery - adidnsdump
+  guid: 95e19466-469e-4316-86d2-1dc401b5a959
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0007
+  technique: T1049
+  name: System Discovery using SharpView
+  guid: 96f974bb-a0da-4d87-a744-ff33e73367e9
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0007
+  technique: T1135
+  name: Enumerate All Network Shares with Snaffler
+  guid: b19d74b7-5e72-450a-8499-82e49e379d1a
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1046
+  name: Port-Scanning /24 Subnet with PowerShell
+  guid: 05df2a79-dba6-4088-a804-9ca0802ca8e4
+  executor: powershell
+  elevation: false
+  step: 5

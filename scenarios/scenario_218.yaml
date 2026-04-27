@@ -1,0 +1,36 @@
+scenario: scenario_218
+name: Quick Persistence and Exit
+description: Attacker quickly establishes persistence and cleans up
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery
+  guid: 66703791-c902-4560-8770-42b8a91f7667
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0003
+  technique: T1547.001
+  name: Suspicious vbs file run from startup Folder
+  guid: 2cb98256-625e-4da9-9d44-f2e5f90b8bd5
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1070.003
+  name: Set Custom AddToHistoryHandler to Avoid History File Logging
+  guid: 1d0d9aa6-6111-4f89-927b-53e8afae7f94
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1564.001
+  name: Create Windows System File with powershell
+  guid: d380c318-0b34-45cb-9dad-828c11891e43
+  executor: powershell
+  elevation: true
+  step: 4

@@ -1,0 +1,64 @@
+scenario: scenario_172
+name: Turla Stealth Espionage
+description: Turla-style stealthy collection with anti-forensics
+apt_inspiration: Turla
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - RBCD-Check
+  guid: dec6a0d8-bcaf-4c22-9d48-2aee59fb692b
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1027
+  name: Execution from Compressed JScript File
+  guid: fad04df1-5229-4185-b016-fb6010cd87ac
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0003
+  technique: T1547.001
+  name: Suspicious bat file run from startup Folder
+  guid: 5b6768e4-44d2-44f0-89da-a01d1430fd5e
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0009
+  technique: T1119
+  name: Recon information for export with PowerShell
+  guid: c3f6d794-50dd-482f-b640-0384fbb7db26
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.006
+  name: Windows - Modify file last access timestamp with PowerShell
+  guid: da627f63-b9bd-4431-b6f8-c5b44d061a62
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1564.001
+  name: Create Windows Hidden File with powershell
+  guid: 7f66d539-4fbe-4cfa-9a56-4a2bf660c58a
+  executor: powershell
+  elevation: true
+  step: 6
+- tactic: TA0005
+  technique: T1070.001
+  name: Clear Logs
+  guid: e6abb60e-26b8-41da-8aae-0c35174b0967
+  executor: command_prompt
+  elevation: true
+  step: 7
+- tactic: TA0005
+  technique: T1562.002
+  name: Modify Event Log Access Permissions via Registry - PowerShell
+  guid: a0cb81f8-44d0-4ac4-a8f3-c5c7f43a12c1
+  executor: powershell
+  elevation: true
+  step: 8

@@ -1,0 +1,36 @@
+scenario: scenario_057
+name: WMI CimMethod Persistence
+description: Attacker uses WMI CimMethod to establish scheduled task persistence
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: 'operating system discovery '
+  guid: 70e13ef4-5a74-47e4-9d16-760b41b0e2db
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1047
+  name: Application uninstall using WMIC
+  guid: c510d25b-1667-467d-8331-a56d3e9bc4ff
+  executor: command_prompt
+  elevation: true
+  step: 2
+- tactic: TA0003
+  technique: T1053.005
+  name: Import XML Schedule Task with Hidden Attribute
+  guid: cd925593-fbb4-486d-8def-16cbdf944bf4
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 4

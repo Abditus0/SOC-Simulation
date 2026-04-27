@@ -1,0 +1,43 @@
+scenario: scenario_229
+name: Parent PID Spoofing
+description: Attacker spoofs parent process ID to evade detection
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - VM Discovery using ESXCLI
+  guid: 2040405c-eea6-4c1c-aef3-c2acc430fac9
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - Process Hacker
+  guid: 966f4c16-1925-4d9b-8ce0-01334ee0867d
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0005
+  technique: T1134.004
+  name: Parent PID Spoofing using PowerShell
+  guid: 069258f4-2162-46e9-9a25-c9c6c56150d2
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1027
+  name: Execution from Compressed File
+  guid: f8c8a909-5f29-49ac-9244-413936ce6d1f
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 5

@@ -1,0 +1,36 @@
+scenario: scenario_144
+name: Removable Media Collection
+description: Attacker collects data from removable media
+apt_inspiration: Generic
+difficulty: easy
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Discover OS Product Name via Registry
+  guid: be3b5fe3-a575-4fb8-83f6-ad4a68dd5ce7
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0009
+  technique: T1025
+  name: Identify Documents on USB and Removable Media via PowerShell
+  guid: 0b29f7e3-a050-44b7-bf05-9fb86af1ec2e
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1120
+  name: Win32_PnPEntity Hardware Inventory
+  guid: 2cb4dbf2-2dca-4597-8678-4d39d207a3a5
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0009
+  technique: T1005
+  name: Search files of interest and save them to a single zip file (Windows)
+  guid: d3d9af44-b8ad-4375-8b0a-4bff4b7e419c
+  executor: powershell
+  elevation: false
+  step: 4

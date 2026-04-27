@@ -1,0 +1,43 @@
+scenario: scenario_125
+name: VBScript and JScript Execution
+description: Attacker uses scripting engines for execution
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.005
+  name: Visual Basic script execution to gather local computer information
+  guid: 1620de42-160a-4fe5-bbaf-d3fef0181ce9
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0002
+  technique: T1059.007
+  name: JScript execution to gather local computer information via cscript
+  guid: 01d75adf-ca1b-4dd1-ac96-7c9550ad1035
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Sharpup checking common Privesc vectors
+  guid: efb79454-1101-4224-a4d0-30c9c8b29ffc
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over HTTP
+  guid: e2d85e66-cb66-4ed7-93b1-833fc56c9319
+  executor: powershell
+  elevation: false
+  step: 4
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 5

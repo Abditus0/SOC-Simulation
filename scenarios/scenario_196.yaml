@@ -1,0 +1,50 @@
+scenario: scenario_196
+name: Supply Chain Style Attack
+description: Simulates post-compromise supply chain attack behavior
+apt_inspiration: Generic
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: System Information Discovery with WMIC
+  guid: 8851b73a-3624-4bf7-8704-aa312411565c
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1518
+  name: WinPwn - powerSQL
+  guid: 0bb64470-582a-4155-bde2-d6003a95ed34
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1016
+  name: List Windows Firewall Rules
+  guid: 038263cb-00f4-4b0a-98ae-0696c67e1752
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0003
+  technique: T1547.001
+  name: secedit used to create a Run key in the HKLM Hive
+  guid: 14fdc3f1-6fc3-4556-8d36-aa89d9d42d02
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0005
+  technique: T1027
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  guid: 129edb75-d7b8-42cd-a8ba-1f3db64ec4ad
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 6

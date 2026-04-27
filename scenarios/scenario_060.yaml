@@ -1,0 +1,50 @@
+scenario: scenario_060
+name: Persistence Discovery and Layering
+description: Attacker discovers existing persistence and adds new layers
+apt_inspiration: APT29
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: WinPwn - PowerSharpPack - Seatbelt
+  guid: 5c16ceb4-ba3a-43d7-b848-a13c1f216d95
+  executor: powershell
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1012
+  name: Enumerate COM Objects in Registry with Powershell
+  guid: 0d80d088-a84c-4353-af1a-fc8b439f1564
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1007
+  name: Get-Service Execution
+  guid: 51f17016-d8fa-4360-888a-df4bf92c4a04
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0003
+  technique: T1547.001
+  name: Allowing custom application to execute during new RDP logon session
+  guid: b051b3c0-66e7-4a81-916d-e6383bd3a669
+  executor: command_prompt
+  elevation: true
+  step: 4
+- tactic: TA0003
+  technique: T1053.005
+  name: Scheduled task Remote
+  guid: 2e5eac3e-327b-4a88-a0c0-c4057039a8dd
+  executor: command_prompt
+  elevation: true
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 6

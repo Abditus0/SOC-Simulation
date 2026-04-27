@@ -1,0 +1,78 @@
+scenario: scenario_206
+name: Discovery Focus Attack
+description: Comprehensive discovery attack to map entire environment
+apt_inspiration: APT28
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: ESXi - VM Discovery using ESXCLI
+  guid: 2040405c-eea6-4c1c-aef3-c2acc430fac9
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1016
+  name: Qakbot Recon
+  guid: 121de5c6-5818-4868-b8a7-8fd07c455c1b
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0007
+  technique: T1049
+  name: System Network Connections Discovery
+  guid: 0940a971-809a-48f1-9c4d-b1d785e96ee5
+  executor: command_prompt
+  elevation: false
+  step: 3
+- tactic: TA0007
+  technique: T1018
+  name: Remote System Discovery - net group Domain Controller
+  guid: 5843529a-5056-4bc1-9c13-a311e2af4ca0
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1046
+  name: Port-Scanning /24 Subnet with PowerShell
+  guid: 05df2a79-dba6-4088-a804-9ca0802ca8e4
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0007
+  technique: T1083
+  name: Simulating MAZE Directory Enumeration
+  guid: c6c34f61-1c3e-40fb-8a58-d017d88286d8
+  executor: powershell
+  elevation: false
+  step: 6
+- tactic: TA0007
+  technique: T1135
+  name: Enumerate All Network Shares with Snaffler
+  guid: b19d74b7-5e72-450a-8499-82e49e379d1a
+  executor: powershell
+  elevation: false
+  step: 7
+- tactic: TA0007
+  technique: T1518
+  name: Applications Installed
+  guid: c49978f6-bd6e-4221-ad2c-9e3e30cc1e3b
+  executor: powershell
+  elevation: false
+  step: 8
+- tactic: TA0007
+  technique: T1057
+  name: Process Discovery - Process Hacker
+  guid: 966f4c16-1925-4d9b-8ce0-01334ee0867d
+  executor: powershell
+  elevation: true
+  step: 9
+- tactic: TA0007
+  technique: T1007
+  name: Get-Service Execution
+  guid: 51f17016-d8fa-4360-888a-df4bf92c4a04
+  executor: command_prompt
+  elevation: false
+  step: 10

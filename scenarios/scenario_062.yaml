@@ -1,0 +1,36 @@
+scenario: scenario_062
+name: SAM Database Dump
+description: Attacker dumps SAM database for local credential hashes
+apt_inspiration: FIN6
+difficulty: hard
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Windows MachineGUID Discovery
+  guid: 224b4daf-db44-404e-b6b2-f4d1f0126ef8
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0007
+  technique: T1087.001
+  name: ESXi - Local Account Discovery via ESXCLI
+  guid: 9762ac6e-aa60-4449-a2f0-cbbd0e1fd22c
+  executor: command_prompt
+  elevation: false
+  step: 2
+- tactic: TA0006
+  technique: T1003.002
+  name: Dumping of SAM, creds, and secrets(Reg Export)
+  guid: 21df41be-cdd8-4695-a650-c3981113aa3c
+  executor: command_prompt
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1070.004
+  name: Delete a single file - Windows PowerShell
+  guid: 9dee89bd-9a98-4c4f-9e2d-4256690b0e72
+  executor: powershell
+  elevation: false
+  step: 4

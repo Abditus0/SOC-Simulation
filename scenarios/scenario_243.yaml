@@ -1,0 +1,50 @@
+scenario: scenario_243
+name: Dropper Style Attack
+description: Dropper malware-inspired attack chain
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0002
+  technique: T1059.001
+  name: Powershell invoke mshta.exe download
+  guid: 8a2ad40b-12c7-4b25-8521-2737b0a415af
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0011
+  technique: T1105
+  name: File Download with Sqlcmd.exe
+  guid: 6934c16e-0b3a-4e7f-ab8c-c414acd32181
+  executor: powershell
+  elevation: true
+  step: 2
+- tactic: TA0003
+  technique: T1547.001
+  name: Suspicious jse file run from startup Folder
+  guid: dade9447-791e-4c8f-b04b-3a35855dfa06
+  executor: powershell
+  elevation: true
+  step: 3
+- tactic: TA0005
+  technique: T1027
+  name: Execution from Compressed JScript File
+  guid: fad04df1-5229-4185-b016-fb6010cd87ac
+  executor: command_prompt
+  elevation: false
+  step: 4
+- tactic: TA0007
+  technique: T1082
+  name: Griffon Recon
+  guid: 69bd4abe-8759-49a6-8d21-0f15822d6370
+  executor: powershell
+  elevation: false
+  step: 5
+- tactic: TA0005
+  technique: T1070.003
+  name: Prevent Powershell History Logging
+  guid: 2f898b81-3e97-4abb-bc3f-a95138988370
+  executor: powershell
+  elevation: false
+  step: 6

@@ -1,0 +1,36 @@
+scenario: scenario_127
+name: Indirect Command Execution
+description: Attacker uses indirect methods for command execution
+apt_inspiration: Generic
+difficulty: medium
+sleep_between_steps: 15
+cleanup_after: true
+steps:
+- tactic: TA0007
+  technique: T1082
+  name: Environment variables discovery on windows
+  guid: f400d1c0-1804-4ff8-b069-ef5ddd2adbf3
+  executor: command_prompt
+  elevation: false
+  step: 1
+- tactic: TA0005
+  technique: T1202
+  name: Indirect Command Execution - Scriptrunner.exe
+  guid: 0fd14730-6226-4f5e-8d67-43c65f1be940
+  executor: powershell
+  elevation: false
+  step: 2
+- tactic: TA0002
+  technique: T1059.003
+  name: Create and Execute Batch Script
+  guid: 9e8894c0-50bd-4525-a96c-d4ac78ece388
+  executor: powershell
+  elevation: false
+  step: 3
+- tactic: TA0005
+  technique: T1070.003
+  name: Clear PowerShell Session History
+  guid: 22c779cd-9445-4d3e-a136-f75adbf0315f
+  executor: powershell
+  elevation: false
+  step: 4
