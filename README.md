@@ -23,7 +23,7 @@ I built this to get hands-on experience with the kind of work a SOC analyst does
 
 ## What it does
 
-You press Start. The backend rolls a dice. 75% of the time it's a real attack, 25% it's a false alarm. You don't know which one you got.
+I press Start Simulation. The backend rolls a dice. 75% of the time it's a real attack, 25% it's a false alarm. You don't know which one you got.
 
 If it's a real attack, it picks one of 250 scenarios I wrote (each one inspired by a real APT group) and runs the techniques on the Windows VM through PowerShell Remoting. Stuff like credential dumping, lateral movement attempts, scheduled task persistence, registry tricks, etc.
 
