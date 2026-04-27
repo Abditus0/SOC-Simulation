@@ -87,7 +87,7 @@ The Flask app talks to the Windows VM through WinRM to fire off attacks, pulls a
 - pypsrp for PowerShell Remoting to the Windows VM
 - Wazuh SIEM with Sysmon (Olaf Hartong's modular config) on the agent
 - Atomic Red Team for the attack techniques
-- Claude API (claude-sonnet-4-5) for grading reports
+- Claude API for grading reports
 - VirtualBox for the lab
 - Vanilla HTML/CSS/JS for the frontend (no framework, single page)
 
