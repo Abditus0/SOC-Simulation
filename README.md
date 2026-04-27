@@ -1,6 +1,6 @@
 # SOC Simulator
 
-A home lab project I built to train myself in SOC analyst work. It runs real attacks on a Windows VM and pulls the alerts into a dashboard I built. The whole investigation happens on my own site, you write your incident report there, and Claude scores it at the end. Wazuh is running in the background doing the detection work.
+A home lab project I built to train myself in SOC analyst work. It runs real attacks on a Windows VM, pulls the alerts into a dashboard I built, and grades my incident report with AI at the end. 250 attack scenarios, 6 false alarm bundles, and a 282-action background noise simulator to make the alert feed look like a real one. Wazuh runs the detection in the background.
 
 ![](screenshots/wazuh_dashboard.png)
 
@@ -123,6 +123,14 @@ Every one of these will throw alerts that look like an attack at first glance. T
 
 I will be adding way more in the future.
 
+## The background noise simulator
+
+A separate PowerShell script (UserNoise) runs on the VM as a scheduled task at logon. It simulates a real user doing real things so the alert feed isn't dead silent before the attack starts. 282 different actions across browsing files, reading event logs, DNS lookups to 36 real domains, registry reads, network checks, scheduled task queries, all the normal stuff a Windows user generates.
+
+Each action runs in its own isolated PowerShell subprocess via a temp script file. I use `-File` instead of `-EncodedCommand` because encoded commands trigger AV rules. Temp files get cleaned up immediately after each action. Random 25-35 second intervals so the noise pattern doesn't look scripted.
+
+Without this, false alarms would be too easy to spot and also adds noise. With it, I have to actually read the alerts to know what's real.
+
 ## How the scoring works
 
 When you submit your report it goes to Claude along with the answer key (what actually ran on the VM). Claude isn't guessing here. It already knows exactly what happened because the simulator tells it. So the grading is based on real facts, not Claude trying to figure things out on its own.
@@ -134,7 +142,7 @@ When you submit your report it goes to Claude along with the answer key (what ac
 
 There are caps built in so you can't game it. Naming techniques without citing alert evidence caps you at 3/5. Generic recommendations cap at 2/5. Reports under 50 words cap at 2/5 on everything. Zero recommendations on a false alarm = 1/5.
 
-It's harsh on purpose. I wanted feedback that would actually push me to write better reports, not pat me on the back for vague answers.
+It's harsh on purpose. I wanted feedback that would actually push me to write better reports, not pat me on the back for vague answers. For example: A vague report got 10/25. The same scenario investigated properly with timestamps and command-line evidence got 25/25. The system rewards real analyst work.
 
 ## Setup notes
 
@@ -154,6 +162,18 @@ A lot. Here's the short version:
 - How to write an incident report that actually communicates what happened
 
 I also learned a lot of practical stuff. PowerShell Remoting quirks, why `-EncodedCommand` triggers AV rules and `-File` doesn't, how to write background scripts that don't trigger your own SIEM, why timezone handling will ruin your day if you don't think about it from the start.
+
+## Problems I had to solve
+
+A few of the harder ones:
+
+**Wazuh kept flagging my own background noise.** UserNoise was triggering rules 92057, 92213, and 92203 because it was using encoded PowerShell and writing temp scripts to default locations. Fixed by switching to `-File` instead of `-EncodedCommand` and routing temp files to a specific folder I could exclude in the alert filter.
+
+**Race condition in the snapshot locking.** First version pulled alerts in the alerts endpoint which meant the snapshot could be different on each refresh. Moved the locking into the simulation status endpoint so the snapshot freezes the moment the simulation finishes, once.
+
+**Timezone hell.** Wazuh stores everything in UTC. Reports were getting marked wrong because Claude was scoring against UTC timestamps while my time was different. Fixed with `zoneinfo.ZoneInfo("Europe/Oslo")` so everything Claude sees is converted properly. Handles DST automatically.
+
+**AI was too generous on lazy reports.** Claude would give 4/5 to one-line reports if the technique name was right. Added scoring caps in the prompt so naming techniques without alert evidence caps at 3/5, generic recommendations cap at 2/5, and short reports cap at 2/5 across the board.
 
 ## What's next
 
