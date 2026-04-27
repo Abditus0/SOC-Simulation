@@ -173,6 +173,4 @@ So I built the feed. I built the attacks. I built the grading. Now every session
 
 That's the whole point of the project. Get the practical skills down by doing the job, over and over, until reading alerts and writing reports feels natural.
 
-## Contact
-
-Feel free to reach out if you have questions about how any of it works.
+---
