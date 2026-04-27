@@ -2,6 +2,8 @@
 
 A home lab project I built to train myself in SOC analyst work. It runs real attacks on a Windows VM and pulls the alerts into a dashboard I built. The whole investigation happens on my own site, you write your incident report there, and Claude scores it at the end. Wazuh is running in the background doing the detection work.
 
+![](screenshots/wazuh_dashboard.png)
+
 I built this to get hands-on experience with the kind of work a SOC analyst does day to day. Reading alerts, figuring out what happened, telling real attacks from false alarms, and writing it all up in a report.
 
 ## Screenshots
@@ -50,9 +52,26 @@ You read through them, write your report, submit it. Claude grades you on 5 thin
 ![](screenshots/bad_report1.png)
 
 ## Architecture
-
-![](screenshots/architecture.png)
-
+```
+┌──────────────────────┐
+│   Host Machine       │
+│   Flask + Dashboard  │
+└──────────┬───────────┘
+           │ WinRM (runs attacks)
+           ▼
+┌──────────────────────┐         ┌────────────────────┐
+│   Windows 11 VM      │────────▶│   Wazuh Server     │
+│   Sysmon + Agent     │  agent  │   SIEM + Alerts    │
+│   Atomic Red Team    │ reports │   OpenSearch       │
+└──────────────────────┘         └─────────┬──────────┘
+                                           │
+                                           │ alerts pulled
+                                           ▼
+                                 ┌────────────────────┐
+                                 │   Flask scoring    │
+                                 │   → Claude API     │
+                                 └────────────────────┘
+```
 The setup is three VMs on a host-only network plus the host machine running Flask:
 
 - **Host machine** runs the Flask app and the dashboard
