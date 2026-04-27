@@ -3,11 +3,9 @@ import yaml
 import os
 import random
 
-# Load the runnable techniques
 with open("runnable_techniques.json", "r") as f:
     techniques = json.load(f)
 
-# Build a lookup: technique ID -> list of tests
 technique_map = {}
 for t in techniques:
     tid = t["Technique"]
@@ -1467,7 +1465,6 @@ scenario_templates = [
       ("TA0009","T1074.001"),("TA0009","T1113"),("TA0005","T1070.001"),("TA0010","T1048.003")]),
 ]
 
-# Output directory
 os.makedirs("scenarios", exist_ok=True)
 
 built = 0
