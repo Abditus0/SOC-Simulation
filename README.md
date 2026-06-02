@@ -2,6 +2,7 @@
 
 A home lab project I built to train myself in SOC analyst work. It runs real attacks on a Windows VM, pulls the alerts into a dashboard I built, and grades my incident report with AI at the end. 250 attack scenarios, 6 false alarm bundles, and a 282-action background noise simulator to make the alert feed look like a real one. Wazuh runs the detection in the background.
 
+
 ![](screenshots/wazuh_dashboard.png)
 
 I built this to get hands-on experience with the kind of work a SOC analyst does day to day. Reading alerts, figuring out what happened, telling real attacks from false alarms, and writing it all up in a report.
