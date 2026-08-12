@@ -94,7 +94,7 @@ The Flask app talks to the Windows VM through WinRM to fire off attacks, pulls a
 
 ## The scenarios
 
-I wrote 250 attack scenarios as YAML files. Each one has a name, an APT group it's inspired by, a difficulty, and a list of steps. Each step maps to a real ATT&CK technique and uses an Atomic Red Team GUID so the actual command that runs is a real known technique.
+250 attack scenarios as YAML files. Each one has a name, an APT group it's inspired by, a difficulty, and a list of steps. Each step maps to a real ATT&CK technique and uses an Atomic Red Team GUID so the actual command that runs is a real known technique.
 
 Examples of what's in there:
 - Credential dumping with Mimikatz patterns
