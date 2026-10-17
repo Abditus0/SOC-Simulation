@@ -42,7 +42,7 @@ When the simulation finishes, the alerts get frozen into a snapshot.
 
 ![](screenshots/alert_extended.png)
 
-I read through them, write my report, submit it. Claude grades me on 5 things out of 5 each (techniques, tactics, timeline, severity, recommendations) and gives me written feedback on what I missed.
+I read through them, write my report, submit it. Claude grades me on 5 things (techniques, tactics, timeline, severity, recommendations) and gives me feedback on what I missed.
 
 *A good report*
 
