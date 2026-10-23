@@ -120,7 +120,7 @@ There are 6 of these and they run real PowerShell on the VM:
 | Antivirus Full System Scan | Defender scan + mass file system access |
 | Helpdesk Remote Support | whoami, systeminfo, ipconfig, process listing, event log reads |
 
-Every one of these will throw alerts that look like an attack at first glance. The point is to make me actually read them.
+Every one of these will throw alerts that look like an attack at first glance. The point is to make me read them.
 
 I will be adding way more in the future.
 
