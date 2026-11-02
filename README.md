@@ -188,7 +188,7 @@ Stuff I'm planning to add:
 
 ## Why I built it
 
-I wanted a way to actually practice the work, not just watch videos and read about it. Reading alerts, writing reports, telling real attacks from false alarms, this is something I can't really learn from a course or a certification. I have to sit in front of a messy alert feed and figure it out.
+I wanted a way to practice the work, not just watch videos and read about it. Reading alerts, writing reports, telling real attacks from false alarms, this is something I can't really learn from a course or a certification. I have to sit in front of a messy alert feed and figure it out.
 
 So I built the feed. I built the attacks. I built the grading. Now every session is a real repetition.
 
